@@ -84,6 +84,7 @@ export default {
       width: 20px;
       float: right;
       color: #50596c;
+      text-decoration: none;
       &::before {
         content: "\2715";
       }
