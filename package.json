@@ -8,7 +8,7 @@
     "serveBuild": "vue-cli-service serve --port 3000 srcDev/mainBuild.js",
     "build": "vue-cli-service build --target lib --name vue-dialog src/lib.js",
     "lint": "vue-cli-service lint",
-    "deploy": "gh-pages -d demo",
+    "deploy": "gh-pages -d demo srcDev/main.js",
     "predeploy": "vue-cli-service build --mode demo srcDev/main.js"
   },
   "main": "./lib/vue-dialog.common.js",
@@ -76,8 +76,5 @@
     "v-dialogs"
   ],
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/oploshka/vue-dialog.git"
-  }
+  "repository": "git@github.com:oploshka/vue-dialog.git"
 }
