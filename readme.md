@@ -10,22 +10,21 @@ Pug был конвертирован в html, stylus в scss (это дело �
 
 
 ## Installation
-Установка в текущий момент не доступна
+
 ```bash
-# yarn add vue-dlg
-# # Or using npm
-# npm install vue-dlg --save
+yarn add vue-dlg
+# Or using npm
+npm install vue-dlg --save
 ```
 
 # Usage
 
 ```js
-import Vue from 'vue'
+import Vue from 'vue';
 
-import 'vue-dlg/dist/vue-dlg.css'
-import Dlg from 'vue-dlg'
+import VueDialog from 'vue-dlg';
 
-Vue.use(Dlg)
+Vue.use(VueDialog);
 ```
 
 ## Options Dlg.open
