@@ -8,6 +8,9 @@ node_modules
 /.gitkeep
 __*
 
+# ???
+# /demo/
+
 # local env files
 .env.local
 .env.*.local
