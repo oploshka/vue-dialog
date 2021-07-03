@@ -8,8 +8,8 @@ node_modules
 /.gitkeep
 __*
 
-# ???
-# /demo/
+# predeploy
+/demo/
 
 # local env files
 .env.local
