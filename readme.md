@@ -135,16 +135,3 @@ methods: {
 }
 //...
 ```
-
-## Development
-
-```bash
-# install dependencies
-yarn install
-
-# build with minification
-yarn release
-
-# publish
-bin/publish
-```
