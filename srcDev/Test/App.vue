@@ -26,7 +26,7 @@
         <h2>Confirm</h2>
         <p>It will be implemented in the following versions</p>
         <ul class="icon-list">
-          <!--<li class="text-muted">Bootstrap Parcel starter (coming soon!)</li>-->
+          <li><a href="#" @click.stop="showConfirmation">Show alert success</a></li>
         </ul>
       </div>
 
@@ -55,8 +55,9 @@
 
 export default {
   name: 'App',
-  data() {
-  },
+  // data() {
+  //   return {};
+  // },
   methods: {
     showAlertSuccess() {
       this.$dialog.alert.success('Запись добавлена').then(res => {
@@ -70,6 +71,16 @@ export default {
     },
     showAlertError() {
       this.$dialog.alert.error('Ошибка сервера').then(res => {
+        console.log(res); // {}
+      });
+    },
+    // Confirmation
+    showConfirmation() {
+      this.$dialog.confirm(
+          'Подтвердите действие',
+          // TODO
+          {okLabel: "", cancelLabel: ""}
+      ).then(res => {
         console.log(res); // {}
       });
     },
