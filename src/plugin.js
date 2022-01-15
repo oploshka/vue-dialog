@@ -1,44 +1,22 @@
 
+// TODO: fix create app and use App template.
+import { createApp } from 'vue';
 import DialogCore from './DialogCore';
-import DialogTemplateMessage from "./Template/DialogTemplateMessage";
+import DialogThinClient from './DialogThinClient';
 
+const install = (app, options) => {
+  //const dlg = new (Vue.extend(DialogCore))({propsData: options});
 
-DialogCore.install = (Vue, options) => {
-  const dlg = new (Vue.extend(DialogCore))({propsData: options});
+  const dlgApp = createApp(DialogCore);
+  dlgApp.config.globalProperties = app.config.globalProperties;
+  const dlg = dlgApp.mount('#modal');
 
-  Vue.prototype.$dialog = {
-    open: dlg.open,
-
-    alert: {
-      success: (message) => {
-        return dlg.open(DialogTemplateMessage, { title: "Успешно", message: message, okLabel: 'Ok' }, {theme: "success", close: {} });
-      },
-      warning: (message) => {
-        return dlg.open(DialogTemplateMessage, { title: "Предупреждение", message: message, okLabel: 'Ok' }, {theme: "warning", close: {} });
-      },
-      error: (message) => {
-        return dlg.open(DialogTemplateMessage, { title: "Ошибка", message: message, okLabel: 'Ok' }, {theme: "error", close: {} });
-      },
-    },
-
-    confirm(message, options = {}){
-      return dlg.open(
-        DialogTemplateMessage,
-        {
-          title: "Подтвердите действие",
-          message: message,
-          okLabel: (options && options.okLabel) ? options.okLabel : 'Ok',
-          cancelLabel: (options && options.cancelLabel) ? options.cancelLabel : 'Отмена',
-        },
-        {
-          theme: "error",
-          close: {}
-        });
-    },
-  };
-
-  Vue.dialog = Vue.prototype.dialog;
+  const dialog = options.action || { open: DialogThinClient };
+  
+  app.config.globalProperties.$dialog = dialog;
 };
 
-export default DialogCore;
+export default {
+  install: install
+};
 

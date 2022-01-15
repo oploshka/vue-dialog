@@ -1,20 +1,7 @@
-# vue-dialog
 
-## Показ диалоговых окон для Vue JS
-Данное решение основано на [v-slim-dialog](https://github.com/paliari/v-slim-dialog).
-Данный плагин был просто взят за основу и практически переписан полностью.
-Данное решение связано с простотой данного плагина и я не сильно хотел верстать и писать стили.
-Pug был конвертирован в html, stylus в scss (это дело вкуса).
-Длинные имена классов переименованы в более короткие.
-Добавлена возможность конфигурировать стили и расширен функционал.
+# Vue Dialog - показ диалоговых окон для Vue JS
 
-
-## Размер
-Данный плагин в сбилженной версии занимает ~15Кб, а сами исходники без сжатия ~10Кб. 
-Странный парадокс, но интеграции не сбилженной версии лучше.
-Возможно, нужно собирать по другому (буду рад узнать как).
-
-## Installation
+## Setup
 
 ```bash
 yarn add vue-dlg
@@ -22,116 +9,135 @@ yarn add vue-dlg
 npm install vue-dlg --save
 ```
 
-# Usage
+Create file `install-vue-dlg.js`:
+<details>
+<summary><b style="font-size: 1.3em;">install-vue-dlg.js</b></summary>
 
 ```js
-import Vue from 'vue';
+// Тонкий клиент
+import DialogThinClient from '@vue-dlg/DialogThinClient';
+// Темплейты модальных окон
+import DialogBox        from "@vue-dlg/Template/DialogBox";
+import DialogNotify     from "@vue-dlg/Template/DialogNotify";
+// Установка плагина
+import vueDlgPlugin from "@vue-dlg/plugin";
+// настройки для плагина
+import {addGroupSetting} from "@vue-dlg/DialogGroupSettings";
 
-import VueDialog from 'vue-dlg';
+// задаем настройки для разных групп
+addGroupSetting('modal', {
+  maxDisplayItem: 1,
+  overlay      : true,
+});
 
-Vue.use(VueDialog);
-```
+addGroupSetting('notify', {
+  maxDisplayItem: 3,
+  overlay      : false,
+});
 
-## Options Dlg.open
+// задаем стили для групп
+import './style.scss'
 
-| Name              | Type               | Required | Default value | Info                                  |
-| ----------------- | ------------------ | -------- | ------------- | ------------------------------------- |
-| componentVue      | componentVue       | Yes      |               | Vue component that opens in a modal   |
-| componentVueData  | Object             | Yes      |               | Data for open vue component           |
-| settings          | Object             | No       | Cancel        | Modal settings                        |
+// настраиваем список модальных окон
+const dialogAction = {
+  open: DialogThinClient, // function (VueComponent, VueComponentProps, groupName, setting)
 
-## In your component
-
-### alert
-
-```js
-//...
-methods: {
-  showAlertSuccess() {
-    this.$dialog.alert.success('Запись добавлена').then(res => {
-      console.log(res) // {}
-    })
+  alert: (message) => {
+    return DialogThinClient(
+      DialogBox,
+      { title: "Успешно", message: message, okLabel: 'Ok', theme: "success", },
+      'modal'
+    );
   },
-  showAlertWarning() {
-    this.$dialog.alert.warning('Данный сервис не доступен, попробуйте через 5 минут').then(res => {
-      console.log(res) // {}
-    })
+
+  confirm(message, options = {}){
+    return DialogThinClient(
+      DialogBox,
+      {
+        title: "Подтвердите действие",
+        message: message,
+        okLabel: (options && options.okLabel) ? options.okLabel : 'Ok',
+        cancelLabel: (options && options.cancelLabel) ? options.cancelLabel : 'Отмена',
+      },
+      'modal'
+    );
   },
-  showAlertError() {
-    this.$dialog.alert.error('Ошибка сервера').then(res => {
-      console.log(res) // {}
-    })
-  },
-}
-//...
-```
 
-[comment]: <> (![]&#40;alert.gif&#41;)
-
-### confirm
-
-```js
-// TODO: warning - the method is under development
-methods: {
-  showConfirmDelete() {
-    this.$dialog.confirm.delete('Your message!').then(res => {
-      console.log(res) // TODO fix return value {}
-    })
+  notify: (title, message) => {
+    return DialogThinClient(
+      DialogNotify,
+      { title: title, message: message },
+      'notify'
+    );
   }
+};
 
-}
-//...
+// фасад для установки плагина (чтоб не перегружать основной main.js) 
+export default {
+  install: (app) => {
+    vueDlgPlugin.install(app, {action: dialogAction})
+  }
+};
 ```
+</details>
 
-[comment]: <> (![]&#40;confirm.gif&#41;)
-
-### prompt
+Add dependencies to your `main.js`:
+<details>
+<summary><b style="font-size: 1.3em;">main.js</b></summary>
 
 ```js
-// TODO: warning - the method is under development
-methods: {
-  showPrompt() {
-    this.$dialog.prompt.string('Your message!').then(res => {
-      console.log(res) // TODO fix return value {}
-    })
-  }
-}
-//...
+import { createApp } from 'vue';
+// [ADD]
+import vueDlgPlugin from './install-vue-dlg.js'
+// ...
+
+let app = createApp(App)
+// [ADD]
+app.use(vueDlgPlugin);
+// ...
+app.use(router);
+app.mount('#app');
+
 ```
 
-[comment]: <> (![]&#40;prompt.gif&#41;)
+</details>
 
-## Sample custom dialog open
 
-Create your own vue component (TestDialogComponent.vue)
-```html
+Add the global component to your `App.vue`:
+
+<details>
+<summary><b style="font-size: 1.3em;">App.vue</b></summary>
+
+```vue
 <template>
-  <div>
-    <div>Test message: {{message}}</div>
-    <div @click="$emit('close', {returnData: 'close'})">close</div>
-  </div>
+  <DialogCore />
+  <!-- -->
+  <router-view />
 </template>
 
 <script>
+import DialogCore from "@vue-dlg/DialogCore";
+
 export default {
-  props: {
-    message: String
-  },
+  component: {
+    DialogCore,
+    // ...
+  }
+  // ...
 }
 </script>
 ```
 
+</details>
 
-```js
 
-import TestDialogComponent from './TestDialogComponent.vue';
 
-methods: {
-  opentTestDialog() {
-    this.$dialog.open(TestDialogComponent, { message: "Hello"}, {theme: "success", close: {} }).then(res => {
-      console.log(res) 
-    })
-  }
-}
-//...
-```
+## Options DialogThinClient.add
+
+| Name              | Type               | Required | Default value | Info                                  |
+| ----------------- | ------------------ | -------- | ------------- | ------------------------------------- |
+| VueComponent      | VueComponent       | Yes      |               | Vue component that opens in a modal   |
+| VueComponentProps | Object             | Yes      |               | Vue component props data              |
+| group             | String             | No       |               | Имя группы в которой будет отображаться уведомление |
+| settings          | Object             | No       | {}            | Зарезервированные настройки           |
+

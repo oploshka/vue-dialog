@@ -1,7 +1,7 @@
 <template>
-  <div class="dlg-template">
+  <div class="dlg-template" :class="{ ['dlg-template-' + theme]: !!theme}">
     <div class="dlg-header">
-      <a v-if="closeBtn" class="dlg-btn-close" @click="$emit('close', {})" aria-label="Fechar" ></a>
+      <a v-if="closeBtn" class="dlg-btn-close" @click="$emit('close', {action: 'CLOSE'})" aria-label="Fechar" ></a>
       <div class="dlg-title" >{{title}}</div>
     </div>
     <div class="dlg-body">
@@ -18,15 +18,23 @@
       </div>
     </div>
     <div class="dlg-footer">
-      <a v-if="okLabel"     class="dlg-btn success" @click="$emit('close', {})">{{ okLabel }}</a>
-      <a v-if="cancelLabel" class="dlg-btn cancel"  @click="$emit('close', {})">{{ cancelLabel }}</a>
+      <a v-if="okLabel"     class="dlg-btn success" @click="$emit('close', {action: 'OK'})">{{ okLabel }}</a>
+      <a v-if="cancelLabel" class="dlg-btn cancel"  @click="$emit('close', {action: 'CANCEL'})">{{ cancelLabel }}</a>
     </div>
   </div>
 </template>
 
 <script>
+
+import DialogTemplateMixin from "./DialogTemplateMixin";
+
 export default {
+  mixins: [ DialogTemplateMixin ],
   props: {
+    theme: {
+      type: String,
+      default: ''
+    },
     closeBtn: {
       type: Boolean,
       default: true
@@ -153,5 +161,39 @@ export default {
   pointer-events: none;
 }
 
+
+
+// Theme
+.dlg-template {
+  max-height: 75vh;
+  background: #fff;
+  //box-shadow: 0 4px 10px rgba(69,77,93,0.3);
+  border-radius: 5px;
+  overflow: hidden;
+  //border-left: 5px solid var(--dlg-success-color, #f5ac1c) !important;
+  
+  // success
+  &.dlg-template-success{
+    .dlg-header {
+      //background: #dc472e;
+      background: #5cd182;
+    }
+  }
+  
+  // warning
+  &.dlg-template-warning{
+    .dlg-header {
+      background: #f5ac1c;
+    }
+  }
+  
+  // error
+  &.dlg-template-error{
+    .dlg-header {
+      //background: #dc472e;
+      background: #ffb3b3;
+    }
+  }
+}
 
 </style>

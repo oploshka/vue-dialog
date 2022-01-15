@@ -1,0 +1,67 @@
+
+.dlg .dlg-overlay {
+  background: var(--dlg-overlay, rgba(0,0,0,0.5));
+  cursor: default;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.dlg .dlg-container{
+  pointer-events: none;
+  & > div {
+    pointer-events: all;
+  }
+}
+
+.dlg .dlg-container.dlg-container-notify{
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  width: 320px;
+  z-index: 420;
+  
+  & > div {
+    margin-bottom: 5px;
+  }
+  & > div:last-child {
+    margin-bottom: 0px;
+  }
+  
+}
+
+
+.dlg .dlg-container.dlg-container-modal {
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 400;
+  
+  overflow: hidden;
+  opacity: 1;
+  
+  display: flex;
+  display: -ms-flexbox;
+  align-items: center;
+  -ms-flex-align: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  
+  
+  & > div {
+    width: 100%;
+    max-width: 740px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 20px;
+  }
+  & > div:last-child {
+    margin-bottom: 0px;
+  }
+}
