@@ -16,6 +16,11 @@
 - Мы не наслаиваем 10 модальных окон друг на друга, 
   а предлагаем отображать друг за другом, 
   в том количестве которое приемлемо вам.
+- Не предлагаем вам использовать template для отображения модального окна
+- Не предлагаем использовать кучу параметров,
+  для задания ширины и высоты модального окна
+  их адаптивности и тп. Для этого есть стили.
+  
 
 ## Setup
 
@@ -38,10 +43,14 @@ npm install vue-dlg --save
 <summary><b style="font-size: 1.3em;">group-settings.js</b></summary>
 
 ```js
+//
 import {addGroupSetting} from "vue-dlg/src/DialogGroupSettings";
 
+// задаем настройки для разных групп
 addGroupSetting('modal', {
+  // максимальное количество модальных окон на экране в этой группе
   maxDisplayItem: 1,
+  // показывать overlay?
   overlay      : true,
 });
 
@@ -57,14 +66,15 @@ addGroupSetting('notify', {
 <summary><b style="font-size: 1.3em;">action.js</b></summary>
 
 ```js
-
+// Тонкий клиент
 import DialogThinClient from 'vue-dlg/src/DialogThinClient';
+// Темплейты модальных окон
 import DialogBox        from "vue-dlg/src/Template/DialogBox";
 import DialogNotify     from "vue-dlg/src/Template/DialogNotify";
 
-
+// настраиваем список модальных окон
 export default {
-  open: DialogThinClient, // function (VueComponent, VueComponentProps, groupName, setting)
+  open: DialogThinClient, // function (VueComponent, VueComponentProps, setting)
 
   alert: {
     success: (message) => {
@@ -194,18 +204,20 @@ export default {
 <summary><b style="font-size: 1.3em;">index.js</b></summary>
 
 ```js
-
+// Подключаем плагин
 import vueDlgPlugin from "vue-dlg/src/plugin";
 
-import dialogAction from "./action";
+// настройки модальных групп
 import "./group-settings";
+// задаем стили
 import './style.scss';
+// список настроенных действий
+import dialogAction from "./action";
 
-// optional
+// опционально можно сделать глобальным
 // global.DIALOG = dialogAction;
 
-import './style.scss';
-
+// фасад для установки плагина (чтоб не перегружать основной main.js) 
 export default {
   install: (app) => {
     vueDlgPlugin.install(app, {action: dialogAction});
@@ -275,15 +287,32 @@ export default {
 
 ## Пример использования
 
-### Alert
+### Простые Alert
 ```js
-// vue component
-this.$dialog.alert.success('success');
-this.$dialog.alert.warning('warning');
-this.$dialog.alert.error('error');
+{
+  // vue component
+  // ...
+  methods: {
+    showAlertSuccess() {
+      this.$dialog.alert.success('Запись добавлена').then(res => {
+        console.log(res) // {}
+      })
+    },
+    showAlertWarning() {
+      this.$dialog.alert.warning('Данный сервис не доступен, попробуйте через 5 минут').then(res => {
+        console.log(res) // {}
+      })
+    },
+    showAlertError() {
+      this.$dialog.alert.error('Ошибка сервера').then(res => {
+        console.log(res) // {}
+      })
+    }
+  }
+}
 ```
 
-### Произвольный компонент
+### Произвольный компонент в модальном окне
 ```js
 // props: {
 //   fullName: String,
@@ -315,11 +344,16 @@ export default {
 };
 ```
 
-### Использование proxyModal
+### Использование дополнительной обертки
 В редких случаях может понадобиться использовать дополнительную обертку для отображения компонента 
 и добавления специфичной логики связанное с модальным окном.
 В таком варианте вы можете дополнительно передавать функции и делать поведение более гибким.
+Но не стоит этим увлекаться.
 
+Вызов модального окна, не отличается от предыдущего примера,
+а обертки могут быть на любой вкус 
+(от универсальных, до заточенных под конкретный компонент).
+По этой примчине мы не будем приводить пример.
 
 ## Options DialogThinClient.add
 
