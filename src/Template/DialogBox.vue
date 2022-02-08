@@ -41,7 +41,7 @@ export default {
     },
     title: {
       type: String,
-      require: true
+      required: true
     },
     messageType: {
       type: String,
@@ -49,7 +49,7 @@ export default {
     },
     message: {
       type: String,
-      require: true
+      required: true
     },
     okLabel: {
       type: String,

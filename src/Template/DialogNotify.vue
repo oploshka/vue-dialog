@@ -18,11 +18,11 @@ export default {
     },
     title: {
       type: String,
-      require: true
+      required: true
     },
     message: {
       type: String,
-      require: true
+      required: true
     },
   },
   mounted() {
