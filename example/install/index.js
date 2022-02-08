@@ -1,18 +1,9 @@
 
-import dialogAction from "./action";
 import vueDlgPlugin from "../../src/plugin";
 
-import {addGroupSetting} from "../../src/DialogGroupSettings";
-
-addGroupSetting('modal', {
-  maxDisplayItem: 1,
-  overlay      : true,
-});
-
-addGroupSetting('notify', {
-  maxDisplayItem: 3,
-  overlay      : false,
-});
+import dialogAction from "./action";
+import "./group-settings";
+import './style.scss';
 
 // optional
 // global.DIALOG = dialogAction;

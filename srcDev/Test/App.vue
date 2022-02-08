@@ -21,6 +21,7 @@
           <li><a href="#" @click.stop="showAlertSuccess">Show alert success</a></li>
           <li><a href="#" @click.stop="showAlertWarning">Show alert warning</a></li>
           <li><a href="#" @click.stop="showAlertError">Show alert error</a></li>
+          <li><a href="#" @click.stop="showAlertCountr3">Show 3 alert</a></li>
           <!--<li class="text-muted">Bootstrap Parcel starter (coming soon!)</li>-->
         </ul>
       </div>
@@ -78,6 +79,11 @@ export default {
       this.$dialog.alert.error('Ошибка сервера').then(res => {
         console.log(res); // {}
       });
+    },
+    showAlertCountr3() {
+      this.showAlertSuccess();
+      this.showAlertWarning();
+      this.showAlertError();
     },
     // Confirmation
     showConfirmation() {
