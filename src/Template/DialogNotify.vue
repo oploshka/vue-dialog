@@ -29,7 +29,7 @@ export default {
     // TODO: update timer logic
     setTimeout(() => {
       this.close({action: 'CLOSE'});
-    }, 3000)
+    }, 3000);
   }
 };
 </script>

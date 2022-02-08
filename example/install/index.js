@@ -1,8 +1,8 @@
 
 import dialogAction from "./action";
-import vueDlgPlugin from "@vue-dlg/plugin";
+import vueDlgPlugin from "../../src/plugin";
 
-import {addGroupSetting} from "@vue-dlg/DialogGroupSettings";
+import {addGroupSetting} from "../../src/DialogGroupSettings";
 
 addGroupSetting('modal', {
   maxDisplayItem: 1,
@@ -21,6 +21,6 @@ import './style.scss';
 
 export default {
   install: (app) => {
-    vueDlgPlugin.install(app, {action: dialogAction})
+    vueDlgPlugin.install(app, {action: dialogAction});
   },
 };

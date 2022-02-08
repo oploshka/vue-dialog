@@ -44,6 +44,7 @@ const key = () => `${Date.now()}-${Math.random()}`;
 import {shallowRef} from 'vue';
 
 export default {
+  name: 'DialogCore',
   data() {
     return {
 

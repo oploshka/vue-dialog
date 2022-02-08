@@ -13,7 +13,7 @@ let handler = null;
 
 const enqueue = (VueComponent, VueComponentProps, setting = {}) => {
   
-  let handlerObject = null
+  let handlerObject = null;
   
   const element = {
     VueComponent      : VueComponent,
@@ -44,7 +44,7 @@ const enqueue = (VueComponent, VueComponentProps, setting = {}) => {
     } else {
       element.handlerObject.close(closeData);
     }
-  }
+  };
   
   return promise;
 };

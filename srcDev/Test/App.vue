@@ -1,6 +1,9 @@
 <template>
   <div id="app">
 
+    <DialogCore />
+
+
     <h2 class="mb-5">Examples of how this plugin works</h2>
     <!--
     <p class="fs-5 col-md-8">Quickly and easily get started with Bootstrap's compiled, production-ready files with this barebones example featuring some basic HTML and helpful links. Download all our examples to get started.</p>
@@ -53,8 +56,10 @@
 
 <script>
 
+import DialogCore from "../../src/DialogCore";
 export default {
   name: 'App',
+  components: {DialogCore},
   // data() {
   //   return {};
   // },

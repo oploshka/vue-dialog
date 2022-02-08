@@ -1,7 +1,7 @@
 
-import DialogThinClient from '@vue-dlg/DialogThinClient';
-import DialogBox        from "@vue-dlg/Template/DialogBox";
-import DialogNotify     from "@vue-dlg/Template/DialogNotify";
+import DialogThinClient from '../../src/DialogThinClient';
+import DialogBox        from "../../src/Template/DialogBox";
+import DialogNotify     from "../../src/Template/DialogNotify";
 
 
 export default {
