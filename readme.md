@@ -289,7 +289,7 @@ export default {
 
 ### Простые Alert
 ```js
-{
+export default {
   // vue component
   // ...
   methods: {

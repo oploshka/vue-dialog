@@ -1,12 +1,20 @@
 {
   "name": "vue-dlg",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha",
   "description": "Vue Dialog",
   "author": "Andrey Tyurin <ectb@mail.ru>",
   "scripts": {
+    "serve": "vue-cli-service serve --port 3000 srcDev/main.js",
+    "serveBuild": "vue-cli-service serve --port 3000 srcDev/mainBuild.js",
+    "build": "vue-cli-service build --target lib --name vue-dialog src/plugin.js && cp lib-build/vue-dialog.umd.min.js lib/vue-dialog.js",
+    "buildReprot": "vue-cli-service build --report --target lib --name vue-dialog src/plugin.js",
+    "lint": "vue-cli-service lint",
+    "deploy": "gh-pages -d demo srcDev/main.js",
+    "predeploy": "vue-cli-service build --mode demo srcDev/main.js"
   },
-  "main": "./src/plugin.js",
+  "main": "./lib/vue-dialog.js",
   "files": [
+    "lib",
     "src"
   ],
   "devDependencies": {
