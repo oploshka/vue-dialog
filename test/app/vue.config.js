@@ -7,8 +7,10 @@ const aliasObj = {
   'vue-dlg': DIR_ROOT,
 };
 
-module.exports = {
-  // publicPath: process.env.NODE_ENV === 'production' ? '/' : '/vue-dialog/',
+
+//
+const config = {
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '',
   // outputDir: process.env.NODE_ENV === 'production' ? __dirname + '/lib-build' : __dirname + '/demo',
   css: {
     extract: false
@@ -20,3 +22,10 @@ module.exports = {
     }
   },
 };
+
+// fix github page build
+if(process.env.BUILD_SETTINGS === 'gh-page') {
+  config.publicPath = '/vue-dialog/';
+}
+
+module.exports = config;
