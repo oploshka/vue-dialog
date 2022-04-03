@@ -3,8 +3,9 @@ const path = require('path');
 
 const DIR_ROOT = path.join(__dirname, './../../');
 
-const aliasObj = require( path.join(DIR_ROOT, './vue.alias') );
-console.log('aliasObj', aliasObj);
+const aliasObj = {
+  'vue-dlg': DIR_ROOT,
+};
 
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? '/' : '/vue-dialog/',

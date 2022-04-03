@@ -36,8 +36,8 @@
 
 <script>
 
-import {setHandler}       from "./DialogThinClient";
-import {getGroupSetting}  from "./DialogGroupSettings";
+import {setHandler}       from './DialogThinClient';
+import {getGroupSetting}  from './DialogGroupSettings';
 
 const key = () => `${Date.now()}-${Math.random()}`;
 
@@ -166,7 +166,7 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.6s;
 }
@@ -185,52 +185,5 @@ export default {
 .component-fade-leave-to {
   opacity: 0;
 }
-
-
-/*
-.--dlg {
-  align-items: center;
-  -ms-flex-align: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  opacity: 0;
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  
-  .dlg-container {
-    max-width: 700px;
-    width: 100%;
-    padding: 0 25px;
-  }
-  
-}
-.--dlg:target,
-.--dlg.active {
-  display: flex;
-  display: -ms-flexbox;
-  opacity: 1;
-  z-index: 400;
-}
-
-.--dlg:target .dlg-container,
-.--dlg.active .dlg-container {
-  animation: slide-down 0.2s ease 1;
-  z-index: 1;
-}
-.--dlg-container {
-  display: flex;
-  display: -ms-flexbox;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  max-height: 75vh;
-  max-width: 640px;
-  width: 100%;
-  box-shadow: 0 4px 30px 2px rgb(0 0 0 / 1%);
-}
- */
 
 </style>

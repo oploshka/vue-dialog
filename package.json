@@ -1,9 +1,10 @@
 {
   "name": "vue-dlg",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Vue Dialog",
   "author": "Andrey Tyurin <ectb@mail.ru>",
   "scripts": {
+    "serve": "cd ./test/app && npm run serve"
   },
   "main": "./src/plugin.js",
   "files": [

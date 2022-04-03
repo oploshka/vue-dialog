@@ -34,23 +34,18 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .dtsm {
   display: block;
   box-sizing: border-box;
   text-align: left;
   font-size: 12px;
   padding: 10px;
-  //margin: 0 5px 5px;
   color: white;
-  background: #44A4FC;
-  border-left: 5px solid #187FE7;
-  
-  .dtsm-title {
-    font-weight: 600;
-  }
-  .dtsm-message {
-  }
+  background: #44a4fc;
+  border-left: 5px solid #187fe7;
 }
-
+.dtsm .dtsm-title {
+  font-weight: 600;
+}
 </style>
