@@ -25,3 +25,9 @@ npm run deploy
 # (предварительно npm login)
 npm publish
 ```
+
+npm version 1.0.0-beta.0
+npm version 1.0.0-alpha.2
+npm publish --tag beta
+
+npm i vue-dlg@beta

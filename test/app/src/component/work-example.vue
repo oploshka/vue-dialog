@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
 
     <h2 class="mb-5">Examples of how this plugin works</h2>
     <!--
@@ -18,6 +18,7 @@
           <li><a href="#" @click.stop="showAlertSuccess">Show alert success</a></li>
           <li><a href="#" @click.stop="showAlertWarning">Show alert warning</a></li>
           <li><a href="#" @click.stop="showAlertError">Show alert error</a></li>
+          <li><a href="#" @click.stop="showAlertCountr3">Show 3 alert</a></li>
           <!--<li class="text-muted">Bootstrap Parcel starter (coming soon!)</li>-->
         </ul>
       </div>
@@ -54,7 +55,7 @@
 <script>
 
 export default {
-  name: 'App',
+  name: 'work-example',
   // data() {
   //   return {};
   // },
@@ -74,6 +75,11 @@ export default {
         console.log(res); // {}
       });
     },
+    showAlertCountr3() {
+      this.showAlertSuccess();
+      this.showAlertWarning();
+      this.showAlertError();
+    },
     // Confirmation
     showConfirmation() {
       this.$dialog.confirm(
@@ -87,7 +93,8 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+
+<style scoped>
 .icon-list {
   padding-left: 0;
   list-style: none;

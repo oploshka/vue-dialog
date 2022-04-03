@@ -1,59 +1,25 @@
 {
   "name": "vue-dlg",
-  "version": "0.1.2",
+  "version": "1.0.0-alpha.4",
   "description": "Vue Dialog",
   "author": "Andrey Tyurin <ectb@mail.ru>",
   "scripts": {
-    "serve": "vue-cli-service serve --port 3000 srcDev/main.js",
-    "serveBuild": "vue-cli-service serve --port 3000 srcDev/mainBuild.js",
-    "build": "vue-cli-service build --target lib --name vue-dialog src/plugin.js && cp lib-build/vue-dialog.umd.min.js lib/vue-dialog.js",
-    "buildReprot": "vue-cli-service build --report --target lib --name vue-dialog src/plugin.js",
-    "lint": "vue-cli-service lint",
-    "deploy": "gh-pages -d demo srcDev/main.js",
-    "predeploy": "vue-cli-service build --mode demo srcDev/main.js"
+    "serve": "cd ./test/app && npm run serve --port 3000",
+
+    "old-serve": "vue-cli-service serve --port 3000 srcDev/main.js",
+    "old-serveBuild": "vue-cli-service serve --port 3000 srcDev/mainBuild.js",
+    "old-build": "vue-cli-service build --target lib --name vue-dialog src/plugin.js && cp lib-build/vue-dialog.umd.min.js lib/vue-dialog.js",
+    "old-buildReprot": "vue-cli-service build --report --target lib --name vue-dialog src/plugin.js",
+    "old-lint": "vue-cli-service lint"
   },
-  "main": "./lib/vue-dialog.js",
+  "main": "./src/plugin.js",
   "files": [
-    "lib",
     "src"
   ],
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-unit-jest": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "babel-eslint": "^10.1.0",
-    "core-js": "^3.6.5",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "gh-pages": "^3.1.0",
-    "node-sass": "^4.12.0",
-    "sass": "^1.19.0",
-    "sass-loader": "^8.0.2",
-    "vue": "^2.6.11",
-    "vue-template-compiler": "^2.6.11"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "rules": {
-      "semi": [
-        2,
-        "always"
-      ],
-      "no-unused-vars": "off",
-      "no-console": "off",
-      "no-debugger": "off"
-    },
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
+    "eslint-plugin-oploshka": "^1.0.7",
+    "eslint-plugin-vue": "^8.4.1"
   },
   "browserslist": [
     "last 2 chrome versions"
@@ -74,6 +40,5 @@
     "v-dialog",
     "v-dialogs"
   ],
-  "license": "MIT",
   "repository": "git@github.com:oploshka/vue-dialog.git"
 }
