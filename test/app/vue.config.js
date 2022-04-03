@@ -23,7 +23,7 @@ const config = {
   },
 };
 
-// fix github page build
+// fix github page deploy
 if(process.env.BUILD_SETTINGS === 'gh-page') {
   config.publicPath = '/vue-dialog/';
 }

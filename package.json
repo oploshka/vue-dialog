@@ -1,6 +1,6 @@
 {
   "name": "vue-dlg",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "Vue Dialog",
   "author": "Andrey Tyurin <ectb@mail.ru>",
   "scripts": {
@@ -40,6 +40,5 @@
     "v-dialog",
     "v-dialogs"
   ],
-  "license": "MIT",
   "repository": "git@github.com:oploshka/vue-dialog.git"
 }

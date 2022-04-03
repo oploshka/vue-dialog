@@ -3,9 +3,10 @@
   "name": "test-app-vue-dialog",
   "version": "0.1.0",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --port 3000",
+    "serveBuild": "vue-cli-service serve --port 3000 srcDev/mainBuild.js",
     "build": "vue-cli-service build",
-    "he": "vue-cli-service help build",
+    "lint": "vue-cli-service lint",
     "deploy": "gh-pages -d dist",
     "predeploy": "cross-env BUILD_SETTINGS=gh-page vue-cli-service build"
   },
