@@ -1,4 +1,4 @@
-import {addGroupSetting} from "../../src/DialogGroupSettings";
+import {addGroupSetting} from 'vue-dlg/src/DialogGroupSettings';
 
 addGroupSetting('modal', {
   maxDisplayItem: 1,

@@ -1,8 +1,5 @@
 <template>
-  <div id="app">
-
-    <DialogCore />
-
+  <div>
 
     <h2 class="mb-5">Examples of how this plugin works</h2>
     <!--
@@ -57,10 +54,8 @@
 
 <script>
 
-import DialogCore from "../../src/DialogCore";
 export default {
-  name: 'App',
-  components: {DialogCore},
+  name: 'work-example',
   // data() {
   //   return {};
   // },
@@ -98,7 +93,8 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+
+<style scoped>
 .icon-list {
   padding-left: 0;
   list-style: none;

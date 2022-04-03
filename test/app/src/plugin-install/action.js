@@ -1,7 +1,7 @@
 
-import DialogThinClient from '../../src/DialogThinClient';
-import DialogBox        from "../../src/Template/DialogBox";
-import DialogNotify     from "../../src/Template/DialogNotify";
+import DialogThinClient from 'vue-dlg/src/DialogThinClient';
+import DialogBox        from 'vue-dlg/src/Template/DialogBox';
+import DialogNotify     from 'vue-dlg/src/Template/DialogNotify';
 
 
 export default {
@@ -11,7 +11,7 @@ export default {
     success: (message) => {
       return DialogThinClient(
         DialogBox,
-        { title: "Успешно", message: message, okLabel: 'Ok', theme: "success", },
+        { title: 'Успешно', message: message, okLabel: 'Ok', theme: 'success', },
         'modal',
         { }
       );
@@ -19,7 +19,7 @@ export default {
     warning: (message) => {
       return DialogThinClient(
         DialogBox,
-        { title: "Предупреждение", message: message, okLabel: 'Ok', theme: "warning" },
+        { title: 'Предупреждение', message: message, okLabel: 'Ok', theme: 'warning' },
         'modal',
         {  }
       );
@@ -27,7 +27,7 @@ export default {
     error: (message) => {
       return DialogThinClient(
         DialogBox,
-        { title: "Ошибка", message: message, okLabel: 'Ok', theme: "error" },
+        { title: 'Ошибка', message: message, okLabel: 'Ok', theme: 'error' },
         'modal',
         { }
       );
@@ -38,7 +38,7 @@ export default {
     return DialogThinClient(
       DialogBox,
       {
-        title: "Подтвердите действие",
+        title: 'Подтвердите действие',
         message: message,
         okLabel: (options && options.okLabel) ? options.okLabel : 'Ok',
         cancelLabel: (options && options.cancelLabel) ? options.cancelLabel : 'Отмена',
