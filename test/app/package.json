@@ -3,7 +3,7 @@
   "name": "test-app-vue-dialog",
   "version": "0.1.0",
   "scripts": {
-    "serve": "vue-cli-service serve --port 3000",
+    "serve": "vue-cli-service serve --port 3000 src/main.js",
     "serveBuild": "vue-cli-service serve --port 3000 srcDev/mainBuild.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
