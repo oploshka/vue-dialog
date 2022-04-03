@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
 
     <h2 class="mb-5">Examples of how this plugin works</h2>
     <!--
@@ -18,6 +18,7 @@
           <li><a href="#" @click.stop="showAlertSuccess">Show alert success</a></li>
           <li><a href="#" @click.stop="showAlertWarning">Show alert warning</a></li>
           <li><a href="#" @click.stop="showAlertError">Show alert error</a></li>
+          <li><a href="#" @click.stop="showAlertCountr3">Show 3 alert</a></li>
           <!--<li class="text-muted">Bootstrap Parcel starter (coming soon!)</li>-->
         </ul>
       </div>
@@ -26,7 +27,7 @@
         <h2>Confirm</h2>
         <p>It will be implemented in the following versions</p>
         <ul class="icon-list">
-          <!--<li class="text-muted">Bootstrap Parcel starter (coming soon!)</li>-->
+          <li><a href="#" @click.stop="showConfirmation">Show alert success</a></li>
         </ul>
       </div>
 
@@ -54,9 +55,10 @@
 <script>
 
 export default {
-  name: 'App',
-  data() {
-  },
+  name: 'work-example',
+  // data() {
+  //   return {};
+  // },
   methods: {
     showAlertSuccess() {
       this.$dialog.alert.success('Запись добавлена').then(res => {
@@ -73,10 +75,26 @@ export default {
         console.log(res); // {}
       });
     },
+    showAlertCountr3() {
+      this.showAlertSuccess();
+      this.showAlertWarning();
+      this.showAlertError();
+    },
+    // Confirmation
+    showConfirmation() {
+      this.$dialog.confirm(
+          'Подтвердите действие',
+          // TODO
+          {okLabel: "", cancelLabel: ""}
+      ).then(res => {
+        console.log(res); // {}
+      });
+    },
   },
 };
 </script>
-<style lang="scss" scoped>
+
+<style scoped>
 .icon-list {
   padding-left: 0;
   list-style: none;
