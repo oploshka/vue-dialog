@@ -10,4 +10,10 @@ addGroupSetting('notify', {
   overlay      : false,
 });
 
+
+addGroupSetting('sidebar-right', {
+  maxDisplayItem: 1,
+  overlay: false,
+});
+
 export default {};

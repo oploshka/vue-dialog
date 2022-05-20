@@ -1,12 +1,15 @@
 import { createApp } from 'vue';
+import router from './router';
 import App from './App.vue';
 
-//
-let VueApp = createApp(App)
+
+// Это работает только для разработчиков плагина, для использования в своем проекте необходимо копировать эту папку из репозитория
+import VueDlgInstall from 'vue-dlg/example/plugin-install/index.js';
 
 //
-import VueDlg_pluginInstall from './plugin-install/index';
-VueApp.use(VueDlg_pluginInstall);
+const VueApp = createApp(App);
 
+VueApp.use(router);
+VueApp.use(VueDlgInstall);
 //
 VueApp.mount('#app');

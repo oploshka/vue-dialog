@@ -7,8 +7,7 @@ import './group-settings';
 // optional
 // global.DIALOG = dialogAction;
 
-// import './style.scss';
-import './style-build.css';
+import './style.scss';
 
 export default {
   install: (app) => {
