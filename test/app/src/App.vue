@@ -3,10 +3,13 @@
 
     <DialogCore />
 
+    <HeaderPart title="VUE DIALOG"/>
+
     <div class="main-content container">
       <router-view />
     </div>
 
+    <FooterPart/>
   </div>
 </template>
 
@@ -14,10 +17,16 @@
 
 import DialogCore from 'vue-dlg/src/DialogCore';
 //
+import HeaderPart from '@/component/Part/HeaderPart';
+import FooterPart from '@/component/Part/FooterPart';
+//
 export default {
   name: 'App',
   components: {
     DialogCore,
+    //
+    HeaderPart,
+    FooterPart,
   },
 };
 

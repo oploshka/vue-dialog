@@ -1,30 +1,30 @@
 <template>
   <nav class="navbar  navbar-dark bg-dark fixed-top">
     <div class="container">
-      <router-link class="navbar-brand" to="/">VUE FORM ELEMENT</router-link>
+      <router-link class="navbar-brand" to="/">{{title}}</router-link>
 
       <div>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: flex; flex-direction: row;">
-          <li class="nav-item dropdown">
-            <span class="nav-link dropdown-toggle">Примеры форм</span>
-            <ul class="dropdown-menu">
-              <li><router-link class="dropdown-item" :to="{name: 'UserLogin'}">Авторизации</router-link></li>
-              <li><router-link class="dropdown-item" :to="{name: 'UserRegistration'}">Регистрация</router-link></li>
-              <li><router-link class="dropdown-item" :to="{name: 'UserProfileEdit'}">Профиль</router-link></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-          </li>
+          <!--<li class="nav-item dropdown">-->
+          <!--  <span class="nav-link dropdown-toggle">Примеры форм</span>-->
+          <!--  <ul class="dropdown-menu">-->
+          <!--    &lt;!&ndash;<li><router-link class="dropdown-item" :to="{name: 'UserLogin'}">Авторизации</router-link></li>&ndash;&gt;-->
+          <!--    &lt;!&ndash;<li><router-link class="dropdown-item" :to="{name: 'UserRegistration'}">Регистрация</router-link></li>&ndash;&gt;-->
+          <!--    &lt;!&ndash;<li><router-link class="dropdown-item" :to="{name: 'UserProfileEdit'}">Профиль</router-link></li>&ndash;&gt;-->
+          <!--  </ul>-->
+          <!--</li>-->
+          <!--<li class="nav-item">-->
+          <!--</li>-->
 
-          <li class="nav-item dropdown">
-            <span class="nav-link dropdown-toggle">UIkit</span>
-            <ul class="dropdown-menu">
-              <li><router-link class="dropdown-item" :to="{name: 'uikit-text'}">Text</router-link></li>
-              <li><router-link class="dropdown-item" :to="{name: 'uikit-select'}">Select</router-link></li>
-              <li><router-link class="dropdown-item" :to="{name: 'uikit-date'}">Date & Time</router-link></li>
-              <li><router-link class="dropdown-item" :to="{name: 'uikit-switch'}">Switch</router-link></li>
-            </ul>
-          </li>
+          <!--<li class="nav-item dropdown">-->
+          <!--  <span class="nav-link dropdown-toggle">UIkit</span>-->
+          <!--  <ul class="dropdown-menu">-->
+              <!--<li><router-link class="dropdown-item" :to="{name: 'uikit-text'}">Text</router-link></li>-->
+              <!--<li><router-link class="dropdown-item" :to="{name: 'uikit-select'}">Select</router-link></li>-->
+              <!--<li><router-link class="dropdown-item" :to="{name: 'uikit-date'}">Date & Time</router-link></li>-->
+              <!--<li><router-link class="dropdown-item" :to="{name: 'uikit-switch'}">Switch</router-link></li>-->
+          <!--  </ul>-->
+          <!--</li>-->
           <!--
           <li class="nav-item dropdown">
             <span class="nav-link dropdown-toggle">Dropdown</span>
@@ -35,10 +35,11 @@
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-          </li>
           -->
+
+          <li class="nav-item">
+            <router-link class="nav-link " to="/">Примеры</router-link>
+          </li>
         </ul>
       </div>
 
@@ -49,6 +50,9 @@
 <script>
 export default {
   name: 'HeaderPart',
+  props: {
+    title: String,
+  }
 };
 </script>
 
