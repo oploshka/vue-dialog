@@ -3,7 +3,9 @@
 
     <DialogCore />
 
-    <WorkExample />
+    <div class="main-content container">
+      <router-view />
+    </div>
 
   </div>
 </template>
@@ -24,3 +26,15 @@ export default {
 };
 
 </script>
+
+<style lang="scss">
+html, body, #app {
+  height: 100%;
+  width: 100%;
+}
+.main-content {
+  min-height: 100%;
+  min-height: calc(100% - 80px);
+  padding: 100px 0 50px 0;
+}
+</style>
