@@ -25,7 +25,8 @@
 
   <div class="dlg-template" :class="{ ['dlg-template-' + theme]: !!theme }">
     <div class="mdl-header th-px">
-      <img svg-inline class="icon-info" src="@img/icon/info.svg" alt="" />
+      <!--<img svg-inline class="icon-info" src="@img/icon/info.svg" alt="" />-->
+      <div>[info]</div>
       <div class="mdl-title">{{ title }}</div>
     </div>
     <div class="mdl-message th-px" v-if="message">{{ message }}</div>
@@ -39,7 +40,7 @@
 </template>
 
 <script>
-import DialogTemplateMixin from "@plugin/vue-dlg/src/Template/DialogTemplateMixin";
+import DialogTemplateMixin from './DialogTemplateMixin';
 
 export default {
   mixins: [DialogTemplateMixin],

@@ -7,7 +7,7 @@
 
 <script>
 
-import DialogTemplateMixin from "./DialogTemplateMixin";
+import DialogTemplateMixin from './DialogTemplateMixin';
 
 export default {
   mixins: [ DialogTemplateMixin ],

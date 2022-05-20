@@ -1,13 +1,9 @@
 
 import DialogThinClient from 'vue-dlg/src/DialogThinClient';
 
-
-import DialogBox        from 'vue-dlg/src/Template/DialogBox';
-import DialogNotify     from 'vue-dlg/src/Template/DialogNotify';
-// import DialogBox from '@plugin/vue-dlg/src/Template/DialogBox';
-// import DialogNotify from '@plugin/vue-dlg/src/Template/DialogNotify';
-// import DialogPush from '@plugin/vue-dlg/install/Template/DialogPush';
-// import DialogBoxPromptDelete from '@plugin/vue-dlg/install/Template/DialogBoxPromptDelete';
+import DialogBox              from './Template/DialogBox';
+import DialogNotify           from './Template/DialogNotify';
+import DialogBoxPromptDelete  from './Template/DialogBoxPromptDelete';
 
 export default {
   open: DialogThinClient, // function (VueComponent, VueComponentProps, groupName, setting)
@@ -87,14 +83,6 @@ export default {
         { group: 'notify' }
       );
     },
-  },
-  
-  push: (obj) => {
-    return DialogThinClient(
-      DialogPush,
-      { pushObj: obj },
-      { group: 'push' }
-    );
   },
   
 };

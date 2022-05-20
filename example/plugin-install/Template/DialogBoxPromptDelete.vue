@@ -15,7 +15,7 @@
 <script>
 
 
-import DialogBoxPromptWrapper from "@plugin/vue-dlg/install/Template/DialogBoxPromptWrapper";
+import DialogBoxPromptWrapper from './DialogBoxPromptWrapper';
 
 export default {
   components: {DialogBoxPromptWrapper},
