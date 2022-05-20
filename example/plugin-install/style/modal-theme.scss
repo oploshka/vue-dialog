@@ -1,0 +1,20 @@
+.dlg .dlg-item.dlg-item__community,
+.dlg .dlg-item.dlg-item__event,
+.dlg .dlg-item.dlg-item__event-view,
+.dlg .dlg-item.dlg-item__delete {
+  max-width: 512px;
+}
+
+.dlg .dlg-item.dlg-item__community,
+.dlg .dlg-item.dlg-item__delete {
+  padding: 2.5rem 0;
+}
+
+.dlg .dlg-item.dlg-item__event,
+.dlg .dlg-item.dlg-item__event-view {
+  padding: 2.5rem;
+}
+
+.dlg .dlg-item.dlg-item__menu {
+  max-width: 360px;
+}

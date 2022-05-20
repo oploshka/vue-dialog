@@ -1,0 +1,28 @@
+.dlg .dlg-container.dlg-container-push {
+  position: fixed;
+  left: auto;
+  right: 10px;
+  top: 77px;
+  width: 500px;
+  z-index: 420;
+  border-radius: 0;
+
+  .dlg-item {
+    background-color: transparent;
+    box-shadow: none;
+    border: 0;
+    overflow: visible;
+  }
+  
+  & > div {
+    margin: 0 0 10px 0;
+  }
+  
+  & > div:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.dlg .dlg-item__notification-settings {
+  max-width: 380px;
+}
