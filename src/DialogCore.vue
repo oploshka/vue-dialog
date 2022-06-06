@@ -12,17 +12,13 @@
           <transition name="component-fade" mode="out-in">
             <template v-if="index < groupSettings[groupName].maxDisplayItem">
               <div class="dlg-item" :class="modalInfoObj.setting.theme ? 'dlg-item__' + modalInfoObj.setting.theme : ''">
-                <div v-if="modalInfoObj.setting.close" class="dlg-item-close" @click="onClose(modalInfoObj, {})">
-                  <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17.6569 7.75735C18.0474 7.36682 18.0474 6.73366 17.6569 6.34313C17.2663 5.95261 16.6332 5.95261 16.2426 6.34313L12.7071 9.87867C12.3166 10.2692 11.6834 10.2692 11.2929 9.87867L7.75736 6.34313C7.36684 5.95261 6.73367 5.95261 6.34315 6.34313C5.95262 6.73366 5.95262 7.36682 6.34315 7.75735L9.87868 11.2929C10.2692 11.6834 10.2692 12.3166 9.87868 12.7071L6.34315 16.2426C5.95262 16.6332 5.95262 17.2663 6.34315 17.6568C6.73367 18.0474 7.36683 18.0474 7.75736 17.6568L11.2929 14.1213C11.6834 13.7308 12.3166 13.7308 12.7071 14.1213L16.2426 17.6568C16.6332 18.0474 17.2663 18.0474 17.6569 17.6568C18.0474 17.2663 18.0474 16.6332 17.6569 16.2426L14.1213 12.7071C13.7308 12.3166 13.7308 11.6834 14.1213 11.2929L17.6569 7.75735Z"/>
-                  </svg>
-                </div>
 
                 <component
                     :is="modalInfoObj.VueComponent"
                     v-bind="modalInfoObj.VueComponentProps"
                     @close="onClose(modalInfoObj, $event)"
                 />
+
               </div>
             </template>
           </transition>
@@ -41,6 +37,7 @@ import {getGroupSetting}  from './DialogGroupSettings';
 
 const key = () => `${Date.now()}-${Math.random()}`;
 
+// TODO: delete
 import {shallowRef} from 'vue';
 
 export default {
@@ -195,10 +192,10 @@ export default {
 
       const close = (closeData = {}) => {
         this.remove(modalInfoObj, closeData)
-      }
+      };
       return {
         close: close,
-      }
+      };
     });
   }
 };

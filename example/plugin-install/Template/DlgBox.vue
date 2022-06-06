@@ -1,7 +1,7 @@
 <template>
   <div class="dlg-template" :class="{ ['dlg-template-' + theme]: !!theme}">
     <div class="dlg-header">
-      <a v-if="closeBtn" class="dlg-btn-close" @click="$emit('close', {action: 'CLOSE'})" aria-label="Fechar" ></a>
+      <a v-if="closeBtn" class="dlg-btn-close" @click="$emit('close', {action: 'CLOSE'})"></a>
       <div class="dlg-title" >{{title}}</div>
     </div>
     <div class="dlg-body">

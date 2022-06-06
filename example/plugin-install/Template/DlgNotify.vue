@@ -7,10 +7,10 @@
 
 <script>
 
-import DialogTemplateMixin from './DialogTemplateMixin';
+// import DialogTemplateMixin from './DialogTemplateMixin';
 
 export default {
-  mixins: [ DialogTemplateMixin ],
+  // mixins: [ DialogTemplateMixin ],
   props: {
     theme: {
       type: String,

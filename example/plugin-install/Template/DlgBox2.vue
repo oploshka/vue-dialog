@@ -1,28 +1,4 @@
 <template>
-  <!--  <div class="dlg-template" :class="{ ['dlg-template-' + theme]: !!theme}">-->
-  <!--    <div class="dlg-header">-->
-  <!--      <slot name="icon"></slot>-->
-  <!--      <div class="dlg-title" >{{title}}</div>-->
-  <!--    </div>-->
-  <!--    <div class="dlg-body">-->
-  <!--      <div class="content">-->
-  <!--        <template v-if="messageType === 'HTML'">-->
-  <!--          <div v-html="message"></div>-->
-  <!--        </template>-->
-  <!--        <template v-else-if="messageType === 'SLOT'">-->
-  <!--          <slot/>-->
-  <!--        </template>-->
-  <!--        <template v-else>-->
-  <!--          <div class="dlg-content-message">{{message}}</div>-->
-  <!--        </template>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--    <div class="dlg-footer">-->
-  <!--      <a v-if="okLabel"     class="dlg-btn success" @click="$emit('close', {action: 'OK'})">{{ okLabel }}</a>-->
-  <!--      <a v-if="cancelLabel" class="dlg-btn cancel"  @click="$emit('close', {action: 'CANCEL'})">{{ cancelLabel }}</a>-->
-  <!--    </div>-->
-  <!--  </div>-->
-
   <div class="dlg-template" :class="{ ['dlg-template-' + theme]: !!theme }">
     <div class="mdl-header th-px">
       <!--<img svg-inline class="icon-info" src="@img/icon/info.svg" alt="" />-->

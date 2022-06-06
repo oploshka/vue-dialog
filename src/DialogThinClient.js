@@ -5,72 +5,78 @@
  *
  */
 
+
+// Ожидание обработчика
+let $DlgCoreComponent = null;
+export const setDlgCoreComponent = (component) => {
+  $DlgCoreComponent = component;
+  runRemoveThinClient();
+};
+const runRemoveThinClient = () => {
+  let element = dequeue();
+  while (element){
+    handlerFunc(element);
+    element = dequeue();
+  }
+};
+
+// очередь
 const store = {};
 let tail = 0;
 let head = 0;
 
-let handler = null;
-
+/**
+ * Proxy для добавления модального окна
+ */
 const enqueue = (VueComponent, VueComponentProps, setting = {}) => {
   
-  let handlerObject = null;
-  
   const element = {
-    VueComponent      : VueComponent,
-    VueComponentProps : VueComponentProps,
-    setting           : setting,
-    //
-    resolve           : null,
-    handlerObject     : null,
-  };
-  
-  const promise = new Promise((resolve ) => {
-  
-    element.resolve = resolve;
+    data: {
+      VueComponent      : VueComponent,
+      VueComponentProps : VueComponentProps,
+      setting           : setting,
+    },
     
-    if(!handler) {
-      store[tail++] = element;
-    } else {
-      element.handlerObject = handler(element);
-    }
-    
-  });
-  
-  promise.close = (closeData = {}) => {
-    if(!element.handlerObject) {
-      // TODO: add logic
-      // store[tail++] = element;
-      console.warn('DialogThinClient add close logic');
-    } else {
-      element.handlerObject.close(closeData);
-    }
+    modalInfoObj: null,
   };
+
+
+  // else {
+  //   element.handlerObject = handlerFunc(element.data);
+  // }
+
   
-  return promise;
+  const modalActionProxy = {
+    open:   () => {
+      if($DlgCoreComponent && !element.modalInfoObj) {
+        element.modalInfoObj = $DlgCoreComponent.add(element.data);
+      }
+    },
+    close:  () => {
+      if(element.modalInfoObj) {
+        $DlgCoreComponent && $DlgCoreComponent.remove(element.modalInfoObj);
+      }
+    },
+  };
+
+
+  if(!$DlgCoreComponent) {
+    store[tail++] = element;
+  } else {
+    modalActionProxy.open();
+  }
+
+  return modalActionProxy;
 };
 
 // Получить элемент из очереди (с его удалением)
 const dequeue = () => {
   if (tail === head)
     return undefined;
-  let element = store[head];
+  const element = store[head];
   delete store[head++];
   return element;
 };
 
 
 export default enqueue; // add
-
-export const setHandler = (handlerFunction) => {
-  if(handler) {
-    console.error('Duplicate setHandler');
-    return;
-  }
-  handler = handlerFunction;
-  
-  let element = dequeue();
-  while (element){
-    handler(element);
-    element = dequeue();
-  }
-};
