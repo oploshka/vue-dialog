@@ -1,5 +1,5 @@
 <template>
-  <div class="dlg">
+  <div class="dlg" :class="groupClass">
 
     <transition appear name="fade">
       <div v-if="overlayDisplay" class="dlg-overlay" @click="overlayClick()"></div>
@@ -56,6 +56,8 @@ export default {
   methods: {
     // add(VueComponent, VueComponentProps, groupName) {
     add(modalInfoObj) {
+      // TODO: add body class update callback (fix scroll)
+
       modalInfoObj.id = modalInfoObj.id || key(); // TODO: test;
       modalInfoObj.setting = Object.assign({theme: 'default', group: 'modal'},  modalInfoObj.setting)
 
@@ -103,9 +105,37 @@ export default {
         return;
       }
 
-      // TODO: исправить для тех, у кого нет overlay
-      const modalInfoObj = this.modalList[0];
-      this.remove(modalInfoObj);
+      let removeModalInfoObj = null;
+      let removePriority = 0;
+
+      for(let i = 0; i < this.modalList.length; i++) {
+        const modalInfoObj = this.modalList[i];
+        //
+        const group = modalInfoObj.setting.group;
+        const groupSettings = this.groupSettings[group];
+
+        if(!groupSettings.overlay) {
+          continue;
+        }
+        if(!groupSettings.overlayClickClose) {
+          continue;
+        }
+
+        //
+        if(removeModalInfoObj === null){
+          removeModalInfoObj = modalInfoObj;
+          removePriority = groupSettings.overlayClosePriority;
+          continue;
+        }
+
+        if(removePriority > groupSettings.overlayClosePriority){
+          removeModalInfoObj = modalInfoObj;
+          removePriority = groupSettings.overlayClosePriority;
+          continue;
+        }
+
+      }
+      removeModalInfoObj && this.remove(removeModalInfoObj);
     },
 
 
@@ -147,7 +177,14 @@ export default {
         }
       }
       return overlay;
-    }
+    },
+    groupClass() {
+      let classStr = '';
+      for(const key in this.modalObj) {
+        classStr += 'dlg-core-group--' + key + ' ';
+      }
+      return classStr
+    },
   },
   created() {
     // window.addEventListener('keyup', this.keyUp);
