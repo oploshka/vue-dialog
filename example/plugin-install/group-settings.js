@@ -1,8 +1,10 @@
 import {addGroupSetting} from 'vue-dlg/src/DialogGroupSettings';
 
 addGroupSetting('modal', {
-  maxDisplayItem: 1,
-  overlay      : true,
+  maxDisplayItem    : 1,
+  overlay           : true,
+  overlayClickClose : true,
+  overlayClosePriority : 100,
 });
 
 addGroupSetting('notify', {
