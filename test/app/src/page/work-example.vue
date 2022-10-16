@@ -85,7 +85,7 @@ export default {
       this.$dialog.confirm.success(
           'Подтвердите действие',
           // TODO
-          {okLabel: "", cancelLabel: ""}
+          {okLabel: '', cancelLabel: ''}
       ).then(res => {
         console.log(res); // {}
       });

@@ -1,7 +1,7 @@
 
 // import { createApp } from 'vue';
 // import DialogCore from './DialogCore';
-import DialogThinClient from './DialogThinClient';
+import VueDlgThinClient from './VueDlgThinClient';
 
 const install = (app, options) => {
   //const dlg = new (Vue.extend(DialogCore))({propsData: options});
@@ -11,7 +11,7 @@ const install = (app, options) => {
   dlgApp.config.globalProperties = app.config.globalProperties;
   const dlg = dlgApp.mount('#modal');
   */
-  const dialog = options.action || { open: DialogThinClient };
+  const dialog = options.action || { open: VueDlgThinClient };
   
   app.config.globalProperties.$dialog = dialog;
 };

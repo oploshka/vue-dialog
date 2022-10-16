@@ -7,16 +7,16 @@
 
     <template v-for="(groupList, groupName) in modalObj" :key="groupName">
       <div class="dlg-container" :class="'dlg-container-' + groupName">
-        <template v-for="(modalInfoObj, index) in modalObj[groupName]" :key="modalInfoObj.id">
+        <template v-for="(modal, index) in modalObj[groupName]" :key="modal.getId()">
 
           <transition name="component-fade" mode="out-in">
             <template v-if="index < groupSettings[groupName].maxDisplayItem">
-              <div class="dlg-item" :class="modalInfoObj.setting.theme ? 'dlg-item__' + modalInfoObj.setting.theme : ''">
+              <div class="dlg-item" :class="'dlg-item__' + modal.getTheme()">
 
                 <component
-                    :is="modalInfoObj.VueComponent"
-                    v-bind="modalInfoObj.VueComponentProps"
-                    @close="onClose(modalInfoObj, $event)"
+                    :is="modal.getVueComponent()"
+                    v-bind="modal.getVueComponentProps()"
+                    @close="remove(modal)"
                 />
 
               </div>
@@ -32,13 +32,12 @@
 
 <script>
 
-import {setHandler}       from './DialogThinClient';
+import {vueClientSetComponent}       from './VueDlgThinClient';
 import {getGroupSetting}  from './DialogGroupSettings';
 
-const key = () => `${Date.now()}-${Math.random()}`;
-
-// TODO: delete
-import {shallowRef} from 'vue';
+// TODO: delete???
+// import {shallowRef} from 'vue';
+// element.VueComponent = shallowRef(element.VueComponent);
 
 export default {
   name: 'DialogCore',
@@ -51,14 +50,18 @@ export default {
     };
   },
   methods: {
-    // add(VueComponent, VueComponentProps, groupName) {
-    add(modalInfoObj) {
-      // TODO: add body class update callback (fix scroll)
 
-      modalInfoObj.id = modalInfoObj.id || key(); // TODO: test;
-      modalInfoObj.setting = Object.assign({theme: 'default', group: 'modal'},  modalInfoObj.setting)
-
-      const group = modalInfoObj.setting.group;
+    // TODO: delete
+    open(modal) {
+      return this.add(modal);
+    },
+    /**
+     *
+     * @param {VueDlgModalClass} modal
+     * @returns {VueDlgModalClass}
+     */
+    add(modal) {
+      const group = modal.getGroup();
       if (!this.groupSettings[group]) {
         this.groupSettings[group] = getGroupSetting(group);
       }
@@ -67,22 +70,22 @@ export default {
         this.modalObj[group] = [];
       }
 
-      this.modalObj[group].push(modalInfoObj);
-      this.modalList.push(modalInfoObj);
+      this.modalObj[group].push(modal);
+      this.modalList.push(modal);
 
-      return modalInfoObj;
+      return modal;
     },
 
-    remove(modalInfoObj, resolveDate = {}) {
-      let i = this.modalList.indexOf(modalInfoObj);
+    remove(modal) {
+      let i = this.modalList.indexOf(modal);
       if (i >= 0) {
         this.modalList.splice(i, 1);
       }
 
-      const group = modalInfoObj.setting.group;
+      const group = modal.getGroup();
       
       if (typeof this.modalObj[group] !== 'undefined') {
-        let i2 = this.modalObj[group].indexOf(modalInfoObj);
+        let i2 = this.modalObj[group].indexOf(modal);
         if (i2 >= 0) {
           if (this.modalObj[group].length === 1) {
             delete this.modalObj[group];
@@ -92,8 +95,6 @@ export default {
           }
         }
       }
-
-      modalInfoObj.resolve(resolveDate);
     },
 
     //
@@ -135,25 +136,9 @@ export default {
       removeModalInfoObj && this.remove(removeModalInfoObj);
     },
 
-
-    // core
-    open(VueComponent, VueComponentProps, setting = {}) {
-      return new Promise((resolve) => {
-        const modalInfoObj = {
-          VueComponent: VueComponent,
-          VueComponentProps: VueComponentProps,
-          setting: setting,
-          //
-          resolve: resolve,
-        };
-
-        this.add(modalInfoObj);
-      });
-    },
-
-    onClose(modalInfoObj, closeData) {
-      this.remove(modalInfoObj);
-    },
+    // onClose(modalInfoObj, closeData) {
+    //   this.remove(modalInfoObj);
+    // },
     keyUp(e) {
       /*
       if ('Escape' === e.key) {
@@ -180,22 +165,13 @@ export default {
       for(const key in this.modalObj) {
         classStr += 'dlg-core-group--' + key + ' ';
       }
-      return classStr
+      return classStr;
     },
   },
   created() {
-    // window.addEventListener('keyup', this.keyUp);
-    setHandler((element) => {
-      // fix vue component
-      element.VueComponent = shallowRef(element.VueComponent);
-      const modalInfoObj = this.add(element);
-
-      const close = (closeData = {}) => {
-        this.remove(modalInfoObj, closeData)
-      };
-      return {
-        close: close,
-      };
+    vueClientSetComponent({
+      open: this.add,
+      close: this.remove,
     });
   }
 };
