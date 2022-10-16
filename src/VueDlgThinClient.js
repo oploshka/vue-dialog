@@ -40,7 +40,8 @@ const vueClientCallback = {
     }
   }
 };
-export const vueClientSetComponent = vueClientCallback.setDlgCoreComponent;
+// export const vueClientSetComponent = vueClientCallback.setDlgCoreComponent;
+export const vueClientSetComponent = (obj) => { vueClientCallback.setDlgCoreComponent(obj); }
 
 
 const proxyClientCallback = {

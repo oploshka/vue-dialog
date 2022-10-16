@@ -61,18 +61,28 @@ export default {
   // },
   methods: {
     showAlertSuccess() {
-      this.$dialog.alert.success('Запись добавлена').then(res => {
-        console.log(res); // {}
+      const modal = this.$dialog.alert.success('Запись добавлена', {
+        onPositive(event) { console.log('onPositive', event); },
+        onNegative(event) { console.log('onNegative', event); },
       });
+
+      console.log(modal);
+
+      // Промиса больше нет!!!
+      // .then(res => {
+      //   console.log(res); // {}
+      // });
     },
     showAlertWarning() {
-      this.$dialog.alert.warning('Данный сервис не доступен, попробуйте через 5 минут').then(res => {
-        console.log(res); // {}
+      this.$dialog.alert.warning('Данный сервис не доступен, попробуйте через 5 минут', {
+        onPositive(event) { console.log('onPositive', event); },
+        onNegative(event) { console.log('onNegative', event); },
       });
     },
     showAlertError() {
-      this.$dialog.alert.error('Ошибка сервера').then(res => {
-        console.log(res); // {}
+      this.$dialog.alert.error('Ошибка сервера', {
+        onPositive(event) { console.log('onPositive', event); },
+        onNegative(event) { console.log('onNegative', event); },
       });
     },
     showAlertCountr3() {
@@ -82,13 +92,14 @@ export default {
     },
     // Confirmation
     showConfirmation() {
-      this.$dialog.confirm.success(
-          'Подтвердите действие',
-          // TODO
-          {okLabel: '', cancelLabel: ''}
-      ).then(res => {
-        console.log(res); // {}
-      });
+      this.$dialog.confirm.add(
+        'Подтвердите действие',
+        '...',
+        {
+          onPositive(event) { console.log('onPositive', event); },
+          onNegative(event) { console.log('onNegative', event); },
+        }
+      );
     },
   },
 };

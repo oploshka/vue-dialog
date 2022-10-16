@@ -1,87 +1,163 @@
 
-import DialogThinClient from 'vue-dlg/src/DialogThinClient';
+import VueDlgThinClient from 'vue-dlg/src/VueDlgThinClient';
 
 import DialogBox              from './Template/DialogBox';
 import DialogNotify           from './Template/DialogNotify';
-import DialogBoxPromptDelete  from './Template/DialogBoxPromptDelete';
+// import DialogBoxPromptDelete  from './Template/DialogBoxPromptDelete';
 
 export default {
-  open: DialogThinClient, // function (VueComponent, VueComponentProps, groupName, setting)
+  open: VueDlgThinClient, // function (VueComponent, VueComponentProps, groupName, setting)
   
   alert: {
-    success: (message) => {
-      return DialogThinClient(
+    success: (message, props = {}) => {
+      const modal = VueDlgThinClient(
         DialogBox,
-        { title: 'Успешно', message: message, okLabel: 'Ok', theme: 'success' },
+        {
+          title: 'Успешно',
+          message: message,
+          okLabel: 'Ok',
+          theme: 'success',
+          onPositive(event) {
+            props.onPositive && props.onPositive(event);
+            modal.close();
+          }
+        },
         { group: 'modal' }
       );
+      return modal;
     },
-    warning: (message) => {
-      return DialogThinClient(
+    warning: (message, props = {}) => {
+      const modal = VueDlgThinClient(
         DialogBox,
-        { title: 'Предупреждение', message: message, okLabel: 'Ok', theme: 'warning' },
+        {
+          title: 'Предупреждение',
+          message: message,
+          okLabel: 'Ok',
+          theme: 'warning',
+          onPositive(event) {
+            props.onPositive && props.onPositive(event);
+            modal.close();
+          }
+        },
         { group: 'modal' }
       );
+      return modal;
     },
-    error: (message) => {
-      return DialogThinClient(
+    error: (message, props = {}) => {
+      const modal = VueDlgThinClient(
         DialogBox,
-        { title: 'Ошибка', message: message, okLabel: 'Ok', theme: 'error' },
+        {
+          title: 'Ошибка',
+          message: message,
+          okLabel: 'Ok',
+          theme: 'error',
+          onPositive(event) {
+            props.onPositive && props.onPositive(event);
+            modal.close();
+          }
+        },
         { group: 'modal' }
       );
+      return modal;
     },
   },
 
-  prompt: {
-    confirm: (title, message, options = {}) => {
-      return DialogThinClient(
-        DialogBoxPromptDelete,
+  confirm: {
+    // TODO: продумать о том чтоб использовать везде один объект
+    add: (title, message, props = {}) => {
+      const modal = VueDlgThinClient(
+        DialogBox,
         {
           title: title,
           message: message,
-          okLabel: options && options.okLabel ? options.okLabel : 'Ok',
-          cancelLabel:
-            options && options.cancelLabel ? options.cancelLabel : 'Отмена',
+          okLabel: props.okLabel ? props.okLabel : 'Ok',
+          cancelLabel: props.cancelLabel ? props.cancelLabel : 'Отмена',
+          onPositive(event) {
+            props.onPositive && props.onPositive(event);
+            modal.close();
+          },
+          onNegative(event) {
+            props.onNegative && props.onNegative(event);
+            modal.close();
+          }
         },
         { group: 'modal' }
       );
+      return modal;
     },
 
-    delete: (title, message, options = {}) => {
-      return DialogThinClient(
-        DialogBoxPromptDelete,
+    delete: (title, message, props = {}) => {
+      const modal = VueDlgThinClient(
+        DialogBox,
         {
           title: title,
           message: message || '',
-          okLabel: options?.okLabel || 'Delete',
-          cancelLabel: options?.cancelLabel || 'Discard',
+          okLabel: props.okLabel ? props.okLabel : 'Delete',
+          cancelLabel: props.cancelLabel ? props.cancelLabel : 'Discard',
+          onPositive(event) {
+            props.onPositive && props.onPositive(event);
+            modal.close();
+          },
+          onNegative(event) {
+            props.onNegative && props.onNegative(event);
+            modal.close();
+          }
         },
         { group: 'modal', theme: 'delete' }
       );
+      return modal;
     },
   },
 
   notify: {
     success: (title, message) => {
-      return DialogThinClient(
+      const modal = VueDlgThinClient(
         DialogNotify,
-        { title: title, message: message, theme: 'success' },
+        {
+          title: title,
+          message: message,
+          theme: 'success',
+          onClose(event) {
+            // TODO: можно добавить проверку что модальное окно уже закрытл
+            console.log(event);
+            modal.close();
+          }
+        },
         { group: 'notify' }
       );
+      return modal;
     },
     warning: (title, message) => {
-      return DialogThinClient(
+      const modal = VueDlgThinClient(
         DialogNotify,
-        { title: title, message: message, theme: 'warning' },
+        {
+          title: title,
+          message: message,
+          theme: 'warning',
+          onClose(event) {
+            console.log(event);
+            modal.close();
+          }
+        },
         { group: 'notify' }
       );
+      return modal;
     },
     error: (title, message) => {
-      return DialogThinClient(
+      const modal = VueDlgThinClient(
         DialogNotify,
-        { title: title, message: message, theme: 'error' },
+        {
+          title: title,
+          message: message,
+          theme: 'error',
+          onClose(event) {
+            console.log(event);
+            modal.close();
+          }
+        },
         { group: 'notify' }
       );
+      return modal;
     },
   },
   

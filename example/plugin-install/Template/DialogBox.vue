@@ -18,18 +18,18 @@
       </div>
     </div>
     <div class="dlg-footer">
-      <a v-if="okLabel"     class="dlg-btn success" @click="$emit('close', {action: 'OK'})">{{ okLabel }}</a>
-      <a v-if="cancelLabel" class="dlg-btn cancel"  @click="$emit('close', {action: 'CANCEL'})">{{ cancelLabel }}</a>
+      <a v-if="okLabel"     class="dlg-btn success" @click.prevent.stop="$emit('positive', {action: 'OK'})">{{ okLabel }}</a>
+      <a v-if="cancelLabel" class="dlg-btn cancel"  @click.prevent.stop="$emit('negative',  {action: 'CANCEL'})">{{ cancelLabel }}</a>
     </div>
   </div>
 </template>
 
 <script>
 
-import DialogTemplateMixin from "./DialogTemplateMixin";
+// import DialogTemplateMixin from './DialogTemplateMixin';
 
 export default {
-  mixins: [ DialogTemplateMixin ],
+  // mixins: [ DialogTemplateMixin ],
   props: {
     theme: {
       type: String,

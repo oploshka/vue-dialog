@@ -16,8 +16,8 @@
                 <component
                     :is="modal.getVueComponent()"
                     v-bind="modal.getVueComponentProps()"
-                    @close="remove(modal)"
                 />
+                <!-- не вмешиваемся в компонент @close="remove(modal)" -->
 
               </div>
             </template>

@@ -5,7 +5,7 @@ import dialogAction from './action';
 import './group-settings';
 
 // optional
-// global.DIALOG = dialogAction;
+global.DIALOG = dialogAction;
 
 import './style.scss';
 

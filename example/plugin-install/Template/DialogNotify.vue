@@ -28,7 +28,7 @@ export default {
   mounted() {
     // TODO: update timer logic
     setTimeout(() => {
-      this.close({action: 'CLOSE'});
+      this.$emit('close', {action: 'CLOSE'});
     }, 3000);
   }
 };
