@@ -20,6 +20,11 @@ export default {
           onPositive(event) {
             props.onPositive && props.onPositive(event);
             modal.close();
+          },
+          onClose(event) {
+            // TODO: можно добавить проверку что модальное окно уже закрыли
+            console.log(event);
+            modal.close();
           }
         },
         { group: 'modal' }
@@ -36,6 +41,11 @@ export default {
           theme: 'warning',
           onPositive(event) {
             props.onPositive && props.onPositive(event);
+            modal.close();
+          },
+          onClose(event) {
+            // TODO: можно добавить проверку что модальное окно уже закрыли
+            console.log(event);
             modal.close();
           }
         },
@@ -54,6 +64,11 @@ export default {
           onPositive(event) {
             props.onPositive && props.onPositive(event);
             modal.close();
+          },
+          onClose(event) {
+            // TODO: можно добавить проверку что модальное окно уже закрыли
+            console.log(event);
+            modal.close();
           }
         },
         { group: 'modal' }
@@ -70,6 +85,7 @@ export default {
         {
           title: title,
           message: message,
+          theme: 'primary',
           okLabel: props.okLabel ? props.okLabel : 'Ok',
           cancelLabel: props.cancelLabel ? props.cancelLabel : 'Отмена',
           onPositive(event) {
@@ -92,6 +108,7 @@ export default {
         {
           title: title,
           message: message || '',
+          theme: 'error',
           okLabel: props.okLabel ? props.okLabel : 'Delete',
           cancelLabel: props.cancelLabel ? props.cancelLabel : 'Discard',
           onPositive(event) {
@@ -118,7 +135,7 @@ export default {
           message: message,
           theme: 'success',
           onClose(event) {
-            // TODO: можно добавить проверку что модальное окно уже закрытл
+            // TODO: можно добавить проверку что модальное окно уже закрыли
             console.log(event);
             modal.close();
           }

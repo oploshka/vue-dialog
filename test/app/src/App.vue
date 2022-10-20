@@ -40,6 +40,6 @@ html, body, #app {
 .main-content {
   min-height: 100%;
   min-height: calc(100% - 80px);
-  padding: 100px 0 50px 0;
+  //padding: 100px 0 50px 0;
 }
 </style>

@@ -1,3 +1,16 @@
+
+//.dlg .dlg-item.dlg-item__contact-sidebar {
+//  max-width: 964px;
+//  width: 964px;
+//  margin: 0;
+//  box-shadow: unset;
+//  max-height: unset;
+//  border: 0;
+//  height: 100%;
+//  // background-color: var(--color-gray-01);
+//  padding: 1px;
+//}
+
 .dlg .dlg-container.dlg-container-sidebar-right {
   display: flex;
   flex-direction: column;
@@ -11,7 +24,16 @@
   
   .dlg-item {
     position: relative;
+    max-width: none;
+    max-height: none;
+    width: 960px;
+    height: 100%;
+    margin: 0px;
+    border-radius: 0px;
+    border: 0px;
   }
+  
+  /*
   .dlg-item__header-actions {
     position: absolute;
     top: 8px;
@@ -31,15 +53,18 @@
       height: 100%;
     }
   }
+  */
 }
 
-.dlg .dlg-item.dlg-item__contact-sidebar {
-  width: 430px;
-  margin: 0;
-  box-shadow: unset;
-  max-height: unset;
-  border: 0;
-  height: 100%;
-  // background-color: var(--color-gray-01);
-  padding: 40px;
+
+// Показывать Модальные окна поверх
+.dlg-core-group--sidebar-right.dlg-core-group--modal {
+  .dlg-container.dlg-container-sidebar-right {
+    z-index: 300;
+  }
+}
+.dlg-core-group--sidebar-right.dlg-core-group--confirm {
+  .dlg-container.dlg-container-sidebar-right {
+    z-index: 300;
+  }
 }

@@ -33,7 +33,7 @@
 <script>
 
 import {vueClientSetComponent}       from './VueDlgThinClient';
-import {getGroupSetting}  from './DialogGroupSettings';
+import {getGroupSetting}  from './VueDlgGroupSettings';
 
 // TODO: delete???
 // import {shallowRef} from 'vue';
