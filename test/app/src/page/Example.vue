@@ -24,11 +24,11 @@
       </div>
 
       <div class="col-md-4">
-        <h2>Modal</h2>
-        <p>It will be implemented in the following versions</p>
-        <ul class="icon-list">
-          <!--<li class="text-muted">Bootstrap Parcel starter (coming soon!)</li>-->
-        </ul>
+        <ExampleBlockNotify/>
+      </div>
+
+      <div class="col-md-4">
+        <ExampleBlockModal/>
       </div>
 
     </div>
@@ -38,9 +38,11 @@
 
 <script>
 
-import ExampleBlockAlert from '@/page/ExampleBlockAlert';
-import ExampleBlockConfirm from '@/page/ExampleBlockConfirm';
-import ExampleBlockPrompt from "@/page/ExampleBlockPrompt";
+import ExampleBlockAlert    from '@/page/ExampleBlockAlert';
+import ExampleBlockConfirm  from '@/page/ExampleBlockConfirm';
+import ExampleBlockPrompt   from '@/page/ExampleBlockPrompt';
+import ExampleBlockNotify   from '@/page/ExampleBlockNotify';
+import ExampleBlockModal    from '@/page/ExampleBlockModal';
 
 export default {
   name: 'work-example',
@@ -48,6 +50,8 @@ export default {
     ExampleBlockPrompt,
     ExampleBlockAlert,
     ExampleBlockConfirm,
+    ExampleBlockNotify,
+    ExampleBlockModal,
   },
   methods: {
   },

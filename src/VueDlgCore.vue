@@ -13,7 +13,10 @@
             <template v-if="index < groupSettings[groupName].maxDisplayItem">
               <div class="dlg-item" :class="'dlg-item__' + modal.getTheme()">
 
-                <component :is="groupSettings[groupName].wrapper">
+                <component
+                    :is="groupSettings[groupName].wrapper"
+                    @close="closeModal(modal)"
+                >
                   <component
                       :is="modal.getVueComponent()"
                       v-bind="modal.getVueComponentProps()"
@@ -56,6 +59,11 @@ export default {
     // TODO: delete
     open(modal) {
       return this.add(modal);
+    },
+
+    //
+    closeModal(modal) {
+      return this.remove(modal);
     },
     /**
      *
