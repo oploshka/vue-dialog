@@ -20,11 +20,7 @@
       </div>
 
       <div class="col-md-4">
-        <h2>Prompt</h2>
-        <p>It will be implemented in the following versions</p>
-        <ul class="icon-list">
-          <!--<li class="text-muted">Bootstrap Parcel starter (coming soon!)</li>-->
-        </ul>
+        <ExampleBlockPrompt/>
       </div>
 
       <div class="col-md-4">
@@ -44,10 +40,12 @@
 
 import ExampleBlockAlert from '@/page/ExampleBlockAlert';
 import ExampleBlockConfirm from '@/page/ExampleBlockConfirm';
+import ExampleBlockPrompt from "@/page/ExampleBlockPrompt";
 
 export default {
   name: 'work-example',
   components: {
+    ExampleBlockPrompt,
     ExampleBlockAlert,
     ExampleBlockConfirm,
   },

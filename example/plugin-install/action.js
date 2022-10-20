@@ -3,6 +3,7 @@ import VueDlgThinClient from 'vue-dlg/src/VueDlgThinClient';
 
 import DialogBox              from './Template/DialogBox';
 import DialogNotify           from './Template/DialogNotify';
+import DialogCardPrompt       from './Template/DialogCardPrompt';
 // import DialogBoxPromptDelete  from './Template/DialogBoxPromptDelete';
 
 export default {
@@ -124,6 +125,36 @@ export default {
       );
       return modal;
     },
+  },
+
+  prompt: ({ title = '', message= '', onSubmit= null }) => {
+    const modal = VueDlgThinClient(
+      DialogCardPrompt,
+      {
+        title: title,
+        message: message,
+        theme: 'success',
+        okLabel: 'Ok',
+        cancelLabel: 'Отмена',
+        onSubmit(event) {
+          console.log('onSubmit', event);
+          onSubmit && onSubmit(event);
+          // props.onNegative && props.onNegative(event);
+          modal.close();
+        },
+        onPositive(event) {
+          // TODO: fix - всплытие лишнего события в компоненте DialogCardPrompt
+          console.log('onPositive', event);
+        },
+        onNegative(event) {
+          console.log('onNegative', event);
+          // props.onNegative && props.onNegative(event);
+          modal.close();
+        }
+      },
+      { group: 'modal', theme: 'prompt' }
+    );
+    return modal;
   },
 
   notify: {

@@ -1,8 +1,6 @@
 <template>
   <div class="dialog-card" :class="{ ['dialog-card-' + theme]: !!theme}">
     <div class="dialog-card-header">
-      <!-- TODO: переделать close в negative ??? -->
-      <a v-if="closeBtn" class="dialog-card-btn-close" @click="$emit('close', {action: 'CLOSE'})"></a>
       <div class="dialog-card-title" >{{title}}</div>
     </div>
     <div class="dialog-card-body">
@@ -73,12 +71,6 @@ export default {
   flex-direction: column;
   width: 100%;
   color: #50596c;
-
-  overflow: auto;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid rgba(0,0,0,.2);
-  border-radius: 0.3rem;
 }
 .dialog-card .dialog-card-header {
   color: #454d5d;
@@ -89,19 +81,6 @@ export default {
   color: #454d5d;
   font-size: 18px;
   font-weight: 500;
-}
-.dialog-card .dialog-card-header .dialog-card-btn-close {
-  cursor: pointer;
-  height: 20px;
-  line-height: 20px;
-  padding: 0;
-  width: 20px;
-  float: right;
-  color: #50596c;
-  text-decoration: none;
-}
-.dialog-card .dialog-card-header .dialog-card-btn-close::before {
-  content: "\2715";
 }
 
 

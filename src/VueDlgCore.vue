@@ -13,10 +13,12 @@
             <template v-if="index < groupSettings[groupName].maxDisplayItem">
               <div class="dlg-item" :class="'dlg-item__' + modal.getTheme()">
 
-                <component
-                    :is="modal.getVueComponent()"
-                    v-bind="modal.getVueComponentProps()"
-                />
+                <component :is="groupSettings[groupName].wrapper">
+                  <component
+                      :is="modal.getVueComponent()"
+                      v-bind="modal.getVueComponentProps()"
+                  />
+                </component>
                 <!-- не вмешиваемся в компонент @close="remove(modal)" -->
 
               </div>
@@ -107,9 +109,9 @@ export default {
       let removePriority = 0;
 
       for(let i = 0; i < this.modalList.length; i++) {
-        const modalInfoObj = this.modalList[i];
+        const modal = this.modalList[i];
         //
-        const group = modalInfoObj.setting.group;
+        const group = modal.getGroup();
         const groupSettings = this.groupSettings[group];
 
         if(!groupSettings.overlay) {
@@ -121,13 +123,13 @@ export default {
 
         //
         if(removeModalInfoObj === null){
-          removeModalInfoObj = modalInfoObj;
+          removeModalInfoObj = modal;
           removePriority = groupSettings.overlayClosePriority;
           continue;
         }
 
         if(removePriority > groupSettings.overlayClosePriority){
-          removeModalInfoObj = modalInfoObj;
+          removeModalInfoObj = modal;
           removePriority = groupSettings.overlayClosePriority;
           continue;
         }
