@@ -1,6 +1,6 @@
 
 //
-import VueDlgWrapperModal from '../../Template/Wrapper/VueDlgWrapperModal';
+// import VueDlgWrapperNotify from './VueDlgWrapperNotify';
 
 export default (groupSettingsObj) => {
   // group modal
@@ -9,6 +9,6 @@ export default (groupSettingsObj) => {
     overlay: false,
     overlayClickClose : false,
     overlayClosePriority : 999,
-    wrapper: VueDlgWrapperModal,
+    // wrapper: VueDlgWrapperNotify,
   });
 };
