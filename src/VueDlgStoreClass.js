@@ -10,7 +10,10 @@ const VueDlgStoreClass = function VueDlgStoreClass({groupSettings}) {
 
   this.add = (VueComponent, VueComponentProps, setting) => {
     // TODO: fix
-    const modalCallbackFix = {open: ()=> {}, close: ()=>{}};
+    const modalCallbackFix = {
+      open:  (modalObj) => { this.addModal(modalObj);    },
+      close: (modalObj) => { this.removeModal(modalObj); },
+    };
     const modalObj = new VueDlgModalClass(VueComponent, VueComponentProps, setting, modalCallbackFix);
     this.addModal(modalObj);
     return modalObj;
