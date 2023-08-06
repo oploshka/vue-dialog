@@ -2,22 +2,50 @@
 
 import './style.scss';
 
+import * as WindowModal from './Window/Modal';
+import * as WindowNotify from './Window/Notify';
+import * as WindowSidebarRight from './Window/SidebarRight';
+
+const windowList = [
+  WindowModal,
+  WindowNotify,
+  WindowSidebarRight,
+];
+
+
+
 //
 import VueDlgGroupSettingsClass from 'vue-dlg/src/VueDlgGroupSettingsClass';
 import VueDlgStoreClass from 'vue-dlg/src/VueDlgStoreClass';
 
+// переменная для хранения настроек групп
 const groupSettingsObj = new VueDlgGroupSettingsClass();
 
+// Добавляем список групп
+for (let i = 0; i < windowList.length; i++) {
+  const modalSetting = windowList[i];
+  if(modalSetting.addGroup) {
+    modalSetting.addGroup(groupSettingsObj);
+  }
+}
 
-import groupSettingsPrepare from './prepareGroupSettings';
-groupSettingsPrepare(groupSettingsObj);
-
-
+// переменная store
 const dlgStoreObj = new VueDlgStoreClass({groupSettings: groupSettingsObj});
 
-import InitAction from './initAction';
+// переменная для объединения действий 
+const actionMerge = {};
 
-const action = { ...InitAction(dlgStoreObj), open: dlgStoreObj.add }; 
+// Добавляем список действий
+for (let i = 0; i < windowList.length; i++) {
+  const modalSetting = windowList[i];
+  if(modalSetting.addAction) {
+    modalSetting.addAction(actionMerge, dlgStoreObj);
+  }
+}
+
+// финальная переменная действий
+const action = { ...actionMerge, open: dlgStoreObj.add };
+
 // optional
 global.DIALOG = action;
 

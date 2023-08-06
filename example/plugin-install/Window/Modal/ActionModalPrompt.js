@@ -1,18 +1,11 @@
 
-//
-import DialogCardPrompt       from './Template/DialogCardPrompt';
+import TemplateDialogCardPrompt from './TemplateDialogCardPrompt';
 
-import initActionAlert    from './initActionAlert';
-import initActionConfirm  from './initActionConfirm';
-import initActionNotify   from './initActionNotify';
-
-export default (dlgStoreObj) => ({
-  // modal
-  alert:    initActionAlert(dlgStoreObj),
-  confirm:  initActionConfirm(dlgStoreObj),
-
-  prompt: ({ title = '', message= '', onSubmit= null }) => {
-    const modal = dlgStoreObj.add(DialogCardPrompt, {
+// action prompt
+export default (dlgStoreObj) => {
+  // 
+  return ({ title = '', message= '', onSubmit= null }) => {
+    const modal = dlgStoreObj.add(TemplateDialogCardPrompt, {
         title: title,
         message: message,
         theme: 'success',
@@ -37,6 +30,5 @@ export default (dlgStoreObj) => ({
       { group: 'modal', theme: 'prompt' }
     );
     return modal;
-  },
-  notify: initActionNotify(dlgStoreObj),
-});
+  };
+};
