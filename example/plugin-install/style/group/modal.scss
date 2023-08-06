@@ -1,0 +1,33 @@
+.dlg .dlg-container.dlg-container-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 400;
+
+  overflow: unset;
+  opacity: 1;
+
+  display: flex;
+  display: -ms-flexbox;
+  align-items: center;
+  -ms-flex-align: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+
+  //& > div:last-child {
+  //  margin-bottom: 0px;
+  //}
+
+  .dlg-item {
+    max-width: 740px;
+    width: 100%;
+    margin: 20px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    box-shadow: var(--modal-shadow);
+    position: relative;
+    overflow: unset;
+  }
+}

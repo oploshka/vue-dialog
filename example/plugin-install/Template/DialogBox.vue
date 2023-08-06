@@ -1,10 +1,9 @@
 <template>
-  <div class="dlg-template" :class="{ ['dlg-template-' + theme]: !!theme}">
-    <div class="dlg-header">
-      <a v-if="closeBtn" class="dlg-btn-close" @click="$emit('close', {action: 'CLOSE'})" aria-label="Fechar" ></a>
-      <div class="dlg-title" >{{title}}</div>
+  <div class="dialog-card" :class="{ ['dialog-card-' + theme]: !!theme}">
+    <div class="dialog-card-header">
+      <div class="dialog-card-title" >{{title}}</div>
     </div>
-    <div class="dlg-body">
+    <div class="dialog-card-body">
       <div class="content">
         <template v-if="messageType === 'HTML'">
           <div v-html="message"></div>
@@ -13,23 +12,23 @@
           <slot/>
         </template>
         <template v-else>
-          <div class="dlg-content-message">{{message}}</div>
+          <div class="dialog-card-content-message">{{message}}</div>
         </template>
       </div>
     </div>
-    <div class="dlg-footer">
-      <a v-if="okLabel"     class="dlg-btn success" @click="$emit('close', {action: 'OK'})">{{ okLabel }}</a>
-      <a v-if="cancelLabel" class="dlg-btn cancel"  @click="$emit('close', {action: 'CANCEL'})">{{ cancelLabel }}</a>
+    <div class="dialog-card-footer">
+      <a v-if="okLabel"     class="btn btn-success dialog-card-btn success" @click.prevent.stop="$emit('positive', {action: 'OK'})">{{ okLabel }}</a>
+      <a v-if="cancelLabel" class="btn btn-cansel dialog-card-btn cancel"  @click.prevent.stop="$emit('negative',  {action: 'CANCEL'})">{{ cancelLabel }}</a>
     </div>
   </div>
 </template>
 
 <script>
 
-import DialogTemplateMixin from "./DialogTemplateMixin";
+// import DialogTemplateMixin from './DialogTemplateMixin';
 
 export default {
-  mixins: [ DialogTemplateMixin ],
+  // mixins: [ DialogTemplateMixin ],
   props: {
     theme: {
       type: String,
@@ -64,7 +63,8 @@ export default {
 </script>
 
 <style scoped>
-.dlg-template {
+
+.dialog-card {
   display: flex;
   display: -ms-flexbox;
   -ms-flex-direction: column;
@@ -72,29 +72,20 @@ export default {
   width: 100%;
   color: #50596c;
 }
-.dlg-template .dlg-header {
+.dialog-card .dialog-card-header {
   color: #454d5d;
   padding: 16px 16px 16px 32px;
+  border-bottom: 1px solid #e9ecef;
 }
-.dlg-template .dlg-header .dlg-title {
+.dialog-card .dialog-card-header .dialog-card-title {
   color: #454d5d;
   font-size: 18px;
   font-weight: 500;
 }
-.dlg-template .dlg-header .dlg-btn-close {
-  cursor: pointer;
-  height: 20px;
-  line-height: 20px;
-  padding: 0;
-  width: 20px;
-  float: right;
-  color: #50596c;
-  text-decoration: none;
-}
-.dlg-template .dlg-header .dlg-btn-close::before {
-  content: "\2715";
-}
-.dlg-template .dlg-body {
+
+
+.dialog-card .dialog-card-body {
+  padding: 25px;
   overflow-y: auto;
   padding: 32px 16px 32px 32px;
   position: relative;
@@ -102,11 +93,15 @@ export default {
   font-size: 18px;
   font-weight: 500;
 }
-.dlg-template .dlg-footer {
+
+
+.dialog-card .dialog-card-footer {
   padding: 16px 16px 16px 32px;
   text-align: center;
 }
-.dlg-template .dlg-btn {
+
+/*
+.dialog-card .dialog-card-btn {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -133,25 +128,52 @@ export default {
   color: #fff;
   background-color: #f5ac1c;
 }
-.dlg-template .dlg-btn.disabled, .dlg-template .dlg-btn[disabled], .dlg-template .dlg-btn:disabled {
+.dialog-card .dialog-card-btn.disabled, .dialog-card .dialog-card-btn[disabled], .dialog-card .dialog-card-btn:disabled {
   cursor: default;
   opacity: 0.5;
   pointer-events: none;
 }
-.dlg-template {
+.dialog-card {
   max-height: 75vh;
   background: #fff;
   border-radius: 5px;
   overflow: hidden;
 }
-.dlg-template.dlg-template-success .dlg-header {
-  background: #5cd182;
+ */
+</style>
+
+<style scoped>
+/* Themes */
+.dialog-card.dialog-card-success {
+  border-color: #c3e6cb;
 }
-.dlg-template.dlg-template-warning .dlg-header {
-  background: #f5ac1c;
-}
-.dlg-template.dlg-template-error .dlg-header {
-  background: #ffb3b3;
+.dialog-card.dialog-card-success .dialog-card-header {
+  color: #155724;
+  background-color: #d4edda;
 }
 
+.dialog-card.dialog-card-primary {
+  border-color: #b8daff;
+}
+.dialog-card.dialog-card-primary .dialog-card-header {
+  color: #004085;
+  background-color: #cce5ff;
+}
+
+.dialog-card.dialog-card-warning {
+  border-color: #ffeeba;
+}
+.dialog-card.dialog-card-warning .dialog-card-header {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.dialog-card.dialog-card-error {
+  border-color: #f5c6cb;
+}
+.dialog-card.dialog-card-error .dialog-card-header {
+  color: #721c24;
+  background-color: #f8d7da;
+}
 </style>

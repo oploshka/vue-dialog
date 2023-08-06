@@ -1,5 +1,4 @@
-@import "./style/default";
-@import "./style/modal";
-@import "./style/modal-theme";
-@import "./style/notify";
-@import "./style/sidebar-right";
+@import './style/default';
+@import './style/group/sidebar-right';
+@import './style/group/notify';
+@import './style/group/modal';
