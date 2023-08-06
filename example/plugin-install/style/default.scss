@@ -16,17 +16,3 @@
     pointer-events: all;
   }
 }
-
-.dlg .dlg-item {
-  max-width: 740px;
-  width: 100%;
-  margin: 20px;
-  max-height: calc(100vh - 40px);
-  overflow-y: auto;
-  background-color: var(--color-gray-01);
-  box-shadow: var(--modal-shadow);
-  border: 1px solid #f8f8fa;
-  //&:last-of-type {
-  //  margin-bottom: 0;
-  //}
-}

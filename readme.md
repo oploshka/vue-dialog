@@ -10,13 +10,13 @@
 - Решение использует "тонкий клиент", 
   по этому вы можете работать с модальными окнами,
   до загрузки Vue App 
-  (Отображение произойдет после иницализации приложения).
+  (Отображение произойдет после инициализации приложения).
 - Возможность задать свои алисы для модальных окон 
   (пример: alertSuccess, alertWarning, alertError)
-- Мы не наслаиваем 10 модальных окон друг на друга, 
+- Мы не наслаиваем модальные окон друг на друга, 
   а предлагаем отображать друг за другом, 
   в том количестве которое приемлемо вам.
-- Не предлагаем вам использовать template для отображения модального окна
+- Не используем template для отображения модального окна. Показ модального окна через код
 - Не предлагаем использовать кучу параметров,
   для задания ширины и высоты модального окна
   их адаптивности и тп. Для этого есть стили.
@@ -44,7 +44,7 @@ npm install vue-dlg --save
 
 ```js
 //
-import {addGroupSetting} from "vue-dlg/src/DialogGroupSettings";
+import {addGroupSetting} from "vue-dlg/src/VueDlgGroupSettings";
 
 // задаем настройки для разных групп
 addGroupSetting('modal', {
@@ -67,32 +67,32 @@ addGroupSetting('notify', {
 
 ```js
 // Тонкий клиент
-import DialogThinClient from 'vue-dlg/src/DialogThinClient';
+import VueDlgThinClient from 'vue-dlg/src/VueDlgThinClient';
 // Темплейты модальных окон
 import DialogBox        from "vue-dlg/src/Template/DialogBox";
 import DialogNotify     from "vue-dlg/src/Template/DialogNotify";
 
 // настраиваем список модальных окон
 export default {
-  open: DialogThinClient, // function (VueComponent, VueComponentProps, setting)
+  open: VueDlgThinClient, // function (VueComponent, VueComponentProps, setting)
 
   alert: {
     success: (message) => {
-      return DialogThinClient(
+      return VueDlgThinClient(
               DialogBox,
               { title: "Успешно", message: message, okLabel: 'Ok', theme: "success", },
               { group: 'modal' }
       );
     },
     warning: (message) => {
-      return DialogThinClient(
+      return VueDlgThinClient(
               DialogBox,
               { title: "Предупреждение", message: message, okLabel: 'Ok', theme: "warning" },
               { group: 'modal' }
       );
     },
     error: (message) => {
-      return DialogThinClient(
+      return VueDlgThinClient(
               DialogBox,
               { title: "Ошибка", message: message, okLabel: 'Ok', theme: "error" },
               { group: 'modal' }
@@ -101,7 +101,7 @@ export default {
   },
 
   confirm(message, options = {}){
-    return DialogThinClient(
+    return VueDlgThinClient(
             DialogBox,
             {
               title: "Подтвердите действие",
@@ -114,7 +114,7 @@ export default {
   },
 
   notify: (title, message) => {
-    return DialogThinClient(
+    return VueDlgThinClient(
             DialogNotify,
             { title: title, message: message },
             { group: 'notify' }
@@ -355,7 +355,7 @@ export default {
 (от универсальных, до заточенных под конкретный компонент).
 По этой примчине мы не будем приводить пример.
 
-## Options DialogThinClient.add
+## Options VueDlgThinClient.add
 
 | Name              | Type               | Required | Default value   | Info                                  |
 | ----------------- | ------------------ | -------- | --------------- | ------------------------------------- |

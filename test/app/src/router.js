@@ -5,7 +5,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('./page/work-example'),
+    component: () => import('./page/Example'),
   },
 
 ];

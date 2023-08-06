@@ -7,10 +7,10 @@
 
 <script>
 
-import DialogTemplateMixin from './DialogTemplateMixin';
+// import DialogTemplateMixin from './DialogTemplateMixin';
 
 export default {
-  mixins: [ DialogTemplateMixin ],
+  // mixins: [ DialogTemplateMixin ],
   props: {
     theme: {
       type: String,
@@ -28,7 +28,7 @@ export default {
   mounted() {
     // TODO: update timer logic
     setTimeout(() => {
-      this.close({action: 'CLOSE'});
+      this.$emit('close', {action: 'CLOSE'});
     }, 3000);
   }
 };

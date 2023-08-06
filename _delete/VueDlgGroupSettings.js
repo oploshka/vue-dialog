@@ -3,7 +3,10 @@ const defaultSetting = () => {
   return {
     // настройки для группы
     maxDisplayItem: 1,
-    overlay      : true,
+    // overlay
+    overlay               : true,
+    overlayClickClose     : true,
+    overlayClosePriority  : 100,
     // дефолтные настройки для окон в группу
     animation: {},
     // closeByClick  : false,  - стоит управлять из компонента Template
