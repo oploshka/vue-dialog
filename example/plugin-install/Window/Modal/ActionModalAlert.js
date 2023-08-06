@@ -1,10 +1,11 @@
 
 //
-import DialogBox              from './Template/DialogBox';
+import TemplateDialogBox              from './TemplateDialogBox';
 
+// action prompt
 export default (dlgStoreObj) => ({
   success: (message, props = {}) => {
-    const modalObj = dlgStoreObj.add(DialogBox, {
+    const modalObj = dlgStoreObj.add(TemplateDialogBox, {
         title: 'Успешно',
         message: message,
         okLabel: 'Ok',
@@ -19,7 +20,7 @@ export default (dlgStoreObj) => ({
     );
   },
   warning: (message, props = {}) => {
-    const modalObj = dlgStoreObj.add(DialogBox, {
+    const modalObj = dlgStoreObj.add(TemplateDialogBox, {
         title: 'Предупреждение',
         message: message,
         okLabel: 'Ok',
@@ -35,7 +36,7 @@ export default (dlgStoreObj) => ({
     return modalObj;
   },
   error: (message, props = {}) => {
-    const modalObj = dlgStoreObj.add(DialogBox, {
+    const modalObj = dlgStoreObj.add(TemplateDialogBox, {
         title: 'Ошибка',
         message: message,
         okLabel: 'Ok',

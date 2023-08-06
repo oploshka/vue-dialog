@@ -1,8 +1,8 @@
 
 //
-import DialogNotify from './Template/DialogNotify';
+import DialogNotify from './TemplateDialogNotify';
 
-export default (dlgStoreObj) => ({
+const NotifyAction = (dlgStoreObj) => ({
   success: (title, message) => {
     const modalObj = dlgStoreObj.add(DialogNotify, {
         title: title,
@@ -37,3 +37,7 @@ export default (dlgStoreObj) => ({
     return modalObj;
   },
 });
+
+export default (action, dlgStoreObj) => {
+  action.notify = NotifyAction(dlgStoreObj);
+};

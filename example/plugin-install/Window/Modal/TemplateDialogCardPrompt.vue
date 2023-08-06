@@ -1,23 +1,23 @@
 <template>
-  <DialogBox
+  <TemplateDialogBox
       v-bind="$props"
       messageType="SLOT"
       @positive="actionPositive"
   >
     <!-- Это сделано для примера и рекомендуется заменить на стилизованный компонент -->
     <input v-model="value">
-  </DialogBox>
+  </TemplateDialogBox>
 </template>
 
 <script>
 
-import DialogBox from './DialogBox';
+import TemplateDialogBox from './TemplateDialogBox';
 
 export default {
-  name: 'DialogCardPrompt',
-  mixins: [ DialogBox ],
+  name: 'TemplateDialogCardPrompt',
+  mixins: [ TemplateDialogBox ],
   components: {
-    DialogBox
+    TemplateDialogBox,
   },
   data() {
     return {

@@ -1,10 +1,11 @@
 
 //
-import DialogBox              from './Template/DialogBox';
+import TemplateDialogBox from './TemplateDialogBox';
 
+// action confirm
 export default (dlgStoreObj) => ({
   add: (title, message, props = {}) => {
-    const modalObj = dlgStoreObj.add(DialogBox, {
+    const modalObj = dlgStoreObj.add(TemplateDialogBox, {
         title: title,
         message: message,
         theme: 'primary',
@@ -25,7 +26,7 @@ export default (dlgStoreObj) => ({
   },
 
   delete: (title, message, props = {}) => {
-    const modalObj = dlgStoreObj.add(DialogBox, {
+    const modalObj = dlgStoreObj.add(TemplateDialogBox, {
         title: title,
         message: message || '',
         theme: 'error',
