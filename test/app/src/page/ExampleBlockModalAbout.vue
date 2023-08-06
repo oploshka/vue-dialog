@@ -5,11 +5,11 @@
       <div class="page-about__content-bar ">
         <div class="item">
           <div class="hint">ПО:</div>
-          <div class="descript">v1.02</div>
+          <div class="descript">{{version}}</div>
         </div>
         <div class="item">
           <div class="hint">Компания:</div>
-          <div class="descript">Моя компания</div>
+          <div class="descript">{{companyName}}</div>
         </div>
         <div class="item">
           <div class="hint">Вебсайт:</div>
@@ -24,6 +24,10 @@
 
 export default {
   name: 'ExampleBlockModalAbout',
+  props: {
+    version:      { type: String, default: 'v1.02' },
+    companyName:  { type: String, default: 'Моя компания' },
+  },
 };
 
 </script>

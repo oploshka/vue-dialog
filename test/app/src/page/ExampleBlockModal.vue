@@ -13,12 +13,17 @@
 
 import ExampleBlockModalAbout from '@/page/ExampleBlockModalAbout';
 
+import {reactive} from "vue";
+
 export default {
   name: 'ExampleBlockModal',
   methods: {
     showModal() {
-      const props = {};
+      // если нужна реактивность пропсов
+      const props = reactive({ version: '213' });
+      // const props = { version: '213' }; // Так реактивности props не будет, но аккуратнее с объектами
       const modal = this.$dialog.open(ExampleBlockModalAbout, props, {group: 'modal'});
+      console.log(modal, props);
     },
   },
 };

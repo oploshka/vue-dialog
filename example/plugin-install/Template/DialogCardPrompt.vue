@@ -27,7 +27,6 @@ export default {
   methods: {
     actionPositive(event) {
       console.log('[DialogCardPrompt] actionPositive', event);
-      // debugger;
       this.$emit('submit', {value: this.value});
     }
   }
