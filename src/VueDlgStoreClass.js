@@ -20,7 +20,7 @@ const VueDlgStoreClass = function VueDlgStoreClass({groupSettings}) {
   this.addModal = (modal) => {
 
     // запрет повторного добавления
-    if(modalListStore.find(item => item.id === modal.id)) {
+    if(modalListStore.find(item => item.getId() === modal.getId())) {
       return;
     }
 
@@ -34,6 +34,46 @@ const VueDlgStoreClass = function VueDlgStoreClass({groupSettings}) {
     }
   };
 
+
+
+  this.overlayModalRemove = () => {
+    if (modalListStore.length === 0) {
+      return;
+    }
+
+    let removeModalInfoObj = null;
+    let removePriority = 0;
+
+    for(let i = 0; i < modalListStore.length; i++) {
+      const modal = modalListStore[i];
+      //
+      const group = modal.getGroup();
+      const groupSettings = GroupSettings.get(group);
+
+      if(!groupSettings.overlay) {
+        continue;
+      }
+      if(!groupSettings.overlayClickClose) {
+        continue;
+      }
+
+      //
+      if(removeModalInfoObj === null){
+        removeModalInfoObj = modal;
+        removePriority = groupSettings.overlayClosePriority;
+        continue;
+      }
+
+      if(removePriority > groupSettings.overlayClosePriority){
+        removeModalInfoObj = modal;
+        removePriority = groupSettings.overlayClosePriority;
+        continue;
+      }
+
+    }
+    removeModalInfoObj && this.removeModal(removeModalInfoObj);
+  },
+  
 
 
   /**

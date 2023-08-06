@@ -43,60 +43,18 @@ export default {
   methods: {
     //
     closeModal(modal) {
-      // return this.remove(modal);
+      this.$dialogStore.removeModal(modal);
     },
-
-    //
     overlayClick() {
-      // if (this.modalList.length === 0) {
-      //   return;
-      // }
-      //
-      // let removeModalInfoObj = null;
-      // let removePriority = 0;
-      //
-      // for(let i = 0; i < this.modalList.length; i++) {
-      //   const modal = this.modalList[i];
-      //   //
-      //   const group = modal.getGroup();
-      //   const groupSettings = this.groupSettings[group];
-      //
-      //   if(!groupSettings.overlay) {
-      //     continue;
-      //   }
-      //   if(!groupSettings.overlayClickClose) {
-      //     continue;
-      //   }
-      //
-      //   //
-      //   if(removeModalInfoObj === null){
-      //     removeModalInfoObj = modal;
-      //     removePriority = groupSettings.overlayClosePriority;
-      //     continue;
-      //   }
-      //
-      //   if(removePriority > groupSettings.overlayClosePriority){
-      //     removeModalInfoObj = modal;
-      //     removePriority = groupSettings.overlayClosePriority;
-      //     continue;
-      //   }
-      //
-      // }
-      // removeModalInfoObj && this.remove(removeModalInfoObj);
+      this.$dialogStore.overlayModalRemove();
     },
-
-    // onClose(modalInfoObj, closeData) {
-    //   this.remove(modalInfoObj);
-    // },
-    keyUp(e) {
-      /*
-      if ('Escape' === e.key) {
-        if (this.items.length > 0) {
-          this.onClose(this.items[this.items.length - 1]);
-        }
-      }
-       */
-    }
+    // keyUp(e) {
+    //   if ('Escape' === e.key) {
+    //     if (this.items.length > 0) {
+    //       this.onClose(this.items[this.items.length - 1]);
+    //     }
+    //   }
+    // }
   },
   computed: {
     modalObj() {
