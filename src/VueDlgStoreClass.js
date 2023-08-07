@@ -31,10 +31,37 @@ const VueDlgStoreClass = function VueDlgStoreClass({groupSettings}) {
   };
 
   this.removeModal = (modal) => {
+    // Защита от попыток множественного закрытия одного и того же окна
+    if(!modal.getRemoveStatus()) {
+      modal.setRemoveStatus(true);
+    }
+    
     let i = modalListStore.indexOf(modal);
     if (i >= 0) {
+
+      // событие перед закрытием (закрытие может не отработать если изменить closeIsCanceled)
+      const callbackBeforeClose = modal.getCallbackBeforeClose();
+      if(callbackBeforeClose) {
+        modal.callbackBeforeClose();
+      }
+
+      // TODO: Продумать
+      const closeIsCanceled = modal.getCloseIsCancelled();
+      if(!!closeIsCanceled) {
+        modal.setRemoveStatus(false);
+        return;
+      }
+      
       modalListStore.splice(i, 1);
+
+      // произошло событие закрытия.
+      const callbackClose = modal.getCallbackClose();
+      if(callbackClose) {
+        modal.callbackClose()
+      }
     }
+
+    modal.setRemoveStatus(false);
   };
 
 

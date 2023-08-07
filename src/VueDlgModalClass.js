@@ -18,6 +18,12 @@ const VueDlgModalClass = function (VueComponent, VueComponentProps = {}, setting
     VueComponentProps : VueComponentProps,
     setting           : Object.assign({theme: 'default', group: 'modal'},  setting),
 
+    //
+    closeIsCancelled: null,
+    removeStatus: false,
+    callbackBeforeClose: false,
+    callbackClose: false,
+    
     // cache
     isOpen:       false,
     isFirstOpen:  true,
@@ -40,6 +46,20 @@ const VueDlgModalClass = function (VueComponent, VueComponentProps = {}, setting
   //
   this.getVueComponent      = () => { return data.VueComponent; };
   this.getVueComponentProps = () => { return data.VueComponentProps; };
+  
+  // Дополнительные настройки
+  this.getCloseIsCancelled = () => { return data.closeIsCancelled; };
+  this.setCloseIsCancelled = (val) => { data.closeIsCancelled = val; };
+
+  this.getRemoveStatus = () => { return data.removeStatus; };
+  this.setRemoveStatus = (val) => { data.removeStatus = val; };
+  
+  this.getCallbackBeforeClose = () => { return data.callbackBeforeClose; };
+  this.setCallbackBeforeClose = (val) => { data.callbackBeforeClose = val; };
+  
+  this.getCallbackClose = () => { return data.callbackClose; };
+  this.setCallbackClose = (val) => { data.callbackClose = val; };
+  
 
   // system
   this.toObject = () =>  {
