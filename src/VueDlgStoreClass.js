@@ -41,9 +41,7 @@ const VueDlgStoreClass = function VueDlgStoreClass({groupSettings}) {
 
       // событие перед закрытием (закрытие может не отработать если изменить closeIsCanceled)
       const callbackBeforeClose = modal.getCallbackBeforeClose();
-      if(callbackBeforeClose) {
-        modal.callbackBeforeClose();
-      }
+      callbackBeforeClose && callbackBeforeClose();
 
       // TODO: Продумать
       const closeIsCanceled = modal.getCloseIsCancelled();
@@ -56,9 +54,7 @@ const VueDlgStoreClass = function VueDlgStoreClass({groupSettings}) {
 
       // произошло событие закрытия.
       const callbackClose = modal.getCallbackClose();
-      if(callbackClose) {
-        modal.callbackClose()
-      }
+      callbackClose && callbackClose();
     }
 
     modal.setRemoveStatus(false);
