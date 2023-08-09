@@ -27,6 +27,10 @@ const VueDlgModalClass = function (VueComponent, VueComponentProps = {}, setting
     // cache
     isOpen:       false,
     isFirstOpen:  true,
+    
+    data: {
+      wrapper: null,
+    }
   };
 
 
@@ -59,8 +63,12 @@ const VueDlgModalClass = function (VueComponent, VueComponentProps = {}, setting
   
   this.getCallbackClose = () => { return data.callbackClose; };
   this.setCallbackClose = (val) => { data.callbackClose = val; };
-  
 
+  // хранение доп настроек
+  this.setData = (key, value) => { data.data[key] = value; };
+  this.getData = (key) => { return data.data[key]; };
+  
+  
   // system
   this.toObject = () =>  {
     return Object.assign({}, data);
