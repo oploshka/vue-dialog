@@ -16,6 +16,7 @@
             <!--</template>-->
               <div class="dlg-item" :class="'dlg-item__' + modal.getTheme()">
                 <component
+                    :modal="modal"
                     :is="modalObj[groupName].settings.wrapper"
                     @close="closeModal(modal)"
                 >
