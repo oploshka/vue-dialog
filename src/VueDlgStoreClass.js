@@ -30,34 +30,42 @@ const VueDlgStoreClass = function VueDlgStoreClass({groupSettings}) {
     modalListStore.push(modal);
   };
 
-  this.removeModal = (modal) => {
-    // Защита от попыток множественного закрытия одного и того же окна
-    if(!modal.getRemoveStatus()) {
-      modal.setRemoveStatus(true);
-    }
-    
-    let i = modalListStore.indexOf(modal);
-    if (i >= 0) {
-
-      // событие перед закрытием (закрытие может не отработать если изменить closeIsCanceled)
-      const callbackBeforeClose = modal.getCallbackBeforeClose();
-      callbackBeforeClose && callbackBeforeClose();
-
-      // TODO: Продумать
-      const closeIsCanceled = modal.getCloseIsCancelled();
-      if(!!closeIsCanceled) {
-        modal.setRemoveStatus(false);
-        return;
+  this.removeModal = async (modal) => {
+    try {
+      // Защита от попыток множественного закрытия одного и того же окна
+      if (!modal.getRemoveStatus()) {
+        modal.setRemoveStatus(true);
       }
-      
-      modalListStore.splice(i, 1);
+  
+      let i = modalListStore.indexOf(modal);
+      if (i >= 0) {
+  
+        // событие перед закрытием (закрытие может не отработать если изменить closeIsCanceled)
+        const callbackBeforeClose = modal.getCallbackBeforeClose();
+        if (callbackBeforeClose) {
+          await callbackBeforeClose();
+        }
+  
+        // TODO: Продумать
+        const closeIsCanceled = modal.getCloseIsCancelled();
+        if (!!closeIsCanceled) {
+          modal.setRemoveStatus(false);
+          return;
+        }
+  
+        modalListStore.splice(i, 1);
+  
+        // произошло событие закрытия.
+        const callbackClose = modal.getCallbackClose();
+        callbackClose && callbackClose();
+      }
 
-      // произошло событие закрытия.
-      const callbackClose = modal.getCallbackClose();
-      callbackClose && callbackClose();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      modal.setRemoveStatus(false);
     }
 
-    modal.setRemoveStatus(false);
   };
 
 
