@@ -1,18 +1,11 @@
 
+// Получаем пользовательский список настроек для модального окна
+import WindowSettings from './Window/window-config';
+// Глобальные стили для текущего конфига
+import './style/global-style.scss';
 
-import './style.scss';
-
-import * as WindowModal from './Window/Modal';
-import * as WindowNotify from './Window/Notify';
-import * as WindowSidebarRight from './Window/SidebarRight';
-
-const windowList = [
-  WindowModal,
-  WindowNotify,
-  WindowSidebarRight,
-];
-
-
+//
+import GroupSettings from  './Group/GroupSettings';
 
 //
 import VueDlgGroupSettingsClass from 'vue-dlg/src/VueDlgGroupSettingsClass';
@@ -22,40 +15,34 @@ import VueDlgStoreClass from 'vue-dlg/src/VueDlgStoreClass';
 const groupSettingsObj = new VueDlgGroupSettingsClass();
 
 // Добавляем список групп
-for (let i = 0; i < windowList.length; i++) {
-  const modalSetting = windowList[i];
-  if(modalSetting.addGroup) {
-    modalSetting.addGroup(groupSettingsObj);
-  }
+for (const groupCode in GroupSettings) {
+  groupSettingsObj.add(groupCode, GroupSettings[groupCode]);
 }
 
 // переменная store
 const dlgStoreObj = new VueDlgStoreClass({groupSettings: groupSettingsObj});
 
-// переменная для объединения действий 
+// переменная для объединения действий
 const actionMerge = {};
 
-// Добавляем список действий
-for (let i = 0; i < windowList.length; i++) {
-  const modalSetting = windowList[i];
-  if(modalSetting.addAction) {
-    modalSetting.addAction(actionMerge, dlgStoreObj);
-  }
+for (const windowCode in WindowSettings) {
+  actionMerge[windowCode] = WindowSettings[windowCode](dlgStoreObj);
 }
 
-// финальная переменная действий
-const action = { ...actionMerge, open: dlgStoreObj.add };
+// Добавляем список действий
+actionMerge.open = dlgStoreObj.add;
+
+
+// plugin install
+import vueDlgPlugin from 'vue-dlg/src/plugin';
 
 // optional
-global.DIALOG = action;
-
-
-import vueDlgPlugin from 'vue-dlg/src/plugin';
+global.DIALOG = actionMerge;
 
 export default {
   install: (app) => {
     vueDlgPlugin.install(app, {
-      action: action,
+      action: actionMerge,
       store: dlgStoreObj,
     });
   },

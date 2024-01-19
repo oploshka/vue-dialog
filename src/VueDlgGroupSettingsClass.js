@@ -1,6 +1,6 @@
 
 //
-import VueDlgWrapperDefault from "vue-dlg/src/VueDlgWrapperDefault";
+import VueDlgWrapperDefault from 'vue-dlg/src/VueDlgWrapperDefault';
 
 const defaultSetting = () => {
   return {

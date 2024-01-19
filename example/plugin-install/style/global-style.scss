@@ -1,0 +1,60 @@
+// Здесь задаются стили по умолчанию
+
+.dlg .dlg-overlay {
+  background: var(--dlg-overlay, rgba(0, 0, 0, 0.5));
+  cursor: default;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 390;
+}
+
+.dlg .dlg-container {
+  pointer-events: none;
+  & > div {
+    pointer-events: all;
+  }
+}
+
+/*
+.dlg .dlg-overlay {
+  background: var(--dlg-overlay, rgba(0, 0, 0, 0.5));
+  cursor: default;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 390;
+}
+
+.dlg .dlg-container {
+  pointer-events: none;
+  & > div {
+    pointer-events: all;
+  }
+}
+
+.dlg .dlg-item {
+  max-width: 740px;
+  width: 100%;
+  margin: 20px;
+  max-height: calc(100vh - 40px);
+  border-radius: 8px;
+  overflow-y: auto;
+  background-color: var(--color-gray-01);
+  box-shadow: var(--modal-shadow);
+  border: 1px solid #f8f8fa;
+  //&:last-of-type {
+  //  margin-bottom: 0;
+  //}
+}
+ */
+
+
+@import "./group/styleAction";
+@import "./group/styleNotify";

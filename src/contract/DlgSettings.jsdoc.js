@@ -1,5 +1,4 @@
 
-
 /**
  * DlgSettings - Это настройки передаваемые в диалоговое
  *
@@ -12,4 +11,3 @@
  * @property {Function} closeIsCancelled callback - для отмены закрытия окна
  * 
  */
-

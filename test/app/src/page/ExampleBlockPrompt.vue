@@ -17,7 +17,7 @@ export default {
     // Confirmation
     showPrompt() {
       //
-      const modal = this.$dialog.prompt({
+      const modal = this.$dialog.prompt.text({
         message: 'Send your name',
         onSubmit: (event) => {
 

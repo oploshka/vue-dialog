@@ -1,53 +1,55 @@
-
 //
-import TemplateDialogBox              from './TemplateDialogBox';
+import {DLG_GROUP_ACTION} from '../../../Group/GroupEnum';
+//
+import VueDlgWindowActionAlert from './VueDlgWindowActionAlert';
 
 // action prompt
 export default (dlgStoreObj) => ({
-  success: (message, props = {}) => {
-    const modalObj = dlgStoreObj.add(TemplateDialogBox, {
+  success: ({ message }) => {
+    const modalObj = dlgStoreObj.add(VueDlgWindowActionAlert, {
         title: 'Успешно',
         message: message,
         okLabel: 'Ok',
         theme: 'success',
         onPositive(event) {
-          props.onPositive && props.onPositive(event);
+          // props.onPositive && props.onPositive(event);
           modalObj.close();
         },
         onClose(event) { modalObj.close(); }
       },
-      { group: 'modal' }
+      { group: DLG_GROUP_ACTION }
     );
+    return modalObj;
   },
-  warning: (message, props = {}) => {
-    const modalObj = dlgStoreObj.add(TemplateDialogBox, {
+  warning: ({ message }) => {
+    const modalObj = dlgStoreObj.add(VueDlgWindowActionAlert, {
         title: 'Предупреждение',
         message: message,
         okLabel: 'Ok',
         theme: 'warning',
         onPositive(event) {
-          props.onPositive && props.onPositive(event);
+          // props.onPositive && props.onPositive(event);
           modalObj.close();
         },
         onClose(event) { modalObj.close(); }
       },
-      { group: 'modal' }
+      { group: DLG_GROUP_ACTION }
     );
     return modalObj;
   },
-  error: (message, props = {}) => {
-    const modalObj = dlgStoreObj.add(TemplateDialogBox, {
+  error: ({ message }) => {
+    const modalObj = dlgStoreObj.add(VueDlgWindowActionAlert, {
         title: 'Ошибка',
         message: message,
         okLabel: 'Ok',
         theme: 'error',
         onPositive(event) {
-          props.onPositive && props.onPositive(event);
+          // props.onPositive && props.onPositive(event);
           modalObj.close();
         },
         onClose(event) { modalObj.close(); }
       },
-      { group: 'modal' }
+      { group: DLG_GROUP_ACTION }
     );
     return modalObj;
   },
