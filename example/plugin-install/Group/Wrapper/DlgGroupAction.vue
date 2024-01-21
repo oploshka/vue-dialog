@@ -18,7 +18,7 @@ export default {
   name: 'DlgTestTransition',
   // inheritAttrs: false,
   props: {
-    modalList: { type: Array, default: [], },
+    modalList: { type: Array, default: () => [], },
   },
 };
 </script>

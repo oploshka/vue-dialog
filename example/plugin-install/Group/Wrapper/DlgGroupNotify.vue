@@ -21,7 +21,7 @@ export default {
     DlgGroupNotifyItem,
   },
   props: {
-    modalList: { type: Array, default: [], },
+    modalList: { type: Array, default: () => [], },
   },
 };
 </script>

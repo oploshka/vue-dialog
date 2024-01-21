@@ -1,6 +1,6 @@
 
 //
-import DlgWrapperDefault from 'vue-dlg/src/default/DlgWrapperDefault';
+import DlgGroupDefault from 'vue-dlg/src/default/DlgGroupDefault';
 
 const defaultSetting = () => {
   return {
@@ -14,7 +14,7 @@ const defaultSetting = () => {
     animation: {},
     // closeByClick  : false,  - стоит управлять из компонента Template
     closeByEscape : false,
-    wrapper: DlgWrapperDefault
+    wrapper: DlgGroupDefault
   };
 };
 
