@@ -2,8 +2,8 @@
 import DLG_GROUP from './GroupEnum';
 
 //
-import VueDlgWrapperAction from './Wrapper/VueDlgWrapperAction';
-import VueDlgWrapperNotify from './Wrapper/VueDlgWrapperNotify';
+import DlgGroupAction from './Wrapper/DlgGroupAction';
+import DlgGroupNotify from './Wrapper/DlgGroupNotify';
 
 //
 export default {
@@ -12,14 +12,14 @@ export default {
     overlay: true,
     overlayClickClose : true,
     overlayClosePriority : 10,
-    wrapper: VueDlgWrapperAction,
+    wrapper: DlgGroupAction,
   },
   [DLG_GROUP.NOTIFY]: {
     maxDisplayItem: 3,
     overlay: false,
     overlayClickClose : false,
     overlayClosePriority : 10,
-    wrapper: VueDlgWrapperNotify,
+    wrapper: DlgGroupNotify,
   }
 };
 

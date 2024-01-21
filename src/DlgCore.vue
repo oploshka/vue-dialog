@@ -5,8 +5,13 @@
 
     <div class="dlg-container">
       <template v-for="(groupList, groupName) in modalObj" :key="groupName">
-        <DlgTestTransition :class="'dlg-group dlg-group__' + groupName" :modalList="modalObj[groupName].list"/>
+        <component
+            :is="modalObj[groupName].settings.wrapper"
+            :class="'dlg-group dlg-group__' + groupName" 
+            :modalList="modalObj[groupName].list"
+        />
       </template>
+      <!--<DlgTestTransition :class="'dlg-group dlg-group__' + groupName" :modalList="modalObj[groupName].list"/>-->
     </div>
 
   </div>

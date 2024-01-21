@@ -25,43 +25,28 @@ export default {
 
 <style scoped lang="scss">
 
-/* fade */
+// // fade
 //.fade-enter-active, .fade-leave-active  { transition: opacity 3s; }
 //.fade-enter-from, .fade-leave-to  { opacity: 0; }
 //.fade-enter-to, .fade-leave-from  { opacity: 1; }
 
 
+// // bounce
+//.bounce-enter-active { animation: bounce-in 0.6s; }
+//.bounce-leave-active { animation: bounce-in 0.6s reverse; }
+//@keyframes bounce-in {
+//  0%    { transform: scale(0);    }
+//  50%   { transform: scale(1.25); }
+//  100%  { transform: scale(1);    }
+//}
 
-/* bounce */
-.bounce-enter-active {
-  animation: bounce-in 0.6s;
-}
-.bounce-leave-active {
-  animation: bounce-in 0.6s reverse;
-}
-@keyframes bounce-in {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.25);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-
-
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.5s ease;
-}
-.list-enter-from,
-.list-leave-to {
+// Animation
+.list-enter-active, .list-leave-active { transition: all 0.5s ease; }
+.list-enter-from, .list-leave-to {
   opacity: 0;
   transform: translateX(30px);
 }
+
 
 //.dlg-group--action {
 //  width: 100%;

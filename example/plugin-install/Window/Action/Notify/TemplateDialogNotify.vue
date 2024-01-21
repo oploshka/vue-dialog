@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="dlg-template dlg-template-simple-message dtsm"
-    :class="{ ['dlg-template-' + theme]: !!theme }"
-    v-show="isShow"
-  >
+  <div class="dlg-template dlg-template-simple-message dtsm" :class="{ ['dlg-template-' + theme]: !!theme }">
     <div class="dtsm-title">
       <div class="dtsm-title__info notify-title">
         <!--<img-->
@@ -28,9 +24,7 @@
       </div>
     </div>
     <div class="dtsm-message">{{ message }}</div>
-    <a v-if="link" class="dtsm-link pointer" @click="redirectTo">{{
-      link.title
-    }}</a>
+    <a v-if="link" class="dtsm-link pointer" @click="redirectTo">{{link.title}}</a>
   </div>
 </template>
 
@@ -55,13 +49,6 @@ export default {
       default: null,
     },
   },
-
-  data() {
-    return {
-      isShow: true,
-    };
-  },
-  
   methods: {
     redirectTo() {
       // this.$router.push({ name: pageName.ACTIVE_REGISTER, params: {id} });
@@ -70,12 +57,9 @@ export default {
   },
   mounted() {
     // TODO: update timer logic
-    // setTimeout(() => {
-    //   this.isShow = false;
-      setTimeout(() => {
-        this.$emit('close', { action: 'CLOSE' });
-      }, 2500);
-    // }, 10000);
+    setTimeout(() => {
+      this.$emit('close', { action: 'CLOSE' });
+    }, 3000);
   },
 };
 </script>
