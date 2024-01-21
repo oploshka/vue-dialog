@@ -49,7 +49,7 @@ export default {
   }
 
   bottom: 0;
-  z-index: 2000; // для перекрытия бутстраповского header fixed
+  z-index: 2100; // для перекрытия бутстраповского header fixed
 
   // for dlg-item
   display: flex;

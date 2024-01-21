@@ -69,7 +69,7 @@ export default {
   }
   
   bottom: 0;
-  z-index: 400;
+  z-index: 2200;
   
 
   overflow: unset;

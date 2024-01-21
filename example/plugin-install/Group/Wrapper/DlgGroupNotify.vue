@@ -43,7 +43,7 @@ export default {
   right: 10px;
   bottom: 10px;
   width: 320px;
-  z-index: 420;
+  z-index: 3000;
   filter: drop-shadow(0px -18px 45px rgba(0, 0, 0, 0.03)) drop-shadow(0px 4px 8px rgba(28, 41, 61, 0.1));
 
   // fix empty group
