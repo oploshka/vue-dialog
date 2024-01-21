@@ -1,19 +1,19 @@
 
-import {DLG_GROUP_ACTION, DLG_GROUP_NOTIFY} from './GroupEnum';
+import DLG_GROUP from './GroupEnum';
 
 //
 import VueDlgWrapperAction from './Wrapper/VueDlgWrapperAction';
 
 //
 export default {
-  [DLG_GROUP_ACTION]: {
+  [DLG_GROUP.ACTION]: {
     maxDisplayItem: 10,
     overlay: true,
     overlayClickClose : true,
     overlayClosePriority : 10,
     wrapper: VueDlgWrapperAction,
   },
-  [DLG_GROUP_NOTIFY]: {
+  [DLG_GROUP.NOTIFY]: {
     maxDisplayItem: 10,
     overlay: true,
     overlayClickClose : true,

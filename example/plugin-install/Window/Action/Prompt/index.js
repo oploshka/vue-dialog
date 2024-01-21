@@ -1,5 +1,5 @@
 //
-import {DLG_GROUP_ACTION} from '../../../Group/GroupEnum';
+import DLG_GROUP from '../../../Group/GroupEnum';
 //
 import DialogBoxPromptDelete from './VueDlgWindowActionPromptText';
 
@@ -17,7 +17,7 @@ export default (dlgStoreObj) => ({
           onSubmit && onSubmit(val);
         }
       },
-      { group: DLG_GROUP_ACTION }
+      { group: DLG_GROUP.ACTION }
     );
     return modalObj;
   },

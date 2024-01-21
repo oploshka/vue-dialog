@@ -1,5 +1,5 @@
 //
-import {DLG_GROUP_ACTION} from '../../../Group/GroupEnum';
+import DLG_GROUP from '../../../Group/GroupEnum';
 //
 import VueDlgWindowActionAlert from './VueDlgWindowActionAlert';
 
@@ -17,7 +17,7 @@ export default (dlgStoreObj) => ({
         },
         onClose(event) { modalObj.close(); }
       },
-      { group: DLG_GROUP_ACTION }
+      { group: DLG_GROUP.ACTION }
     );
     return modalObj;
   },
@@ -33,7 +33,7 @@ export default (dlgStoreObj) => ({
         },
         onClose(event) { modalObj.close(); }
       },
-      { group: DLG_GROUP_ACTION }
+      { group: DLG_GROUP.ACTION }
     );
     return modalObj;
   },
@@ -49,7 +49,7 @@ export default (dlgStoreObj) => ({
         },
         onClose(event) { modalObj.close(); }
       },
-      { group: DLG_GROUP_ACTION }
+      { group: DLG_GROUP.ACTION }
     );
     return modalObj;
   },

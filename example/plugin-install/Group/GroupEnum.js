@@ -1,3 +1,7 @@
 
-export const DLG_GROUP_ACTION = 'action';
-export const DLG_GROUP_NOTIFY = 'notify';
+const DLG_GROUP = {
+  ACTION: 'action',
+  NOTIFY: 'notify',
+}
+
+export default DLG_GROUP;
