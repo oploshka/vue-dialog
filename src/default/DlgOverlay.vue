@@ -1,5 +1,5 @@
 <template>
-  <Transition appear name="fade">
+  <Transition appear name="fade2">
     <div v-if="overlayDisplay" class="dlg-overlay-gray" @click="$emit('overlayClick', {})"></div>
   </Transition>
 </template>
@@ -17,14 +17,19 @@ export default {
 
 <style>
 
-/* transition name="fade" */
-.fade-enter-active, .fade-leave-active  { transition: opacity 0.6s; }
+/*
+transition
+    name="fade" Имя классов будет начинаться с fade-
+    in-out: Сначала появляется новый элемент и только после этого исчезает старый.
+    out-in: Сначала исчезает старый элемент и только после этого появляется новый. 
+ */
+.fade2-enter-active, .fade2-leave-active  { transition: opacity 0.6s; }
 /* показ анимации на создание */
-.fade-enter-from  { opacity: 0; }
-.fade-enter-to    { opacity: 1; }
+.fade2-enter-from  { opacity: 0; }
+.fade2-enter-to    { opacity: 1; }
 /* показ анимации на закрытие */
-.fade-leave-from  { opacity: 1; }
-.fade-leave-to    { opacity: 0; }
+.fade2-leave-from  { opacity: 1; }
+.fade2-leave-to    { opacity: 0; }
 
 .dlg-overlay-gray {
   background: rgba(0, 0, 0, 0.5);

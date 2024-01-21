@@ -3,28 +3,11 @@
 
     <DlgOverlay class="dlg-overlay" :overlayDisplay="overlayDisplay" @overlayClick="overlayClick" />
 
-    <template v-for="(groupList, groupName) in modalObj" :key="groupName">
-      <div class="dlg-container" :class="'dlg-container-' + groupName">
-        <template v-for="(modal, index) in modalObj[groupName].list" :key="modal.getId()">
-
-          <div class="dlg-item" :class="'dlg-item__' + modal.getTheme()">
-            <component
-                :modal="modal"
-                :is="modalObj[groupName].settings.wrapper"
-                @close="closeModal(modal)"
-            >
-              <transition name="component-fade" mode="out-in">
-                <component
-                    :is="modal.getVueComponent()"
-                    v-bind="modal.getVueComponentProps()"
-                />
-              </transition>
-            </component>
-          </div>
-
-        </template>
-      </div>
-    </template>
+    <div class="dlg-container">
+      <template v-for="(groupList, groupName) in modalObj" :key="groupName">
+        <DlgTestTransition :class="'dlg-group dlg-group__' + groupName" :modalList="modalObj[groupName].list"/>
+      </template>
+    </div>
 
   </div>
 </template>
@@ -32,11 +15,13 @@
 <script>
 
 import DlgOverlay from './default/DlgOverlay';
+import DlgTestTransition from 'vue-dlg/src/default/DlgTestTransition';
 
 export default {
   name: 'DlgCore',
   components: {
     DlgOverlay,
+    DlgTestTransition,
   },
   methods: {
     //
@@ -62,6 +47,9 @@ export default {
     overlayDisplay() {
       let overlay = false;
       for (let key in this.modalObj) {
+        if (!this.modalObj[key].list?.length) {
+          continue;
+        }
         if (this.modalObj[key].settings.overlay) {
           overlay = true;
           break;
@@ -72,7 +60,7 @@ export default {
     groupClass() {
       let classStr = '';
       for(const key in this.modalObj) {
-        classStr += 'dlg-core-group--' + key + ' ';
+        classStr += 'dlg--open-group--' + key + ' ';
       }
       return classStr;
     },
@@ -88,15 +76,5 @@ export default {
 </script>
 
 <style scoped>
-
-.component-fade-enter-active,
-.component-fade-leave-active {
-  transition: opacity 0.6s ease;
-}
-
-.component-fade-enter-from,
-.component-fade-leave-to {
-  opacity: 0;
-}
 
 </style>

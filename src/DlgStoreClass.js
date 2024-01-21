@@ -4,6 +4,9 @@ import DlgModalClass from './DlgModalClass';
 
 
 const DlgStoreClass = function DlgStoreClass({groupSettings}) {
+  
+  const openedGroup = {};
+  
   const GroupSettings = groupSettings;
   const modalListStore = reactive([]);
 
@@ -25,6 +28,11 @@ const DlgStoreClass = function DlgStoreClass({groupSettings}) {
     // запрет повторного добавления
     if(modalListStore.find(item => item.getId() === modal.getId())) {
       return;
+    }
+
+    const group = modal.getGroup();
+    if(!openedGroup[group]) {
+      openedGroup[group] = true;
     }
 
     modalListStore.push(modal);
@@ -123,6 +131,14 @@ const DlgStoreClass = function DlgStoreClass({groupSettings}) {
   this.computedModalObj = computed(() => {
     const modalObj = {};
 
+    // Это необходимо для сохранения анимации удаления последнего элемента
+    for (const group in openedGroup) {
+      modalObj[group] = {
+        settings: GroupSettings.get(group),
+        list: [],
+      };
+    }
+    
     // строим полное дерево
     for (let i = 0; i < modalListStore.length; i++) {
       const modal = modalListStore[i];
