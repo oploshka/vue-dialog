@@ -9,7 +9,7 @@
 // import DialogTemplateMixin from './DialogTemplateMixin';
 
 export default {
-  name: 'VueDlgWrapperModal',
+  name: 'DlgGroupModalItem',
   // mixins: [ DialogTemplateMixin ],
   props: {
     // тип модального окна
@@ -32,21 +32,16 @@ export default {
   overflow: hidden;
   overflow-y: auto;
   width: 100%;
-  //background-color: var(--color-gray-01);
-  background-color: var(--color-white);
-  //background: #fff;
-  //background-clip: padding-box;
-  //border: 1px solid rgba(0,0,0,.2);
+  background: #fff;
   border-radius: 0.3rem;
+  border: 1px solid #f8f8fa;
 
   position: relative;
   min-height: 48px;
 
   padding: 25px;
-  // height: -webkit-fill-available;
 
-  box-shadow: var(--modal-shadow);
-  border: 1px solid #f8f8fa;
+  box-shadow: 4px 4px 8px #cccccc;
 
 }
 

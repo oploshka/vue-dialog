@@ -1,24 +1,24 @@
 <template>
-  <TransitionGroup tag="div" class="dlg-group--action" appear mode="out-in" name="bounce">
+  <TransitionGroup tag="div" class="dlg-group--modal" appear mode="out-in" name="bounce">
     <template v-for="modal in modalList" :key="modal.getId()">
-      <DlgGroupNotifyItem :theme="modal.getTheme()">
+      <DlgGroupModalItem :theme="modal.getTheme()">
         <component
             :is="modal.getVueComponent()"
             v-bind="modal.getVueComponentProps()"
         />
-      </DlgGroupNotifyItem>
+      </DlgGroupModalItem>
     </template>
   </TransitionGroup>
 </template>
 
 <script>
 
-import DlgGroupNotifyItem from './DlgGroupNotifyItem';
+import DlgGroupModalItem from './DlgGroupModalItem';
 
 export default {
-  name: 'DlgGroupNotify',
+  name: 'DlgGroupModal',
   components: {
-    DlgGroupNotifyItem,
+    DlgGroupModalItem,
   },
   props: {
     modalList: { type: Array, default: () => [], },
@@ -38,24 +38,26 @@ export default {
 }
 
 // Group style
-.dlg-group--action {
+.dlg-group--modal {
   position: fixed;
-  right: 10px;
-  bottom: 10px;
-  width: 320px;
-  z-index: 420;
-  filter: drop-shadow(0px -18px 45px rgba(0, 0, 0, 0.03)) drop-shadow(0px 4px 8px rgba(28, 41, 61, 0.1));
-
-  // fix empty group
+  top: 0;
+  left: 0;
+  //right: 0;
+  width: 100%;
   &:empty{
     width: 0;
   }
+
+  bottom: 0;
+  z-index: 2000; // для перекрытия бутстраповского header fixed
 
   // for dlg-item
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   gap: 16px;
-  
+  //
+  justify-content: center;
+  padding: 25px;
 }
 </style>

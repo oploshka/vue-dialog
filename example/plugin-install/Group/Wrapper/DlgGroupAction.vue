@@ -15,7 +15,7 @@
 <script>
 
 export default {
-  name: 'DlgTestTransition',
+  name: 'DlgGroupAction',
   // inheritAttrs: false,
   props: {
     modalList: { type: Array, default: () => [], },

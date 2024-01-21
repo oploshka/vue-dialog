@@ -1,12 +1,31 @@
 
-// style
-import './styleModal.scss';
-// import './styleModalTheme.scss';
+//
+import DLG_GROUP from '../../Group/GroupEnum';
 
-// group
-import GroupModal from './GroupModal';
-export const addGroup = GroupModal;
-
-// action
-import ActionModal from './ActionModal';
-export const addAction = ActionModal;
+// action prompt
+export default (dlgStoreObj) => ({
+  open: (VueComponent, VueComponentProps) => {
+    const modalObj = dlgStoreObj.add(VueComponent, VueComponentProps, {
+      group: DLG_GROUP.MODAL,
+      theme: '',
+      close: false,
+    });
+    return modalObj;
+  },
+  openMaxView: (VueComponent, VueComponentProps) => {
+    const modalObj = dlgStoreObj.add(VueComponent, VueComponentProps, {
+      group: DLG_GROUP.MODAL,
+      theme: 'fullscreen',
+      close: false,
+    });
+    return modalObj;
+  },
+  openSmallView: (VueComponent, VueComponentProps) => {
+    const modalObj = dlgStoreObj.add(VueComponent, VueComponentProps, {
+      group: DLG_GROUP.MODAL,
+      theme: 'small',
+      close: false,
+    });
+    return modalObj;
+  },
+});

@@ -9,7 +9,7 @@
 // import DialogTemplateMixin from './DialogTemplateMixin';
 
 export default {
-  name: 'VueDlgWrapperAction',
+  name: 'DlgGroupActionItem',
   // mixins: [ DialogTemplateMixin ],
   props: {
     // тип модального окна

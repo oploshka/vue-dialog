@@ -1,65 +1,30 @@
 
-// //
-// import * as WindowNotify           from './Action/Notify';
-// import * as WindowAction           from './Action';
-// //
-// // import * as WindowCamera           from './Camera';
-// // import * as WindowComment          from './Comment';
-// // import * as WindowFullscreen       from './Fullscreen';
-// // // import * as WindowModal            from './Modal';
-// // import * as ModalWindowV1          from './ModalWindowV1';
-// // import * as WindowSidebarLeft      from './SidebarLeft';
-// // import * as WindowSidebarRight     from './SidebarRight';
-// // import * as WindowSidebarRightInfo from './SidebarRightInfo';
 //
-// const windowList = [
-//   // base
-//   WindowNotify,
-//   WindowAction,
-//   // // custom
-//   // WindowCamera,
-//   // WindowComment,
-//   // WindowFullscreen,
-//   // // WindowModal,
-//   // ModalWindowV1,
-//   // WindowSidebarLeft,
-//   // WindowSidebarRight,
-//   // WindowSidebarRightInfo,
-// ];
+import WindowActionAlert   from './Action/Alert';
+import WindowActionConfirm from './Action/Confirm';
+import WindowActionPrompt  from './Action/Prompt';
+//
+import WindowActionNotify  from './Action/Notify';
+//
+import WindowModal  from './Modal';
 
-
+// import * as WindowModal            from './Modal'; // add theme fullscreen
+// import * as WindowSidebarLeft      from './SidebarLeft';
+// import * as WindowSidebarRight     from './SidebarRight';
+//
+// import * as WindowCamera           from './Camera';
+// import * as WindowComment          from './Comment';
 
 //
-import ActionAlert   from './Action/Alert';
-import ActionConfirm from './Action/Confirm';
-import ActionPrompt  from './Action/Prompt';
-import ActionNotify  from './Action/Notify';
-
-
 const actionObj = {
   //
-  alert:    ActionAlert,
-  confirm:  ActionConfirm,
-  prompt:   ActionPrompt,
+  alert:    WindowActionAlert,
+  confirm:  WindowActionConfirm,
+  prompt:   WindowActionPrompt,
   //
-  notify:   ActionNotify,
+  notify:   WindowActionNotify,
   //
+  Modal: WindowModal, 
 };
 
 export default actionObj;
-
-/*
-
-// old version
-
-import * as WindowModal from './Window/Modal';
-import * as WindowNotify from './Window/Notify';
-import * as WindowSidebarRight from './Window/SidebarRight';
-
-const windowList = [
-  WindowModal,
-  WindowNotify,
-  WindowSidebarRight,
-];
-
- */
