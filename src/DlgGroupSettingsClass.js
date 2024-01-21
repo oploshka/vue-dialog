@@ -1,6 +1,6 @@
 
 //
-import VueDlgWrapperDefault from 'vue-dlg/src/VueDlgWrapperDefault';
+import DlgWrapperDefault from 'vue-dlg/src/default/DlgWrapperDefault';
 
 const defaultSetting = () => {
   return {
@@ -14,12 +14,12 @@ const defaultSetting = () => {
     animation: {},
     // closeByClick  : false,  - стоит управлять из компонента Template
     closeByEscape : false,
-    wrapper: VueDlgWrapperDefault
+    wrapper: DlgWrapperDefault
   };
 };
 
 
-const VueDlgGroupSettingsClass = function VueDlgGroupSettingsClass() {
+const DlgGroupSettingsClass = function DlgGroupSettingsClass() {
   // TODO: нужна ли реактивность на группы?
   const groupSetting = {};
   
@@ -34,4 +34,4 @@ const VueDlgGroupSettingsClass = function VueDlgGroupSettingsClass() {
   
 };
 
-export default VueDlgGroupSettingsClass;
+export default DlgGroupSettingsClass;

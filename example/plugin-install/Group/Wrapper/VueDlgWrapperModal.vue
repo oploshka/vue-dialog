@@ -9,7 +9,7 @@
 // import DialogTemplateMixin from './DialogTemplateMixin';
 
 export default {
-  name: 'VueDlgWrapperDefault',
+  name: 'VueDlgWrapperModal',
   // mixins: [ DialogTemplateMixin ],
   props: {
     // тип модального окна

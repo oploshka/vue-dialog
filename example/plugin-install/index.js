@@ -8,8 +8,8 @@ import './style/global-style.scss';
 import GroupSettings from  './Group/GroupSettings';
 
 //
-import VueDlgGroupSettingsClass from 'vue-dlg/src/VueDlgGroupSettingsClass';
-import VueDlgStoreClass from 'vue-dlg/src/VueDlgStoreClass';
+import VueDlgGroupSettingsClass from 'vue-dlg/src/DlgGroupSettingsClass';
+import VueDlgStoreClass from 'vue-dlg/src/DlgStoreClass';
 
 // переменная для хранения настроек групп
 const groupSettingsObj = new VueDlgGroupSettingsClass();

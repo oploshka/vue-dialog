@@ -1,9 +1,9 @@
 
 import { reactive, computed } from 'vue';
-import VueDlgModalClass from './VueDlgModalClass';
+import DlgModalClass from './DlgModalClass';
 
 
-const VueDlgStoreClass = function VueDlgStoreClass({groupSettings}) {
+const DlgStoreClass = function DlgStoreClass({groupSettings}) {
   const GroupSettings = groupSettings;
   const modalListStore = reactive([]);
 
@@ -14,7 +14,7 @@ const VueDlgStoreClass = function VueDlgStoreClass({groupSettings}) {
       open:  (modalObj) => { this.addModal(modalObj);    },
       close: (modalObj) => { this.removeModal(modalObj); },
     };
-    const modalObj = new VueDlgModalClass(VueComponent, VueComponentProps, setting, modalCallbackFix);
+    const modalObj = new DlgModalClass(VueComponent, VueComponentProps, setting, modalCallbackFix);
     this.addModal(modalObj);
     return modalObj;
   };
@@ -151,4 +151,4 @@ const VueDlgStoreClass = function VueDlgStoreClass({groupSettings}) {
   });
 };
 
-export default VueDlgStoreClass;
+export default DlgStoreClass;

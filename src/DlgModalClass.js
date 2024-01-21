@@ -9,7 +9,7 @@ const key = () => `${Date.now()}-${Math.random()}`;
  * @param VueComponentProps
  * @param setting
  */
-const VueDlgModalClass = function (VueComponent, VueComponentProps = {}, setting = {}, callback = {}) {
+const DlgModalClass = function (VueComponent, VueComponentProps = {}, setting = {}, callback = {}) {
 
   const data = {
     id: key(),
@@ -77,4 +77,4 @@ const VueDlgModalClass = function (VueComponent, VueComponentProps = {}, setting
 };
 
 
-export default VueDlgModalClass;
+export default DlgModalClass;

@@ -34,7 +34,7 @@
 import DlgOverlay from './default/DlgOverlay';
 
 export default {
-  name: 'VueDlgCore',
+  name: 'DlgCore',
   components: {
     DlgOverlay,
   },
