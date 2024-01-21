@@ -7,6 +7,11 @@ const routes = [
     name: 'home',
     component: () => import('./page/Example'),
   },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('./page/Test/Test'),
+  },
 
 ];
 
