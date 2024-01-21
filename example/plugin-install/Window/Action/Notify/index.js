@@ -1,5 +1,5 @@
 //
-import {DLG_GROUP} from '../../../Group/GroupEnum';
+import DLG_GROUP from '../../../Group/GroupEnum';
 //
 import TemplateDialogNotify from './TemplateDialogNotify';
 

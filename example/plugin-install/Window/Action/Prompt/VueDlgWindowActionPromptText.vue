@@ -3,7 +3,7 @@
     <template v-slot:default>
       <div class="dialog-card-content-message">
         <label>{{message}}</label>
-        <input type="text" name="prompt-text" class="prompt-text" v-model="value"/>
+        <input type="text" name="prompt-text" class="prompt-text" v-model="value" a/>
       </div>
     </template>
     <template v-slot:footer>

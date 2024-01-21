@@ -5,17 +5,25 @@ import DialogBoxPromptDelete from './VueDlgWindowActionPromptText';
 
 // action prompt
 export default (dlgStoreObj) => ({
-  text: ({ message, okLabel = 'Ok', cancelLabel = 'Отмена', onSubmit = null }) => {
+  text: ({ message, onPositive = null, onNegative = null }) => {
     const modalObj = dlgStoreObj.add(
       DialogBoxPromptDelete,
       {
-        title: 'Введите значение',
+        title: 'Подтвердите действие',
         message: message,
-        okLabel: okLabel,
-        cancelLabel: cancelLabel,
-        onSubmit: (val) => {
-          onSubmit && onSubmit(val);
-        }
+        okLabel: 'Да',
+        cancelLabel: 'Отмена',
+        theme: 'success',
+        
+        onPositive() {
+          onPositive && onPositive();
+          modalObj.close();
+        },
+        onNegative() {
+          onNegative && onNegative();
+          modalObj.close();
+        },
+        onClose() { modalObj.close(); }
       },
       { group: DLG_GROUP.ACTION }
     );

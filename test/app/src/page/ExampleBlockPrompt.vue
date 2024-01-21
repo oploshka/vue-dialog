@@ -3,7 +3,7 @@
     <h2>Prompt</h2>
     <p>Prompt example</p>
     <ul class="icon-list">
-      <li><a href="#" @click.stop="showPrompt">Show prompt</a></li>
+      <li><a href="#" @click.stop="showPrompt">Show prompt text</a></li>
     </ul>
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
     showPrompt() {
       //
       const modal = this.$dialog.prompt.text({
-        message: 'Send your name',
+        message: 'Как к Вам обратиться?',
         onSubmit: (event) => {
 
           if(!event.value) {
