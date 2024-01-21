@@ -1,7 +1,7 @@
 //
 import DLG_GROUP from '../../../Group/GroupEnum';
 //
-import DialogBoxPromptDelete from './VueDlgWindowActionPromptText';
+import DialogBoxPromptDelete from './DlgWindowActionPromptText';
 
 // action prompt
 export default (dlgStoreObj) => ({

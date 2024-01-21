@@ -1,9 +1,9 @@
 <script>
 
-import VueDlgWindowActionTemplate from './VueDlgWindowActionTemplate';
+import DlgWindowActionTemplate from './DlgWindowActionTemplate';
 
 export default {
-  name: 'VueDlgWindowActionMixin',
+  name: 'DlgWindowActionMixin',
   props: {
     theme:          { type: String,   default: ''         },
     closeBtn:       { type: Boolean,  default: true       },
@@ -12,7 +12,7 @@ export default {
     cancelLabel:    { type: String,   default: ''         },
   },
   components: {
-    VueDlgWindowActionTemplate,
+    DlgWindowActionTemplate,
   },
   computed: {
     actionTemplateBind() {

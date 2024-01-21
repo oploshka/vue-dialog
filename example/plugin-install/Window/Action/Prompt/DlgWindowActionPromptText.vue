@@ -1,5 +1,5 @@
 <template>
-  <VueDlgWindowActionTemplate v-bind="actionTemplateBind">
+  <DlgWindowActionTemplate v-bind="actionTemplateBind">
     <template v-slot:default>
       <div class="dialog-card-content-message">
         <label>{{message}}</label>
@@ -10,16 +10,16 @@
       <a v-if="okLabel"     class="btn btn-success dialog-card-btn success" @click.prevent.stop="submit">{{ okLabel }}</a>
       <a v-if="cancelLabel" class="btn btn-cansel dialog-card-btn cancel"  @click.prevent.stop="cansel">{{ cancelLabel }}</a>
     </template>
-  </VueDlgWindowActionTemplate>
+  </DlgWindowActionTemplate>
 </template>
 
 <script>
 
-import VueDlgWindowActionMixin from '../_base/VueDlgWindowActionMixin';
+import DlgWindowActionMixin from '../_base/DlgWindowActionMixin';
 
 export default {
-  name: 'VueDlgWindowActionPromptText',
-  mixins: [ VueDlgWindowActionMixin ],
+  name: 'DlgWindowActionPromptText',
+  mixins: [ DlgWindowActionMixin ],
   props: {
     message:        { type: String,   required: true      },
   },

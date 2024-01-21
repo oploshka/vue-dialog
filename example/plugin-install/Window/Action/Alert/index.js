@@ -1,12 +1,12 @@
 //
 import DLG_GROUP from '../../../Group/GroupEnum';
 //
-import VueDlgWindowActionAlert from './VueDlgWindowActionAlert';
+import DlgWindowActionAlert from './DlgWindowActionAlert';
 
 // action prompt
 export default (dlgStoreObj) => ({
   success: ({ message }) => {
-    const modalObj = dlgStoreObj.add(VueDlgWindowActionAlert, {
+    const modalObj = dlgStoreObj.add(DlgWindowActionAlert, {
         title: 'Успешно',
         message: message,
         okLabel: 'Ok',
@@ -22,7 +22,7 @@ export default (dlgStoreObj) => ({
     return modalObj;
   },
   warning: ({ message }) => {
-    const modalObj = dlgStoreObj.add(VueDlgWindowActionAlert, {
+    const modalObj = dlgStoreObj.add(DlgWindowActionAlert, {
         title: 'Предупреждение',
         message: message,
         okLabel: 'Ok',
@@ -38,7 +38,7 @@ export default (dlgStoreObj) => ({
     return modalObj;
   },
   error: ({ message }) => {
-    const modalObj = dlgStoreObj.add(VueDlgWindowActionAlert, {
+    const modalObj = dlgStoreObj.add(DlgWindowActionAlert, {
         title: 'Ошибка',
         message: message,
         okLabel: 'Ok',

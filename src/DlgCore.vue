@@ -11,7 +11,6 @@
             :modalList="modalObj[groupName].list"
         />
       </template>
-      <!--<DlgTestTransition :class="'dlg-group dlg-group__' + groupName" :modalList="modalObj[groupName].list"/>-->
     </div>
 
   </div>
@@ -20,13 +19,11 @@
 <script>
 
 import DlgOverlay from './default/DlgOverlay';
-import DlgTestTransition from 'vue-dlg/src/default/DlgTestTransition';
 
 export default {
   name: 'DlgCore',
   components: {
     DlgOverlay,
-    DlgTestTransition,
   },
   methods: {
     //

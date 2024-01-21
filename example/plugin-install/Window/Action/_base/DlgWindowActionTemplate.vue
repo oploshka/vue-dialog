@@ -20,7 +20,7 @@
 <script>
 
 export default {
-  name: 'VueDlgWindowActionTemplate',
+  name: 'DlgWindowActionTemplate',
   props: {
     theme:          { type: String,   default: ''         },
     closeBtn:       { type: Boolean,  default: true       },

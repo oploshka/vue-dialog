@@ -1,13 +1,13 @@
 //
 import DLG_GROUP from '../../../Group/GroupEnum';
 //
-import VueDlgWindowActionConfirm from './VueDlgWindowActionConfirm';
+import DlgWindowActionConfirm from './DlgWindowActionConfirm';
 
 // action confirm
 export default (dlgStoreObj) => ({
   add({ message, onPositive = null, onNegative = null }) {
     const modalObj = dlgStoreObj.add(
-      VueDlgWindowActionConfirm,
+      DlgWindowActionConfirm,
       {
         title: 'Подтвердите добавление',
         message: message,
@@ -31,7 +31,7 @@ export default (dlgStoreObj) => ({
 
   delete({ message, onPositive = null, onNegative = null }) {
     const modalObj = dlgStoreObj.add(
-      VueDlgWindowActionConfirm,
+      DlgWindowActionConfirm,
       {
         title: 'Подтвердите удаление',
         message: message,
