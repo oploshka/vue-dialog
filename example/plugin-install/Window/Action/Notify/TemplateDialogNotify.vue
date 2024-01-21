@@ -2,6 +2,7 @@
   <div
     class="dlg-template dlg-template-simple-message dtsm"
     :class="{ ['dlg-template-' + theme]: !!theme }"
+    v-show="isShow"
   >
     <div class="dtsm-title">
       <div class="dtsm-title__info notify-title">
@@ -55,6 +56,12 @@ export default {
     },
   },
 
+  data() {
+    return {
+      isShow: true,
+    };
+  },
+  
   methods: {
     redirectTo() {
       // this.$router.push({ name: pageName.ACTIVE_REGISTER, params: {id} });
@@ -63,9 +70,12 @@ export default {
   },
   mounted() {
     // TODO: update timer logic
-    setTimeout(() => {
-      this.$emit('close', { action: 'CLOSE' });
-    }, 3000);
+    // setTimeout(() => {
+    //   this.isShow = false;
+      setTimeout(() => {
+        this.$emit('close', { action: 'CLOSE' });
+      }, 2500);
+    // }, 10000);
   },
 };
 </script>
@@ -117,41 +127,43 @@ export default {
   }
 }
 .dlg-template-success {
-  background: #eefff4;
-  border-left-color: var(--color-state-available-text);
-
-  .notify-title__icon {
-    path {
-      fill: var(--color-state-available-text);
-    }
-  }
+  background: #c3e6cb;
+  border-left-color: #155724;
+  //.notify-title__icon {
+  //  path {
+  //    fill: var(--color-state-available-text);
+  //  }
+  //}
 }
 .dlg-template-warning {
-  background: #fff5ea;
-  border-left-color: var(--color-orange);
-  .notify-title__icon {
-    path {
-      fill: var(--color-orange);
-    }
-  }
-}
-.dlg-template-info {
-  background: #e1f6ff;
-  border-left-color: var(--color-primary-accent-dark);
-  .notify-title__icon {
-    path {
-      fill: var(--color-primary-accent-dark);
-    }
-  }
+  background: #ffeeba;
+  border-left-color: #856404;
+  //.notify-title__icon {
+  //  path {
+  //    fill: var(--color-orange);
+  //  }
+  //}
 }
 .dlg-template-error {
-  background: #fff3f3;
-  border-left-color: var(--color-attention);
+  background: #f8d7da;
+  border-left-color: #721c24;
 
-  .notify-title__icon {
-    path {
-      fill: var(--color-attention);
-    }
-  }
+  //.notify-title__icon {
+  //  path {
+  //    fill: var(--color-attention);
+  //  }
+  //}
 }
+
+
+.dlg-template-info {
+  background: #e1f6ff;
+  border-left-color: #e1f6ff;
+  //.notify-title__icon {
+  //  path {
+  //    fill: var(--color-primary-accent-dark);
+  //  }
+  //}
+}
+
 </style>

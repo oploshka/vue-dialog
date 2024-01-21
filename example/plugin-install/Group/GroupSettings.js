@@ -3,6 +3,7 @@ import DLG_GROUP from './GroupEnum';
 
 //
 import VueDlgWrapperAction from './Wrapper/VueDlgWrapperAction';
+import VueDlgWrapperNotify from './Wrapper/VueDlgWrapperNotify';
 
 //
 export default {
@@ -14,11 +15,11 @@ export default {
     wrapper: VueDlgWrapperAction,
   },
   [DLG_GROUP.NOTIFY]: {
-    maxDisplayItem: 10,
-    overlay: true,
-    overlayClickClose : true,
+    maxDisplayItem: 3,
+    overlay: false,
+    overlayClickClose : false,
     overlayClosePriority : 10,
-    wrapper: VueDlgWrapperAction,
+    wrapper: VueDlgWrapperNotify,
   }
 };
 

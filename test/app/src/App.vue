@@ -5,7 +5,7 @@
 
     <HeaderPart title="VUE DIALOG"/>
 
-    <div class="main-content container">
+    <div class="main-content container" style="padding-top: 80px;">
       <router-view />
     </div>
 

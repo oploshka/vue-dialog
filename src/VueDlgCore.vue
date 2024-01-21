@@ -1,34 +1,26 @@
 <template>
   <div class="dlg" :class="groupClass">
 
-    <transition appear name="fade">
-      <div v-if="overlayDisplay" class="dlg-overlay" @click="overlayClick()">
-        <!--<pre>{{modalObj}}</pre>-->
-      </div>
-    </transition>
+    <DlgOverlay class="dlg-overlay" :overlayDisplay="overlayDisplay" @overlayClick="overlayClick" />
 
     <template v-for="(groupList, groupName) in modalObj" :key="groupName">
       <div class="dlg-container" :class="'dlg-container-' + groupName">
         <template v-for="(modal, index) in modalObj[groupName].list" :key="modal.getId()">
 
-          <transition name="component-fade" mode="out-in">
-            <!--<template v-if="index < groupSettings[groupName].maxDisplayItem">-->
-            <!--</template>-->
-              <div class="dlg-item" :class="'dlg-item__' + modal.getTheme()">
+          <div class="dlg-item" :class="'dlg-item__' + modal.getTheme()">
+            <component
+                :modal="modal"
+                :is="modalObj[groupName].settings.wrapper"
+                @close="closeModal(modal)"
+            >
+              <transition name="component-fade" mode="out-in">
                 <component
-                    :modal="modal"
-                    :is="modalObj[groupName].settings.wrapper"
-                    @close="closeModal(modal)"
-                >
-                  <component
-                      :is="modal.getVueComponent()"
-                      v-bind="modal.getVueComponentProps()"
-                  />
-                </component>
-                <!-- не вмешиваемся в компонент @close="remove(modal)" -->
-              </div>
-            
-          </transition>
+                    :is="modal.getVueComponent()"
+                    v-bind="modal.getVueComponentProps()"
+                />
+              </transition>
+            </component>
+          </div>
 
         </template>
       </div>
@@ -39,8 +31,13 @@
 
 <script>
 
+import DlgOverlay from './default/DlgOverlay';
+
 export default {
   name: 'VueDlgCore',
+  components: {
+    DlgOverlay,
+  },
   methods: {
     //
     closeModal(modal) {
@@ -91,14 +88,6 @@ export default {
 </script>
 
 <style scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.6s;
-}
-
-.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */
-{
-  opacity: 0;
-}
 
 .component-fade-enter-active,
 .component-fade-leave-active {
