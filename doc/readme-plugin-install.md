@@ -5,7 +5,7 @@
 
 ```js
 //
-import {addGroupSetting} from "vue-dlg/src/VueDlgGroupSettings";
+import {addGroupSetting} from "vue-dlg/src/DlgGroupSettings";
 
 // задаем настройки для разных групп
 addGroupSetting('modal', {
@@ -28,7 +28,7 @@ addGroupSetting('notify', {
 
 ```js
 // Тонкий клиент
-import VueDlgThinClient from 'vue-dlg/src/VueDlgThinClient';
+import VueDlgThinClient from 'vue-dlg/src/DlgThinClient';
 // Темплейты модальных окон
 import DialogBox        from "vue-dlg/src/Template/DialogBox";
 import DialogNotify     from "vue-dlg/src/Template/DialogNotify";

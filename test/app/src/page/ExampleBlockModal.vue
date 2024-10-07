@@ -22,7 +22,7 @@ export default {
       // если нужна реактивность пропсов
       const props = reactive({ version: '213' });
       // const props = { version: '213' }; // Так реактивности props не будет, но аккуратнее с объектами
-      const modal = this.$dialog.open(ExampleBlockModalAbout, props, {group: 'modal'});
+      const modal = this.$dialog.Modal.open(ExampleBlockModalAbout, props);
       console.log(modal, props);
     },
   },

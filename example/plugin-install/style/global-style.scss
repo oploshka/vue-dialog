@@ -1,0 +1,8 @@
+// Здесь задаются стили по умолчанию
+
+.dlg .dlg-container .dlg-group {
+  pointer-events: none;
+  & > div {
+    pointer-events: all;
+  }
+}

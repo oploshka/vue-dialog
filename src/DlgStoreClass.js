@@ -1,9 +1,12 @@
 
 import { reactive, computed } from 'vue';
-import VueDlgModalClass from './VueDlgModalClass';
+import DlgModalClass from './DlgModalClass';
 
 
-const VueDlgStoreClass = function VueDlgStoreClass({groupSettings}) {
+const DlgStoreClass = function DlgStoreClass({groupSettings}) {
+  
+  const openedGroup = {};
+  
   const GroupSettings = groupSettings;
   const modalListStore = reactive([]);
 
@@ -14,7 +17,7 @@ const VueDlgStoreClass = function VueDlgStoreClass({groupSettings}) {
       open:  (modalObj) => { this.addModal(modalObj);    },
       close: (modalObj) => { this.removeModal(modalObj); },
     };
-    const modalObj = new VueDlgModalClass(VueComponent, VueComponentProps, setting, modalCallbackFix);
+    const modalObj = new DlgModalClass(VueComponent, VueComponentProps, setting, modalCallbackFix);
     this.addModal(modalObj);
     return modalObj;
   };
@@ -25,6 +28,11 @@ const VueDlgStoreClass = function VueDlgStoreClass({groupSettings}) {
     // запрет повторного добавления
     if(modalListStore.find(item => item.getId() === modal.getId())) {
       return;
+    }
+
+    const group = modal.getGroup();
+    if(!openedGroup[group]) {
+      openedGroup[group] = true;
     }
 
     modalListStore.push(modal);
@@ -123,6 +131,14 @@ const VueDlgStoreClass = function VueDlgStoreClass({groupSettings}) {
   this.computedModalObj = computed(() => {
     const modalObj = {};
 
+    // Это необходимо для сохранения анимации удаления последнего элемента
+    for (const group in openedGroup) {
+      modalObj[group] = {
+        settings: GroupSettings.get(group),
+        list: [],
+      };
+    }
+    
     // строим полное дерево
     for (let i = 0; i < modalListStore.length; i++) {
       const modal = modalListStore[i];
@@ -151,4 +167,4 @@ const VueDlgStoreClass = function VueDlgStoreClass({groupSettings}) {
   });
 };
 
-export default VueDlgStoreClass;
+export default DlgStoreClass;

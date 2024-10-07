@@ -18,27 +18,14 @@ export default {
   name: 'ExampleBlockAlert',
   methods: {
     showAlertSuccess() {
-      const modal = this.$dialog.alert.success('Запись добавлена', {
-        onPositive(event) { console.log('onPositive', event); },
-        onNegative(event) { console.log('onNegative', event); },
-      });
+      const modal = this.$dialog.alert.success({ message: 'Запись добавлена' });
       console.log(modal);
-      // Промиса больше нет!!!
-      // .then(res => {
-      //   console.log(res); // {}
-      // });
     },
     showAlertWarning() {
-      this.$dialog.alert.warning('Данный сервис не доступен, попробуйте через 5 минут', {
-        onPositive(event) { console.log('onPositive', event); },
-        // onNegative(event) { console.log('onNegative', event); },
-      });
+      this.$dialog.alert.warning({ message: 'Данный сервис не доступен, попробуйте через 5 минут'});
     },
     showAlertError() {
-      this.$dialog.alert.error('Ошибка сервера', {
-        onPositive(event) { console.log('onPositive', event); },
-        // onNegative(event) { console.log('onNegative', event); },
-      });
+      this.$dialog.alert.error({ message: 'Ошибка сервера' });
     },
     showAlertCountr3() {
       this.showAlertSuccess();

@@ -18,33 +18,25 @@ export default {
   methods: {
     // Confirmation
     showConfirmation() {
-      this.$dialog.confirm.add(
-          'Подтвердите действие',
-          '...',
-          {
-            onPositive(event) { console.log('onPositive', event); },
-            onNegative(event) { console.log('onNegative', event); },
-          }
-      );
+      this.$dialog.confirm.add({
+        message: 'Вы точно хотите это сделать?',
+        onPositive(event) { console.log('onPositive', event); },
+        onNegative(event) { console.log('onNegative', event); },
+      });
     },
-
     showConfirmAdd() {
-      const modal = this.$dialog.confirm.add(
-          'Подтвердите добавление',
-          '...',
-          {
-            onPositive(event) { console.log('onPositive', event); },
-            onNegative(event) { console.log('onNegative', event); },
-          });
+      const modal = this.$dialog.confirm.add({
+        message: 'Вы точно хотите это сделать?',
+        onPositive(event) { console.log('onPositive', event); },
+        onNegative(event) { console.log('onNegative', event); },
+      });
     },
     showConfirmDelete() {
-      const modal = this.$dialog.confirm.delete(
-          'Подтвердите удаление',
-          '...',
-          {
-            onPositive(event) { console.log('onPositive', event); },
-            onNegative(event) { console.log('onNegative', event); },
-          });
+      const modal = this.$dialog.confirm.delete({
+        message: 'Вы точно хотите это сделать?',
+        onPositive(event) { console.log('onPositive', event); },
+        onNegative(event) { console.log('onNegative', event); },
+      });
     },
     showConfirmCountr3() {
       this.showConfirmAdd();

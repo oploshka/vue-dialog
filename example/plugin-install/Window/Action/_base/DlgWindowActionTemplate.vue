@@ -5,59 +5,28 @@
     </div>
     <div class="dialog-card-body">
       <div class="content">
-        <template v-if="messageType === 'HTML'">
-          <div v-html="message"></div>
-        </template>
-        <template v-else-if="messageType === 'SLOT'">
-          <slot/>
-        </template>
-        <template v-else>
-          <div class="dialog-card-content-message">{{message}}</div>
-        </template>
+        <slot/>
       </div>
     </div>
     <div class="dialog-card-footer">
-      <a v-if="okLabel"     class="btn btn-success dialog-card-btn success" @click.prevent.stop="$emit('positive', {action: 'OK'})">{{ okLabel }}</a>
-      <a v-if="cancelLabel" class="btn btn-cansel dialog-card-btn cancel"  @click.prevent.stop="$emit('negative',  {action: 'CANCEL'})">{{ cancelLabel }}</a>
+      <slot name="footer">
+        <a v-if="okLabel"     class="btn btn-success dialog-card-btn success" @click.prevent.stop="$emit('positive', {action: 'OK'})">{{ okLabel }}</a>
+        <a v-if="cancelLabel" class="btn btn-cansel dialog-card-btn cancel"  @click.prevent.stop="$emit('negative',  {action: 'CANCEL'})">{{ cancelLabel }}</a>
+      </slot>
     </div>
   </div>
 </template>
 
 <script>
 
-// import DialogTemplateMixin from './DialogTemplateMixin';
-
 export default {
-  // mixins: [ DialogTemplateMixin ],
+  name: 'DlgWindowActionTemplate',
   props: {
-    theme: {
-      type: String,
-      default: ''
-    },
-    closeBtn: {
-      type: Boolean,
-      default: true
-    },
-    title: {
-      type: String,
-      required: true
-    },
-    messageType: {
-      type: String,
-      default: 'MESSAGE' // MESSAGE | HTML | SLOT
-    },
-    message: {
-      type: String,
-      required: true
-    },
-    okLabel: {
-      type: String,
-      default: ''
-    },
-    cancelLabel: {
-      type: String,
-      default: ''
-    },
+    theme:          { type: String,   default: ''         },
+    closeBtn:       { type: Boolean,  default: true       },
+    title:          { type: String,   required: true      },
+    okLabel:        { type: String,   default: ''         },
+    cancelLabel:    { type: String,   default: ''         },
   }
 };
 </script>
