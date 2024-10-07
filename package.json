@@ -1,11 +1,10 @@
 {
   "name": "vue-dlg",
-  "version": "2.0.0-alpha.4",
+  "version": "2.0.0-alpha.5",
   "description": "Vue Dialog",
   "author": "Andrey Tyurin <ectb@mail.ru>",
   "scripts": {
     "serve": "cd ./test/app && npm run serve --port 3000",
-
     "old-serve": "vue-cli-service serve --port 3000 srcDev/main.js",
     "old-serveBuild": "vue-cli-service serve --port 3000 srcDev/mainBuild.js",
     "old-build": "vue-cli-service build --target lib --name vue-dialog src/plugin.js && cp lib-build/vue-dialog.umd.min.js lib/vue-dialog.js",
@@ -16,11 +15,6 @@
   "files": [
     "src"
   ],
-  "devDependencies": {
-    "eslint": "^6.7.2",
-    "eslint-plugin-oploshka": "^1.0.7",
-    "eslint-plugin-vue": "^8.4.1"
-  },
   "browserslist": [
     "last 2 chrome versions"
   ],
@@ -40,5 +34,9 @@
     "v-dialog",
     "v-dialogs"
   ],
-  "repository": "git@github.com:oploshka/vue-dialog.git"
+  "repository": "git@github.com:oploshka/vue-dialog.git",
+  "devDependencies": {
+    "eslint": "^9.12.0",
+    "eslint-plugin-vue": "^9.28.0"
+  }
 }
