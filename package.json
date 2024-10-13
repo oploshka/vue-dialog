@@ -1,17 +1,20 @@
 {
   "name": "vue-dlg",
-  "version": "2.0.0-alpha.5",
+  "version": "2.0.0-alpha.6",
+  "private": false,
+  "type": "module",
   "description": "Vue Dialog",
   "author": "Andrey Tyurin <ectb@mail.ru>",
   "repository": "git@github.com:oploshka/vue-dialog.git",
   "homepage": "https://oploshka.github.io/vue-dialog/",
   "scripts": {
-    "serve": "cd ./test/app && npm run serve --port 3000",
-    "old-serve": "vue-cli-service serve --port 3000 srcDev/main.js",
-    "old-serveBuild": "vue-cli-service serve --port 3000 srcDev/mainBuild.js",
-    "old-build": "vue-cli-service build --target lib --name vue-dialog src/plugin.js && cp lib-build/vue-dialog.umd.min.js lib/vue-dialog.js",
-    "old-buildReprot": "vue-cli-service build --report --target lib --name vue-dialog src/plugin.js",
-    "old-lint": "vue-cli-service lint"
+    "dev": "vite",
+    "build": "vite build",
+    "build2": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+
+    "test-app-serve": "vite --config ./config/vite/vite.test-app.config.ts",
+    "test-app-build": "vite --config ./config/vite/vite.test-app.config.ts build"
   },
   "main": "./src/plugin.js",
   "files": [
@@ -32,11 +35,19 @@
     "v-dialog",
     "v-dialogs"
   ],
-  "devDependencies": {
-    "vue": "^3.5.11",
+  "dependencies": {
+    "vue": "^3.5.10",
     "vue-router": "^4.4.5",
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.8",
+    "vue-tsc": "^2.1.6",
+    "vite-plugin-dts": "^4.2.4",
     "eslint": "^6.7.2",
     "eslint-plugin-oploshka": "^1.0.7",
     "eslint-plugin-vue": "^8.4.1"
   }
 }
+
