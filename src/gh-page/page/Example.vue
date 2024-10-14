@@ -38,11 +38,11 @@
 
 <script>
 
-import ExampleBlockAlert    from '@/page/ExampleBlockAlert';
-import ExampleBlockConfirm  from '@/page/ExampleBlockConfirm';
-import ExampleBlockPrompt   from '@/page/ExampleBlockPrompt';
-import ExampleBlockNotify   from '@/page/ExampleBlockNotify';
-import ExampleBlockModal    from '@/page/ExampleBlockModal';
+import ExampleBlockAlert    from '@vue-dlg-page/page/ExampleBlockAlert.vue';
+import ExampleBlockConfirm  from '@vue-dlg-page/page/ExampleBlockConfirm.vue';
+import ExampleBlockPrompt   from '@vue-dlg-page/page/ExampleBlockPrompt.vue';
+import ExampleBlockNotify   from '@vue-dlg-page/page/ExampleBlockNotify.vue';
+import ExampleBlockModal    from '@vue-dlg-page/page/ExampleBlockModal.vue';
 
 export default {
   name: 'work-example',

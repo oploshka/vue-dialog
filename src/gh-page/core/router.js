@@ -5,13 +5,13 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('./page/Example'),
+    component: () => import('@vue-dlg-page/page/Example.vue'),
   },
-  {
-    path: '/test',
-    name: 'test',
-    component: () => import('./page/Test/Test'),
-  },
+  // {
+  //   path: '/test',
+  //   name: 'test',
+  //   component: () => import('./page/Test/Test'),
+  // },
 
 ];
 

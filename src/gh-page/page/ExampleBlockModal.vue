@@ -11,7 +11,7 @@
 
 <script>
 
-import ExampleBlockModalAbout from '@/page/ExampleBlockModalAbout';
+import ExampleBlockModalAbout from '@vue-dlg-page/page/ExampleBlockModalAbout.vue';
 
 import {reactive} from "vue";
 
