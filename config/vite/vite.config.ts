@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 
-import { resolve } from 'path';
+import path from 'path';
 import dts from 'vite-plugin-dts';
 // import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
@@ -12,10 +12,15 @@ export default defineConfig({
     // cssInjectedByJsPlugin({ useStrictCSP: true, relativeCSSInjection: false }),
     dts({ rollupTypes: true }),
   ],
+  resolve: {
+    alias: {
+      'vue-dlg-plugin': path.join(__dirname, './src/plugin'),
+    }
+  },
   build: {
     lib: {
       name: 'vue3-module',
-      entry: resolve(__dirname, 'src/main.ts'),
+      entry: path.resolve(__dirname, 'src/main.ts'),
       fileName: (format) => `vue3-module.${format}.js`,
     },
     emptyOutDir: true,
@@ -29,6 +34,7 @@ export default defineConfig({
       },
     },
   },
+
 })
 
 
