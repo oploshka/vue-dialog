@@ -18,7 +18,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 .dlg-group--default {
   position: fixed;

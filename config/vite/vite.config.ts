@@ -1,10 +1,13 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-
-import path from 'path';
 import dts from 'vite-plugin-dts';
 // import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
+
+//
+import path from 'path';
+import GetRootPath from '../utils/GetRootPath.js'
+
 
 export default defineConfig({
   plugins: [
@@ -14,14 +17,15 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      'vue-dlg-plugin': path.join(__dirname, './src/plugin'),
+      //      
+      '@vue-dlg-plugin': path.join(GetRootPath, './src/plugin'),
     }
   },
   build: {
     lib: {
       name: 'vue3-module',
-      entry: path.resolve(__dirname, 'src/main.ts'),
-      fileName: (format) => `vue3-module.${format}.js`,
+      entry: path.join(GetRootPath, './src/plugin/install.ts'),
+      fileName: (format) => `index.${format}.js`,
     },
     emptyOutDir: true,
     rollupOptions: {

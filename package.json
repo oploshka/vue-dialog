@@ -1,6 +1,6 @@
 {
   "name": "vue-dlg",
-  "version": "2.0.0-alpha.6",
+  "version": "2.0.0-alpha.11",
   "private": false,
   "type": "module",
   "description": "Vue Dialog",
@@ -16,9 +16,9 @@
     "off--build2": "vue-tsc -b && vite build",
     "off--preview": "vite preview"
   },
-  "main": "./src/plugin.js",
+  "main": "dist/index.umd.js",
   "files": [
-    "src"
+    "dist/*"
   ],
   "keywords": [
     "vue",
