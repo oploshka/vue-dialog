@@ -13,8 +13,19 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
+      'vue-dlg': path.join(GetRootPath, './src/plugin'),
+       //      
       '@vue-dlg-plugin': path.join(GetRootPath, './src/plugin'),
       '@vue-dlg-page': path.join(GetRootPath, './src/gh-page'),
+      '@vue-dlg-example': path.join(GetRootPath, './src/gh-page'),
     }
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler', // or "modern"
+        // silenceDeprecations: ["legacy-js-api"],
+      }
+    }
+  }
 })

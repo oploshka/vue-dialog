@@ -10,5 +10,14 @@ export default {
   install,
 };
 
-// import HelloWorldBuild from "./HelloWorldBuild.vue";
-// export { HelloWorldBuild };
+import DlgCore from './core/DlgCore.vue';
+import DlgGroupSettingsClass from './core/DlgGroupSettingsClass.js';
+import DlgModalClass from './core/DlgModalClass.js';
+import DlgStoreClass from './core/DlgStoreClass.js';
+
+export {
+  DlgCore,
+  DlgGroupSettingsClass,
+  DlgModalClass,
+  DlgStoreClass,
+};

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <!--<DlgCore />-->
+    <DlgCore />
 
     <HeaderPart title="VUE DIALOG"/>
 
@@ -15,7 +15,7 @@
 
 <script>
 
-// import DlgCore from '@vue-dlg-plugin/core/DlgCore';
+import DlgCore from '@vue-dlg-plugin/core/DlgCore.vue';
 //
 import HeaderPart from './Part/HeaderPart.vue';
 import FooterPart from './Part/FooterPart.vue';
@@ -23,7 +23,7 @@ import FooterPart from './Part/FooterPart.vue';
 export default {
   name: 'App',
   components: {
-    // DlgCore,
+    DlgCore,
     //
     HeaderPart,
     FooterPart,
@@ -33,13 +33,5 @@ export default {
 </script>
 
 <style lang="scss">
-html, body, #app {
-  height: 100%;
-  width: 100%;
-}
-.main-content {
-  min-height: 100%;
-  min-height: calc(100% - 80px);
-  //padding: 100px 0 50px 0;
-}
+
 </style>

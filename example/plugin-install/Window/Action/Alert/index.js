@@ -1,7 +1,7 @@
 //
 import DLG_GROUP from '../../../Group/GroupEnum';
 //
-import DlgWindowActionAlert from './DlgWindowActionAlert';
+import DlgWindowActionAlert from './DlgWindowActionAlert.vue';
 
 // action prompt
 export default (dlgStoreObj) => ({

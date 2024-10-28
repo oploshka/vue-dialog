@@ -8,12 +8,13 @@
   "repository": "git@github.com:oploshka/vue-dialog.git",
   "homepage": "https://oploshka.github.io/vue-dialog/",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "off--build2": "vue-tsc -b && vite build",
-    "off--preview": "vite preview",
+    "plugin-build": "vite --config ./config/vite/vite.config.ts build",
     "test-app-serve": "vite --config ./config/vite/vite.test-app.config.ts",
-    "test-app-build": "vite --config ./config/vite/vite.test-app.config.ts build"
+    "test-app-build": "vite --config ./config/vite/vite.test-app.config.ts build",
+    "off--dev": "vite",
+    "off--build": "vite build",
+    "off--build2": "vue-tsc -b && vite build",
+    "off--preview": "vite preview"
   },
   "main": "./src/plugin.js",
   "files": [

@@ -5,7 +5,7 @@
 
 ```js
 //
-import {addGroupSetting} from "vue-dlg/src/DlgGroupSettings";
+import {addGroupSetting} from "vue-dlg/DlgGroupSettings";
 
 // задаем настройки для разных групп
 addGroupSetting('modal', {
@@ -28,10 +28,10 @@ addGroupSetting('notify', {
 
 ```js
 // Тонкий клиент
-import VueDlgThinClient from 'vue-dlg/src/DlgThinClient';
+import VueDlgThinClient from 'vue-dlg/DlgThinClient';
 // Темплейты модальных окон
-import DialogBox        from "vue-dlg/src/Template/DialogBox";
-import DialogNotify     from "vue-dlg/src/Template/DialogNotify";
+import DialogBox        from "vue-dlg/Template/DialogBox";
+import DialogNotify     from "vue-dlg/Template/DialogNotify";
 
 // настраиваем список модальных окон
 export default {
@@ -166,7 +166,7 @@ export default {
 
 ```js
 // Подключаем плагин
-import vueDlgPlugin from "vue-dlg/src/plugin";
+import vueDlgPlugin from "vue-dlg/plugin";
 
 // настройки модальных групп
 import "./group-settings";

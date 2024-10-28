@@ -80,7 +80,7 @@ Add the global component to your `App.vue`:
 </template>
 
 <script>
-import DialogCore from "vue-dlg/src/DlgCore";
+import DialogCore from "vue-dlg/DlgCore";
 
 export default {
   component: {

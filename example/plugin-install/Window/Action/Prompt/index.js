@@ -1,7 +1,7 @@
 //
-import DLG_GROUP from '../../../Group/GroupEnum';
+import DLG_GROUP from '../../../Group/GroupEnum.js';
 //
-import DialogBoxPromptDelete from './DlgWindowActionPromptText';
+import DialogBoxPromptDelete from './DlgWindowActionPromptText.vue';
 
 // action prompt
 export default (dlgStoreObj) => ({

@@ -18,7 +18,7 @@
 
 <script>
 
-import DlgOverlay from './default/DlgOverlay';
+import DlgOverlay from '@vue-dlg-plugin/default/DlgOverlay.vue';
 
 export default {
   name: 'DlgCore',

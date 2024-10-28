@@ -1,6 +1,6 @@
 
 import { reactive, computed } from 'vue';
-import DlgModalClass from './DlgModalClass';
+import DlgModalClass from '@vue-dlg-plugin/core/DlgModalClass.js';
 
 
 const DlgStoreClass = function DlgStoreClass({groupSettings}) {

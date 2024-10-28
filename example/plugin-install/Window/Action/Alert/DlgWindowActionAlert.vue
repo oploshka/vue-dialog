@@ -6,7 +6,7 @@
 
 <script>
 
-import DlgWindowActionMixin from '../_base/DlgWindowActionMixin';
+import DlgWindowActionMixin from '../_base/DlgWindowActionMixin.vue';
 
 export default {
   name: 'DlgWindowActionAlert',

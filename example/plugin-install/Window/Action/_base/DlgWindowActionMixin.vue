@@ -1,6 +1,6 @@
 <script>
 
-import DlgWindowActionTemplate from './DlgWindowActionTemplate';
+import DlgWindowActionTemplate from './DlgWindowActionTemplate.vue';
 
 export default {
   name: 'DlgWindowActionMixin',
