@@ -13,7 +13,7 @@
 
 <script>
 
-import DlgGroupModalItem from './DlgGroupModalItem';
+import DlgGroupModalItem from './DlgGroupModalItem.vue';
 
 export default {
   name: 'DlgGroupModal',

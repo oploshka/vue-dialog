@@ -1,7 +1,7 @@
 //
-import DLG_GROUP from '../../../Group/GroupEnum';
+import DLG_GROUP from '../../../Group/GroupEnum.js';
 //
-import DlgWindowActionNotify from './DlgWindowActionNotify';
+import DlgWindowActionNotify from './DlgWindowActionNotify.vue';
 
 export default (dlgStoreObj) => ({
 

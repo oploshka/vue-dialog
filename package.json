@@ -1,24 +1,21 @@
 {
   "name": "vue-dlg",
-  "version": "2.0.0-alpha.5",
+  "version": "3.0.0-alpha.1",
+  "private": false,
+  "type": "module",
   "description": "Vue Dialog",
   "author": "Andrey Tyurin <ectb@mail.ru>",
-  "scripts": {
-    "serve": "cd ./test/app && npm run serve --port 3000",
-    "old-serve": "vue-cli-service serve --port 3000 srcDev/main.js",
-    "old-serveBuild": "vue-cli-service serve --port 3000 srcDev/mainBuild.js",
-    "old-build": "vue-cli-service build --target lib --name vue-dialog src/plugin.js && cp lib-build/vue-dialog.umd.min.js lib/vue-dialog.js",
-    "old-buildReprot": "vue-cli-service build --report --target lib --name vue-dialog src/plugin.js",
-    "old-lint": "vue-cli-service lint"
-  },
-  "main": "./src/plugin.js",
-  "files": [
-    "src"
-  ],
-  "browserslist": [
-    "last 2 chrome versions"
-  ],
+  "repository": "git@github.com:oploshka/vue-dialog.git",
   "homepage": "https://oploshka.github.io/vue-dialog/",
+  "scripts": {
+    "dev": "vite",
+    "serve": "vite",
+    "build": "vite build",
+  },
+  "main": "dist/index.umd.js",
+  "files": [
+    "dist/*"
+  ],
   "keywords": [
     "vue",
     "vuejs",
@@ -34,9 +31,20 @@
     "v-dialog",
     "v-dialogs"
   ],
-  "repository": "git@github.com:oploshka/vue-dialog.git",
+  "dependencies": {
+    "vue": "^3.5.22",
+    "vue-router": "^4.6.3"
+  },
   "devDependencies": {
-    "eslint": "^9.12.0",
-    "eslint-plugin-vue": "^9.28.0"
+    "@types/node": "^24.6.0",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/tsconfig": "^0.8.1",
+    "eslint": "^9.38.0",
+    "eslint-plugin-oploshka": "^9.0.0",
+    "gh-pages": "^6.3.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.1.7",
+    "vite-plugin-eslint": "^1.8.1",
+    "vue-tsc": "^3.1.0"
   }
 }

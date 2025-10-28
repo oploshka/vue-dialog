@@ -31,3 +31,26 @@ npm version 1.0.0-alpha.2
 npm publish --tag beta
 
 npm i vue-dlg@beta
+
+
+
+
+
+//
+https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable
+
+npm install --global yarn
+yarn --version
+
+
+https://habr.com/ru/articles/554944/
+yarn set version berry
+
+
+yarn init  —  инициализация проекта
+
+yarn add <package> [--dev]  —  добавление пакета
+
+yarn remove <package>  —  удаление пакета
+
+yarn up <package>  —  обновление пакета

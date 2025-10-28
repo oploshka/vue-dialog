@@ -13,7 +13,7 @@
 
 <script>
 
-import DlgGroupNotifyItem from './DlgGroupNotifyItem';
+import DlgGroupNotifyItem from './DlgGroupNotifyItem.vue';
 
 export default {
   name: 'DlgGroupNotify',
