@@ -15,10 +15,10 @@
 
 <script>
 
-import DlgCore from '@vue-dlg-plugin/core/DlgCore.vue';
+import DlgCore from 'vue-dlg/core/DlgCore.vue';
 //
-import HeaderPart from './Part/HeaderPart.vue';
-import FooterPart from './Part/FooterPart.vue';
+import HeaderPart from './component/HeaderPart.vue';
+import FooterPart from './component/FooterPart.vue';
 //
 export default {
   name: 'App',

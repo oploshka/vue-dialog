@@ -1,6 +1,6 @@
 <template>
   <footer class="footer bg-dark">
-    <div class="container p-3" >Copyright © КОПИРАЙТ, 2021-2023.</div>
+    <div class="container p-3" >Copyright © КОПИРАЙТ, 2021-2025.</div>
   </footer>
 </template>
 

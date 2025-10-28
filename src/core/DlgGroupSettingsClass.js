@@ -1,6 +1,6 @@
 
 //
-import DlgGroupDefault from '@vue-dlg-plugin/default/DlgGroupDefault.vue';
+import DlgGroupDefault from 'vue-dlg/default/DlgGroupDefault.vue';
 
 const defaultSetting = () => {
   return {

@@ -1,6 +1,6 @@
 {
   "name": "vue-dlg",
-  "version": "2.0.0-alpha.11",
+  "version": "3.0.0-alpha.1",
   "private": false,
   "type": "module",
   "description": "Vue Dialog",
@@ -8,13 +8,9 @@
   "repository": "git@github.com:oploshka/vue-dialog.git",
   "homepage": "https://oploshka.github.io/vue-dialog/",
   "scripts": {
-    "plugin-build": "vite --config ./config/vite/vite.config.ts build",
-    "test-app-serve": "vite --config ./config/vite/vite.test-app.config.ts",
-    "test-app-build": "vite --config ./config/vite/vite.test-app.config.ts build",
-    "off--dev": "vite",
-    "off--build": "vite build",
-    "off--build2": "vue-tsc -b && vite build",
-    "off--preview": "vite preview"
+    "dev": "vite",
+    "serve": "vite",
+    "build": "vite build",
   },
   "main": "dist/index.umd.js",
   "files": [
@@ -36,18 +32,19 @@
     "v-dialogs"
   ],
   "dependencies": {
-    "vue": "^3.5.10",
-    "vue-router": "^4.4.5"
+    "vue": "^3.5.22",
+    "vue-router": "^4.6.3"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.1.4",
-    "eslint": "^6.7.2",
-    "eslint-plugin-oploshka": "^1.0.7",
-    "eslint-plugin-vue": "^8.4.1",
-    "sass-embedded": "^1.79.5",
-    "typescript": "^5.5.3",
-    "vite": "^5.4.8",
-    "vite-plugin-dts": "^4.2.4",
-    "vue-tsc": "^2.1.6"
+    "@types/node": "^24.6.0",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/tsconfig": "^0.8.1",
+    "eslint": "^9.38.0",
+    "eslint-plugin-oploshka": "^9.0.0",
+    "gh-pages": "^6.3.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.1.7",
+    "vite-plugin-eslint": "^1.8.1",
+    "vue-tsc": "^3.1.0"
   }
 }

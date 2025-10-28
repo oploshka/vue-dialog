@@ -5,7 +5,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('@vue-dlg-page/page/Example.vue'),
+    component: () => import('@app/page/Example.vue'),
   },
   // {
   //   path: '/test',
