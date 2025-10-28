@@ -2,9 +2,9 @@
 import DLG_GROUP from './GroupEnum';
 
 //
-import DlgGroupAction from './Wrapper/DlgGroupAction';
-import DlgGroupNotify from './Wrapper/DlgGroupNotify';
-import DlgGroupModal from './Wrapper/DlgGroupModal';
+import DlgGroupAction from './Wrapper/DlgGroupAction.vue';
+import DlgGroupNotify from './Wrapper/DlgGroupNotify.vue';
+import DlgGroupModal from './Wrapper/DlgGroupModal.vue';
 
 //
 export default {

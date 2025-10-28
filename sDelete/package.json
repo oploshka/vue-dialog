@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "plugin-build": "vite --config ./config/vite/vite.config.ts build",
+    "test-app-serve": "vite --config ./config/vite/vite.test-app.config.ts",
+    "test-app-build": "vite --config ./config/vite/vite.test-app.config.ts build",
+    "off--dev": "vite",
+    "off--build": "vite build",
+    "off--build2": "vue-tsc -b && vite build",
+    "off--preview": "vite preview",
+    "research-serve": "npm run dev",
+    "research-dev": "cross-env --max_old_space_size=4096 vite",
+    "research-dev2": "vite",
+    "research-build": "vue-tsc -b && vite build",
+    "research-preview": "vite preview"
+  }
+}

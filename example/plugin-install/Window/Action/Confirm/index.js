@@ -1,7 +1,7 @@
 //
 import DLG_GROUP from '../../../Group/GroupEnum';
 //
-import DlgWindowActionConfirm from './DlgWindowActionConfirm';
+import DlgWindowActionConfirm from './DlgWindowActionConfirm.vue';
 
 // action confirm
 export default (dlgStoreObj) => ({

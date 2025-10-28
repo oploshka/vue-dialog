@@ -1,18 +1,17 @@
 
 // Получаем пользовательский список настроек для модального окна
-import WindowSettings from './Window/window-config';
+import WindowSettings from './Window/window-config.js';
 // Глобальные стили для текущего конфига
 import './style/global-style.scss';
 
 //
-import GroupSettings from  './Group/GroupSettings';
+import GroupSettings from  './Group/GroupSettings.js';
 
 //
-import VueDlgGroupSettingsClass from 'vue-dlg/src/DlgGroupSettingsClass';
-import VueDlgStoreClass from 'vue-dlg/src/DlgStoreClass';
+import {DlgGroupSettingsClass, DlgStoreClass} from 'vue-dlg/install.ts';
 
 // переменная для хранения настроек групп
-const groupSettingsObj = new VueDlgGroupSettingsClass();
+const groupSettingsObj = new DlgGroupSettingsClass();
 
 // Добавляем список групп
 for (const groupCode in GroupSettings) {
@@ -20,7 +19,7 @@ for (const groupCode in GroupSettings) {
 }
 
 // переменная store
-const dlgStoreObj = new VueDlgStoreClass({groupSettings: groupSettingsObj});
+const dlgStoreObj = new DlgStoreClass({groupSettings: groupSettingsObj});
 
 // переменная для объединения действий
 const actionMerge = {};
@@ -34,10 +33,11 @@ actionMerge.open = dlgStoreObj.add;
 
 
 // plugin install
-import vueDlgPlugin from 'vue-dlg/src/plugin';
+import vueDlgPlugin from 'vue-dlg/install.ts';
 
 // optional
-global.DIALOG = actionMerge;
+// @ts-ignore
+window.DIALOG = actionMerge;
 
 export default {
   install: (app) => {
