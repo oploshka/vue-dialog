@@ -2,7 +2,7 @@
 import { defineConfig } from 'vite'
 // plugin
 import vue from '@vitejs/plugin-vue';
-import dts from 'vite-plugin-dts';
+// import dts from 'vite-plugin-dts';
 //
 import path from 'path';
 import {fileURLToPath, URL} from "node:url";
