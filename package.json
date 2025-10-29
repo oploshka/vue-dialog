@@ -10,7 +10,8 @@
   "scripts": {
     "dev": "vite",
     "serve": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "build:ph-pages": "cross-env NODE_ENV=production vite build --mode ph-pages"
   },
   "main": "dist/index.umd.js",
   "files": [
@@ -39,6 +40,7 @@
     "@types/node": "^24.6.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.8.1",
+    "cross-env": "^10.1.0",
     "eslint": "^9.38.0",
     "eslint-plugin-oploshka": "^9.0.0",
     "gh-pages": "^6.3.0",

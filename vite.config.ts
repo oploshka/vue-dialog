@@ -14,69 +14,77 @@ const aliasObj = {
 };
 
 // https://vite.dev/config/
-export default defineConfig(({ /*command,*/ mode }) => ({
-  plugins: [vue()],
+export default defineConfig(({ command, mode }) => {
 
-  resolve: {
-    alias: aliasObj,
-    dedupe: ['vue'],
-  },
+  const isPhPages = mode === 'ph-pages';
+  console.log('mode: ', mode, isPhPages);
 
-  root: './test/app',
+  return {
+    plugins: [vue()],
 
-  build: {
-    outDir: path.resolve(__dirname, 'dist'),
-    emptyOutDir: true, // also necessary
+    resolve: {
+      alias: aliasObj,
+      dedupe: ['vue'],
+    },
+
+    root: './test/app',
+
+    base: isPhPages ? '/vue-dialog/' : '/',
+
+    build: {
+      outDir: path.resolve(__dirname, 'dist'),
+      emptyOutDir: true, // also necessary
+    }
+    // build: {
+    //   // outDir: 'dist',
+    //   // emptyOutDir: true, // also necessary
+    //   //
+    //   // minify: mode === 'development' ? false : 'terser',
+    //   // watch: {
+    //   //   include: 'src/**',
+    //   //   exclude: 'node_modules/**, .git/**, dist/**, .vscode/**',
+    //   // },
+    //   // assetsDir: 'assets',
+    //   // cssCodeSplit: false,
+    //   // sourcemap: false,
+    //   // ssr: false,
+    //
+    //   // 4. Добавьте `rewrite` чтобы отключить создание папок
+    //   rewriting: false, // По умолчанию 'true', что создает папки
+    //
+    //   rollupOptions: {
+    //     // treeshake: true,
+    //     //
+    //     input: {
+    //       main: path.resolve(__dirname, 'test/app/index.html'),
+    //     },
+    //     //
+    //     // output: {
+    //     //   assetFileNames: 'client/rsc1/[ext]/[name][extname]',
+    //     //   chunkFileNames: 'client/rsc2/[chunks]/[name].[hash].js',
+    //     //   entryFileNames: 'client/rsc3/js/client.js'
+    //     //
+    //     //   // entryFileNames: `assets/index.js`,
+    //     //   // chunkFileNames: `assets/index-chunk.js`,
+    //     //   // assetFileNames: `assets/[name].[ext]`,
+    //     //
+    //     //   // 3. Отключите создание папок для HTML-файлов
+    //     //   dir: 'dist', // Укажите вашу выходную директорию
+    //     //   format: 'es', // Или другой формат, в зависимости от ваших потребностей
+    //     // }
+    //     output: {
+    //       // 2. Настройте `entryFileNames` для сохранения HTML-файлов в корне
+    //       entryFileNames: '[name].js', // Сохраняет JS файлы с именами из входных точек
+    //       assetFileNames: '[name].[ext]', // Сохраняет ассеты с именами из входных точек
+    //       // 3. Отключите создание папок для HTML-файлов
+    //       dir: 'dist', // Укажите вашу выходную директорию
+    //       format: 'es', // Или другой формат, в зависимости от ваших потребностей
+    //     },
+    //   },
+    // },
+
+    // server: {
+      // open: '/test/app/index.html',
+    // },
   }
-  // build: {
-  //   // outDir: 'dist',
-  //   // emptyOutDir: true, // also necessary
-  //   //
-  //   // minify: mode === 'development' ? false : 'terser',
-  //   // watch: {
-  //   //   include: 'src/**',
-  //   //   exclude: 'node_modules/**, .git/**, dist/**, .vscode/**',
-  //   // },
-  //   // assetsDir: 'assets',
-  //   // cssCodeSplit: false,
-  //   // sourcemap: false,
-  //   // ssr: false,
-  //
-  //   // 4. Добавьте `rewrite` чтобы отключить создание папок
-  //   rewriting: false, // По умолчанию 'true', что создает папки
-  //
-  //   rollupOptions: {
-  //     // treeshake: true,
-  //     //
-  //     input: {
-  //       main: path.resolve(__dirname, 'test/app/index.html'),
-  //     },
-  //     //
-  //     // output: {
-  //     //   assetFileNames: 'client/rsc1/[ext]/[name][extname]',
-  //     //   chunkFileNames: 'client/rsc2/[chunks]/[name].[hash].js',
-  //     //   entryFileNames: 'client/rsc3/js/client.js'
-  //     //
-  //     //   // entryFileNames: `assets/index.js`,
-  //     //   // chunkFileNames: `assets/index-chunk.js`,
-  //     //   // assetFileNames: `assets/[name].[ext]`,
-  //     //
-  //     //   // 3. Отключите создание папок для HTML-файлов
-  //     //   dir: 'dist', // Укажите вашу выходную директорию
-  //     //   format: 'es', // Или другой формат, в зависимости от ваших потребностей
-  //     // }
-  //     output: {
-  //       // 2. Настройте `entryFileNames` для сохранения HTML-файлов в корне
-  //       entryFileNames: '[name].js', // Сохраняет JS файлы с именами из входных точек
-  //       assetFileNames: '[name].[ext]', // Сохраняет ассеты с именами из входных точек
-  //       // 3. Отключите создание папок для HTML-файлов
-  //       dir: 'dist', // Укажите вашу выходную директорию
-  //       format: 'es', // Или другой формат, в зависимости от ваших потребностей
-  //     },
-  //   },
-  // },
-
-  // server: {
-    // open: '/test/app/index.html',
-  // },
-}));
+});
