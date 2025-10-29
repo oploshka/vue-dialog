@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite'
 // plugin
 import vue from '@vitejs/plugin-vue';
+import dts from 'vite-plugin-dts';
 //
 import path from 'path';
 import {fileURLToPath, URL} from "node:url";
@@ -17,7 +18,49 @@ const aliasObj = {
 export default defineConfig(({ command, mode }) => {
 
   const isPhPages = mode === 'ph-pages';
-  console.log('mode: ', mode, isPhPages);
+  const isLibrary = mode === 'library';
+  //
+  console.log('command: ', command);
+  console.log('mode: ', mode, isPhPages, isLibrary);
+  //
+
+
+  if(isLibrary) {
+    return defineConfig({
+      plugins: [
+        vue(), // Плагин для обработки файлов .vue
+        // TODO: Также полезно установить плагин для генерации TypeScript-типов, если вы используете TypeScript:
+        // dts({
+        //   insertTypesEntry: true, // Встраивает точку входа для типов
+        // }),
+      ],
+      resolve: {
+        alias: aliasObj,
+        // dedupe: ['vue'],
+      },
+      build: {
+
+        outDir: path.resolve(__dirname, 'lib'),
+        emptyOutDir: true, // also necessary
+
+        lib: {
+          entry: path.resolve(__dirname, 'src/install.ts'), // Точка входа в библиотеку
+          name: 'MyVueComponentLibrary', // Название глобальной переменной
+          // fileName: (format) => `my-vue-component-library.${format}.js`, // Название выходного файла
+          // fileName: '[name].[hash].js',
+        },
+        rollupOptions: {
+          external: ['vue'], // Исключаем Vue из бандла
+          output: {
+            globals: {
+              vue: 'Vue', // Определяем глобальную переменную для Vue
+            },
+          },
+        },
+      },
+    });
+  }
+
 
   return {
     plugins: [vue()],
