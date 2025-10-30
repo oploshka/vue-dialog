@@ -32,6 +32,42 @@ export type tDlgGroupSettingsMap = {
 
 
 
+export type tDlgModalClass = {
+  open: () => void,
+  close: () =>  void,
+
+  // getters
+  getId: () =>  string,
+  getGroup: () =>  string,
+  getTheme: () =>  string,
+  //
+  getVueComponent: () => Component,
+  getVueComponentProps: () => object,
+
+  // // Дополнительные настройки
+  getCloseIsCancelled: () => boolean,
+  setCloseIsCancelled: (val: boolean) => void,
+
+  getRemoveStatus: () => string,
+  setRemoveStatus: (val: string) => void,
+
+  getCallbackBeforeClose: () => any,
+  setCallbackBeforeClose: (val: any) => void,
+
+  getCallbackClose: () => any,
+  setCallbackClose: (val: any) => void
+
+  // хранение доп настроек
+  setData: (key: any, value: any) => void,
+  getData: (key: any) => any,
+
+
+  // system
+  toObject: () => any,
+  toJSON: () => any, // JSON.stringify
+
+}
+
 
 // /**
 //  * Настройки групп

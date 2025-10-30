@@ -129,14 +129,16 @@ export default defineComponent({
      */
     modalObj() {
       // Это не реактивное свойство.
-      const openedGroup = $dialogStore.getOpenedGroup();
+      const openedGroup = this.$dialogStore.getOpenedGroup();
+      //
+      const modalListStore = this.$dialogStore.getModalListStore().value;
 
       const modalObj = {};
 
       // Это необходимо для сохранения анимации удаления последнего элемента
       for (const group in openedGroup) {
         modalObj[group] = {
-          settings: this.groupSettingNormalized.get(group),
+          settings: this.groupSettingNormalized[group] || DlgGroupSettingsDefault(),
           list: [],
         };
       }

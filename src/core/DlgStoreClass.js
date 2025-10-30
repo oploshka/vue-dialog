@@ -13,6 +13,9 @@ const DlgStoreClass = function DlgStoreClass() {
 
   //
   const modalListStore = reactive([]);
+  this.getModalListStore = () => {
+    return modalListStore;
+  };
 
 
   this.add = (VueComponent, VueComponentProps, setting) => {
