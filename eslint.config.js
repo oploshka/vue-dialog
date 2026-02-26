@@ -8,4 +8,10 @@ import sharedConfig from 'eslint-plugin-oploshka';
 
 export default [
   ...sharedConfig,
+  {
+    rules: {
+      // Отключаем правило: "off" или 0
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
 ];

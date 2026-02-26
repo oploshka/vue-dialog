@@ -125,6 +125,7 @@ export default {
 ```
 
 ### Произвольный компонент в модальном окне
+
 ```js
 // props: {
 //   fullName: String,
@@ -137,7 +138,9 @@ export default {
   mounted() {
 
     let modal = null;
-    const closeModal = () => { modal && modal.close(); };
+    const closeModal = () => {
+      modal && modal.close(this);
+    };
     const props = {
       // data
       fullName: 'Tester',
@@ -149,10 +152,10 @@ export default {
       },
     };
     //
-    modal = this.$dialog.open(ArbitraryComponent, props, { group: "modal", theme: "community", close: true });
-    
+    modal = this.$dialog.open(this);
+
     // TODO: поправить // modal.then(() => { modal = null; });
-    
+
   },
 };
 ```
