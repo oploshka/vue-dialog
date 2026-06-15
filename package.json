@@ -2,6 +2,7 @@
   "name": "vue-dlg",
   "version": "3.0.0-alpha.3",
   "private": false,
+  "license": "SEE LICENSE IN LICENSE",
   "type": "module",
   "description": "Vue Dialog",
   "author": "Andrey Tyurin <ectb@mail.ru>",

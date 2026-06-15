@@ -1,5 +1,15 @@
 
 # Vue Dialog - показ диалоговых окон для Vue 3
+
+⚠️ **STRICT PROPRIETARY LICENSE**
+
+- Commercial use requires written agreement with the Author.
+- AI usage strictly prohibited.
+- Reverse engineering prohibited.
+- See LICENSE (English) for full legal terms.  
+  Русский перевод: LICENSE.ru  
+  In case of conflict, the English version prevails.
+
 Это обобщённый каркас для показа диалоговых окон, alert'ов, confirm'ов.
 Есть ряд подготовленных шаблонов, но что использовать в конечном итоге решаете Вы.
 

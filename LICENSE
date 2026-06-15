@@ -1,44 +1,165 @@
-# СОГЛАШЕНИЕ ОБ ИСПОЛЬЗОВАНИИ И ОГРАНИЧЕННОМ ДОСТУПЕ (ред. от 26.02.2026)
-(с) 2022-2026 Andrey Tyurin. ВСЕ ПРАВА ЗАЩИЩЕНЫ.
+# STRICT PERSONAL LICENSE AGREEMENT
+Version 2.0
+Effective Date: 16 June 2026
+Supersedes all previous versions
 
-1. СТАТУС ПРОГРАММНОГО ОБЕСПЕЧЕНИЯ
-Данный программный код (далее — "ПО") является частной интеллектуальной собственностью.
-ПО предоставляется исключительно для ознакомления и изучения физическими лицами.
+---
 
+1. LEGAL STATUS
 
-2. ПРЕДОСТАВЛЯЕМЫЕ ПРАВА
-ЛОКАЛЬНЫЙ ЗАПУСК: Разрешается компиляция и запуск ПО на локальном устройстве пользователя для личного некоммерческого тестирования.
-ОЗНАКОМЛЕНИЕ: Разрешается чтение и анализ исходного кода физическими лицами в образовательных целях.
+This Software (including source code, object code, structure, architecture, comments, documentation, and any derivatives) is the exclusive intellectual property of the Author and is protected under Part IV of the Civil Code of the Russian Federation.
 
+All rights not expressly granted are strictly reserved.
 
-3. КОММЕРЧЕСКОЕ ИСПОЛЬЗОВАНИЕ И ПЕРЕХОДНЫЙ ПЕРИОД
-ОКОНЧАНИЕ БЕСПЛАТНОГО ПЕРИОДА: Бесплатное коммерческое использование ПО завершено 31.12.2025.
-УСЛОВИЕ ПЕРЕХОДА: Пользователи, начавшие коммерческое использование до этой даты, обязаны в течение 30 календарных дней с момента публикации данной редакции (до 28.03.2026) связаться с Автором для согласования условий или прекратить использование ПО.
-ОБНОВЛЕНИЯ: Использование любых версий и паттернов кода, выпущенных после 01.01.2026, автоматически означает согласие с платной моделью лицензирования.
+---
 
+2. DEFINITIONS
 
-4. ЗАЩИТА ОТ МАШИННОГО ОБУЧЕНИЯ И ИНДЕКСАЦИИ (ANTI-AI CLAUSE)
-Запрещается ввод ПО в интерфейсы любых ИИ-моделей (ChatGPT, Claude и др.).
-Запрет на индексацию: Запрещена индексация кода ИИ-агентами (Copilot, Cursor и аналоги). Любое обращение ИИ-бота к коду без разрешения считается нарушением авторских прав.
-Запрещается использование ПО в качестве контекста для систем автодополнения кода.
+"Software" — the program code in any form, including fragments.
 
+"User" — an individual (natural person) acting exclusively in a personal capacity.
 
-5. ЗАПРЕТ НА КОПИРОВАНИЕ И ВОСПРОИЗВЕДЕНИЕ (RESTRICTIONS)
-ЗАПРЕТ НА КОПИРОВАНИЕ (NO REPRODUCTION): Запрещается копирование, создание форков, перепубликация или распространение ПО (целиком или частями) в любых публичных или частных репозиториях, включая GitHub, GitLab и др.
-ЗАПРЕТ НА ЦИТИРОВАНИЕ: Запрещается включение фрагментов ПО в другие проекты (Open Source или коммерческие). Любое совпадение структуры и логики в сторонних продуктах будет рассматриваться как нарушение авторских прав.
+"Commercial Use" includes, but is not limited to:
+- use within business activities;
+- use in connection with income generation;
+- use within employment duties;
+- use in the interests of legal entities, entrepreneurs, or third parties;
+- internal corporate use;
+- SaaS, API, hosting, integration, or automation.
 
+---
 
-### 6. ПРЕКРАЩЕНИЕ ПРАВ
-Любое нарушение вышеуказанных пунктов автоматически аннулирует право на просмотр и использование ПО. Автор оставляет за собой право требовать удаления незаконно созданных копий и компенсации ущерба.
+3. GRANT OF RIGHTS (STRICTLY LIMITED)
 
+The Author grants the User a limited, revocable, non-transferable, non-sublicensable license to:
+- read and analyze the source code;
+- compile and run the Software locally;
+- modify the Software solely for personal, non-commercial purposes.
 
-### 7. ОТКАЗ ОТ ГАРАНТИЙ И ОГРАНИЧЕНИЕ ОТВЕТСТВЕННОСТИ (DISCLAIMER)
-ПРОГРАММНОЕ ОБЕСПЕЧЕНИЕ ПРЕДОСТАВЛЯЕТСЯ НА УСЛОВИЯХ "КАК ЕСТЬ" (AS IS). АВТОР НЕ ПРЕДОСТАВЛЯЕТ НИКАКИХ ГАРАНТИЙ, ЯВНЫХ ИЛИ ПОДРАЗУМЕВАЕМЫХ, ВКЛЮЧАЯ, НО НЕ ОГРАНИЧИВАЯСЬ, ГАРАНТИЯМИ ПРИГОДНОСТИ ДЛЯ КОНКРЕТНЫХ ЦЕЛЕЙ.
-НИ ПРИ КАКИХ ОБСТОЯТЕЛЬСТВАХ АВТОР НЕ НЕСЕТ ОТВЕТСТВЕННОСТИ ЗА ЛЮБЫЕ ПРЯМЫЕ, КОСВЕННЫЕ, СЛУЧАЙНЫЕ ИЛИ СПЕЦИАЛЬНЫЕ УБЫТКИ (ВКЛЮЧАЯ УТРАТУ ДАННЫХ, ПРИБЫЛИ ИЛИ ПРЕРЫВАНИЕ БИЗНЕСА), ВОЗНИКШИЕ В РЕЗУЛЬТАТЕ ИСПОЛЬЗОВАНИЯ ИЛИ НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ДАННОГО ПО, ДАЖЕ ЕСЛИ АВТОР БЫЛ ИЗВЕЩЕН О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ.
+This license is granted exclusively for educational and research purposes.
 
+---
 
-### 8. ЗАКЛЮЧИТЕЛЬНЫЕ ПОЛОЖЕНИЯ
-Автор оставляет за собой право изменять, удалять или дополнять содержимое, а также прекращать публикации в Интернете временно или навсегда без уведомления.
-Все, что явно не разрешено настоящим соглашением, является СТРОГО ЗАПРЕЩЕННЫМ.
+4. ABSOLUTE PROHIBITIONS
 
-[ВАША КОНТАКТНАЯ ИНФОРМАЦИЯ ДЛЯ ЗАПРОСОВ НА КОММЕРЧЕСКОЕ ИСПОЛЬЗОВАНИЕ]
+The following actions are strictly prohibited:
+- any Commercial Use without a separate written agreement;
+- use within employment or business activities;
+- distribution in any form;
+- publication in public or private repositories;
+- creation of forks;
+- inclusion of fragments in other projects;
+- use for portfolio purposes;
+- transfer to third parties;
+- sublicensing;
+- hosting or remote access;
+- providing access through API or cloud services.
+
+---
+
+5. ABSOLUTE AI AND MACHINE LEARNING PROHIBITION
+
+The following actions are strictly forbidden without prior written consent of the Author:
+- use of the Software for training, retraining, fine-tuning, or validating machine learning models;
+- indexing by AI systems;
+- uploading or inputting the Software into AI services, including but not limited to generative AI tools;
+- using the Software as context for code completion systems;
+- automated parsing, scraping, or analysis;
+- creating derivative works with the assistance of AI systems;
+- using fragments, structure, architecture, or logic for machine-assisted development.
+
+Any automated access to the Software shall be considered a violation of exclusive rights.
+
+---
+
+6. REVERSE ENGINEERING PROHIBITION
+
+The following are prohibited:
+- decompilation;
+- disassembly;
+- reverse engineering;
+- bypassing technical protection measures;
+- extraction of source code from object code.
+
+---
+
+7. COMMERCIAL LICENSING
+
+Any Commercial Use is permitted only upon execution of a separate written agreement with the Author.
+
+Absence of response from the Author shall not constitute consent.
+
+If no written agreement exists, no right of Commercial Use is granted.
+
+Use of previous versions is permitted only under:
+- compliance with the current License version, or
+- explicit written consent of the Author.
+
+---
+
+8. RETROACTIVE APPLICATION
+
+Continued use of the Software after publication of a new License version constitutes full acceptance of its terms.
+
+If the User disagrees with the updated License, the User must immediately cease use and delete all copies.
+
+---
+
+9. AUTOMATIC TERMINATION
+
+Any violation automatically and immediately terminates all rights without notice.
+
+Upon termination, the User must:
+- cease all use;
+- delete all copies;
+- provide written confirmation of deletion upon request.
+
+---
+
+10. LIABILITY AND PENALTIES
+
+In case of violation, the Author may, at their sole discretion, demand:
+- compensation or contractual penalties in the amount of 5,000 USD to 1,000,000 USD for each violation;
+- or recovery of actual damages.
+For violation of Section 5 (AI Prohibition), a contractual penalty of 1,000,000 USD per violation applies.
+
+Payment of penalty does not release the User from obligation to cease violation.
+
+Each separate act, upload, transmission, indexing event, or AI interaction constitutes an independent violation.
+
+---
+
+11. DISCLAIMER
+
+The Software is provided "AS IS".
+
+The Author makes no warranties, express or implied.
+
+The Author shall not be liable for any direct, indirect, incidental, or consequential damages.
+
+---
+
+12. GOVERNING LAW AND JURISDICTION
+
+This License is governed by the laws of the Russian Federation.
+
+All disputes shall be resolved in court at the Author's place of residence.
+
+---
+
+13. TRANSITIONAL PROVISIONS
+
+1. This License replaces and supersedes all previously published versions.
+2. Any continued access to, download, installation, copying, or use of the Software after the Effective Date constitutes full acceptance of this License.
+3. If the User does not agree with this License, the User must immediately cease use and delete all copies of the Software.
+4. Any prior permissions granted are valid only if the User complies with the current version of this License.
+
+---
+
+14. NO IMPLIED LICENSE
+
+No rights are granted by implication, estoppel, or otherwise beyond those expressly set forth in this License.
+
+---
+
+© Author. All rights reserved.
