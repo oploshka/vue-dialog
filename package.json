@@ -39,18 +39,24 @@
     "vue-router": "5.1.0"
   },
   "devDependencies": {
-    "@types/node": "24.10.9",
+    "@tsconfig/node24": "24.0.4",
+    "@types/node": "24.12.4",
     "@vitejs/plugin-vue": "6.0.7",
+    "@vue/eslint-config-typescript": "14.8.0",
     "@vue/tsconfig": "0.9.1",
-    "cross-env": "10.1.0",
     "eslint": "10.5.0",
-    "gh-pages": "6.3.0",
+    "eslint-plugin-vue": "10.9.2",
+    "sass-embedded": "1.100.0",
     "typescript": "6.0.3",
     "vite": "8.0.16",
-    "vite-plugin-dts": "5.0.2",
+    "vite-plugin-inspect": "11.4.1",
     "vue-tsc": "3.3.5"
   },
-  "devDependenciesTodo": {
-    "eslint-plugin-oploshka": "9.0.6"
+  "overrides": {
+    "flatted": "3.4.2",
+    "picomatch": {
+      ".": "^4.0.4",
+      "fast-glob": "^2.3.2"
+    }
   }
 }
