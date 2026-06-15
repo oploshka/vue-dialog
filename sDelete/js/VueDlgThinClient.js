@@ -20,10 +20,10 @@ const thinClientCallback = {
 // TODO: переименовать $DlgCoreComponent - это не компонент а лишь объект {open, close}
 const vueClientCallback = {
   open(modalClass) {
-    this.$DlgCoreComponent.open(modalClass);
+    this.$DlgCoreComponent.open(this);
   },
   close(modalClass) {
-    this.$DlgCoreComponent.close(modalClass);
+    this.$DlgCoreComponent.close(this);
   },
   //
   $DlgCoreComponent: null,
@@ -57,7 +57,7 @@ const proxyClientCallback = {
 //
 const createModalAndOpen = (VueComponent, VueComponentProps, setting = {}) => {
   const modalObj = new VueDlgModalClass(VueComponent, VueComponentProps, setting, proxyClientCallback);
-  return modalObj.open();
+  return modalObj.open(this);
 };
 
 export default createModalAndOpen;

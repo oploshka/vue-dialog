@@ -1,58 +1,60 @@
 
 import { reactive, computed } from 'vue';
-import DlgModalClass from 'vue-dlg/core/DlgModalClass.js';
+import type {iDlgModal, iDlgModalManager, iDlgModalManagerCallback, tDlgModalConfig} from "vue-dlg/v2/Type/tDlg.ts";
+import DlgModal from './DlgModal';
 
-
-const DlgStoreClass = function DlgStoreClass() {
-
-  // Это необходимо для сохранения анимации удаления последнего элемента
-  const openedGroup = {};
-  this.getOpenedGroup = () => {
-    return openedGroup;
-  };
+export class DlgModalManager implements iDlgModalManager {
 
   //
-  const modalListStore = reactive([]);
-  this.getModalListStore = () => {
-    return modalListStore;
-  };
+  private modalListStore = reactive<iDlgModal[]>([]);
+  // Это необходимо для сохранения анимации удаления последнего элемента
+  private openedGroup = {} as Record<string, boolean>;
 
+  //
+  constructor() {
+    //
+  }
 
-  this.add = (VueComponent, VueComponentProps, setting) => {
-    // TODO: fix
-    const modalCallbackFix = {
-      open:  (modalObj) => { this.addModal(modalObj);    },
-      close: (modalObj) => { this.removeModal(modalObj); },
+  getOpenedGroup() { return this.openedGroup; };
+  getModalListStore () { return this.modalListStore; };
+
+  private getModalManagerCallback(): iDlgModalManagerCallback {
+    return {
+      open: this.addModal,
+      close: this.removeModal,
     };
-    const modalObj = new DlgModalClass(VueComponent, VueComponentProps, setting, modalCallbackFix);
+  }
+
+  add(config: tDlgModalConfig): iDlgModal {
+    const modalObj = new DlgModal(config, this.getModalManagerCallback());
     this.addModal(modalObj);
     return modalObj;
   };
 
 
-  this.addModal = (modal) => {
+  addModal(modal: iDlgModal) {
 
     // запрет повторного добавления
-    if(modalListStore.find(item => item.getId() === modal.getId())) {
+    if(this.modalListStore.find(item => item.getId() === modal.getId())) {
       return;
     }
 
     const group = modal.getGroup();
-    if(!openedGroup[group]) {
-      openedGroup[group] = true;
+    if(!this.openedGroup[group]) {
+      this.openedGroup[group] = true;
     }
 
-    modalListStore.push(modal);
+    this.modalListStore.push(modal);
   };
 
-  this.removeModal = async (modal) => {
+  removeModal = async (modal: iDlgModal) => {
     try {
       // Защита от попыток множественного закрытия одного и того же окна
       if (!modal.getRemoveStatus()) {
         modal.setRemoveStatus(true);
       }
 
-      let i = modalListStore.indexOf(modal);
+      let i = this.modalListStore.indexOf(modal);
       if (i >= 0) {
 
         // событие перед закрытием (закрытие может не отработать если изменить closeIsCanceled)
@@ -68,7 +70,7 @@ const DlgStoreClass = function DlgStoreClass() {
           return;
         }
 
-        modalListStore.splice(i, 1);
+        this.modalListStore.splice(i, 1);
 
         // произошло событие закрытия.
         const callbackClose = modal.getCallbackClose();
@@ -83,7 +85,5 @@ const DlgStoreClass = function DlgStoreClass() {
 
   };
 
+}
 
-};
-
-export default DlgStoreClass;

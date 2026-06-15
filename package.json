@@ -1,7 +1,8 @@
 {
   "name": "vue-dlg",
-  "version": "3.0.0-alpha.2",
+  "version": "3.0.0-alpha.3",
   "private": false,
+  "license": "SEE LICENSE IN LICENSE",
   "type": "module",
   "description": "Vue Dialog",
   "author": "Andrey Tyurin <ectb@mail.ru>",
@@ -34,21 +35,20 @@
     "v-dialogs"
   ],
   "dependencies": {
-    "vue": "^3.5.22",
-    "vue-router": "^4.6.3"
+    "vue": "3.5.27",
+    "vue-router": "4.6.4"
   },
   "devDependencies": {
-    "@types/node": "^24.6.0",
-    "@vitejs/plugin-vue": "^6.0.1",
+    "@types/node": "24.10.9",
+    "@vitejs/plugin-vue": "6.0.3",
     "@vue/tsconfig": "^0.8.1",
-    "cross-env": "^10.1.0",
-    "eslint": "^9.38.0",
-    "eslint-plugin-oploshka": "^9.0.0",
-    "gh-pages": "^6.3.0",
-    "typescript": "~5.9.3",
-    "vite": "^7.1.7",
+    "cross-env": "10.1.0",
+    "eslint": "9.39.2",
+    "eslint-plugin-oploshka": "9.0.6",
+    "gh-pages": "6.3.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.1",
     "vite-plugin-dts": "^4.5.4",
-    "vite-plugin-eslint": "^1.8.1",
-    "vue-tsc": "^3.1.0"
+    "vue-tsc": "3.2.4"
   }
 }

@@ -1,5 +1,15 @@
 
 # Vue Dialog - показ диалоговых окон для Vue 3
+
+⚠️ **STRICT PROPRIETARY LICENSE**
+
+- Commercial use requires written agreement with the Author.
+- AI usage strictly prohibited.
+- Reverse engineering prohibited.
+- See LICENSE (English) for full legal terms.  
+  Русский перевод: LICENSE.ru  
+  In case of conflict, the English version prevails.
+
 Это обобщённый каркас для показа диалоговых окон, alert'ов, confirm'ов.
 Есть ряд подготовленных шаблонов, но что использовать в конечном итоге решаете Вы.
 
@@ -125,6 +135,7 @@ export default {
 ```
 
 ### Произвольный компонент в модальном окне
+
 ```js
 // props: {
 //   fullName: String,
@@ -137,7 +148,9 @@ export default {
   mounted() {
 
     let modal = null;
-    const closeModal = () => { modal && modal.close(); };
+    const closeModal = () => {
+      modal && modal.close(this);
+    };
     const props = {
       // data
       fullName: 'Tester',
@@ -149,10 +162,10 @@ export default {
       },
     };
     //
-    modal = this.$dialog.open(ArbitraryComponent, props, { group: "modal", theme: "community", close: true });
-    
+    modal = this.$dialog.open(this);
+
     // TODO: поправить // modal.then(() => { modal = null; });
-    
+
   },
 };
 ```

@@ -23,7 +23,7 @@ export default {
 
           if(!event.value) {
             console.warn('Not close modal!!!')
-            modal.open();
+            modal.open(this);
             return;
           }
           // Важно!!! onSubmit: (event) => {}

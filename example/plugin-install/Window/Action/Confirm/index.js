@@ -16,13 +16,13 @@ export default (dlgStoreObj) => ({
         theme: 'success',
         onPositive() {
           onPositive && onPositive();
-          modalObj.close();
+          modalObj.close(this);
         },
         onNegative() {
           onNegative && onNegative();
-          modalObj.close();
+          modalObj.close(this);
         },
-        onClose() { modalObj.close(); }
+        onClose() { modalObj.close(this); }
       },
       { group: DLG_GROUP.ACTION }
     );
@@ -40,13 +40,13 @@ export default (dlgStoreObj) => ({
         theme: 'error',
         onPositive() {
           onPositive && onPositive();
-          modalObj.close();
+          modalObj.close(this);
         },
         onNegative() {
           onNegative && onNegative();
-          modalObj.close();
+          modalObj.close(this);
         },
-        onClose() { modalObj.close(); }
+        onClose() { modalObj.close(this); }
       },
       { group: DLG_GROUP.ACTION }
     );

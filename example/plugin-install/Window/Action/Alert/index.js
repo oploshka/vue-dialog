@@ -13,9 +13,9 @@ export default (dlgStoreObj) => ({
         theme: 'success',
         onPositive(event) {
           // props.onPositive && props.onPositive(event);
-          modalObj.close();
+          modalObj.close(this);
         },
-        onClose(event) { modalObj.close(); }
+        onClose(event) { modalObj.close(this); }
       },
       { group: DLG_GROUP.ACTION }
     );
@@ -29,9 +29,9 @@ export default (dlgStoreObj) => ({
         theme: 'warning',
         onPositive(event) {
           // props.onPositive && props.onPositive(event);
-          modalObj.close();
+          modalObj.close(this);
         },
-        onClose(event) { modalObj.close(); }
+        onClose(event) { modalObj.close(this); }
       },
       { group: DLG_GROUP.ACTION }
     );
@@ -45,9 +45,9 @@ export default (dlgStoreObj) => ({
         theme: 'error',
         onPositive(event) {
           // props.onPositive && props.onPositive(event);
-          modalObj.close();
+          modalObj.close(this);
         },
-        onClose(event) { modalObj.close(); }
+        onClose(event) { modalObj.close(this); }
       },
       { group: DLG_GROUP.ACTION }
     );
