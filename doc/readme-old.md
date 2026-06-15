@@ -58,15 +58,15 @@ export default {
 </script>
 ```
 
-
 ```js
 
 import TestDialogComponent from './TestDialogComponent.vue';
 
 methods: {
-  opentTestDialog() {
-    this.$dialog.open(TestDialogComponent, { message: "Hello"}, {theme: "success", close: {} }).then(res => {
-      console.log(res) 
+  opentTestDialog()
+  {
+    this.$dialog.open(this).then(res => {
+      console.log(res)
     })
   }
 }

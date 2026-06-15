@@ -8,19 +8,10 @@ import sharedConfig from 'eslint-plugin-oploshka';
 
 export default [
   ...sharedConfig,
-  // // Здесь можно переопределить или добавить специфичные для проекта правила
-  // {
-  //   rules: {
-  //     // Пример: отключить правило, которое вам не подходит в этом проекте
-  //     "no-console": "off",
-  //   },
-  // },
   {
-    ignorePatterns: [
-      "node_modules/",
-      "dist/",
-      "lib/",
-      // "*.test.js"
-    ]
-  }
+    rules: {
+      // Отключаем правило: "off" или 0
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
 ];

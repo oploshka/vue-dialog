@@ -1,7 +1,7 @@
 <template>
   <div class="dlg" :class="groupClass">
 
-    <template v-for="(groupList, groupName) in modalObj" :key="groupName">
+    <template v-for="modalInfo in modalObj" :key="groupName">
       <div class="dlg-container">
         <component
           :is="modalObj[groupName].settings.group"
@@ -21,7 +21,7 @@ import type {tDlgGroupSettingsFullMap, tDlgGroupSettingsMap} from "../tsType/Dlg
 //
 import { defineComponent} from 'vue';
 //
-import DlgGroupSettingsDefault from './DlgGroupSettingsDefault'
+import DlgGroupSettingsDefault from '../core/DlgGroupSettingsDefault.ts'
 
 export default defineComponent({
   name: 'DlgCore',
@@ -117,6 +117,13 @@ export default defineComponent({
 
       return groupSettingNormalized;
     },
+
+
+    modalObj() {
+      const modalListStore = this.$dialogStore.getModalListStore().value;
+      return modalListStore;
+    },
+
     /**
      *
      * Возвращаем:
@@ -127,7 +134,7 @@ export default defineComponent({
      *   }
      * }
      */
-    modalObj() {
+    modalObjOld() {
       // Это не реактивное свойство.
       const openedGroup = this.$dialogStore.getOpenedGroup();
       //

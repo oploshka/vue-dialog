@@ -8,7 +8,7 @@ export default (dlgStoreObj) => ({
   success: (message) => {
     const modalObj = dlgStoreObj.add(
       DlgWindowActionNotify,
-      { title: 'Успешно', message: message, theme: 'success', onClose: () => { modalObj.close(); }, },
+      { title: 'Успешно', message: message, theme: 'success', onClose: () => { modalObj.close(this); }, },
       { group: DLG_GROUP.NOTIFY }
     );
     return modalObj;
@@ -16,7 +16,7 @@ export default (dlgStoreObj) => ({
   warning: (message) => {
     const modalObj = dlgStoreObj.add(
       DlgWindowActionNotify,
-      { title: 'Предупреждение', message: message, theme: 'warning', onClose: () => { modalObj.close(); }, },
+      { title: 'Предупреждение', message: message, theme: 'warning', onClose: () => { modalObj.close(this); }, },
       { group: DLG_GROUP.NOTIFY }
     );
     return modalObj;
@@ -24,7 +24,7 @@ export default (dlgStoreObj) => ({
   info: (message) => {
     const modalObj = dlgStoreObj.add(
       DlgWindowActionNotify,
-      { title: 'Информация', message: message, theme: 'info', onClose: () => { modalObj.close(); }, },
+      { title: 'Информация', message: message, theme: 'info', onClose: () => { modalObj.close(this); }, },
       { group: DLG_GROUP.NOTIFY }
     );
     return modalObj;
@@ -32,7 +32,7 @@ export default (dlgStoreObj) => ({
   error: (message) => {
     const modalObj = dlgStoreObj.add(
       DlgWindowActionNotify,
-      { title: 'Ошибка', message: message, theme: 'error', onClose: () => { modalObj.close(); }, },
+      { title: 'Ошибка', message: message, theme: 'error', onClose: () => { modalObj.close(this); }, },
       { group: DLG_GROUP.NOTIFY }
     );
     return modalObj;
