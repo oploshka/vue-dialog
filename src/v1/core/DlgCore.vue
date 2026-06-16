@@ -21,7 +21,7 @@ import type {tDlgGroupSettingsFullMap, tDlgGroupSettingsMap} from "../tsType/Dlg
 //
 import { defineComponent} from 'vue';
 //
-import DlgGroupSettingsDefault from './DlgGroupSettingsDefault'
+import DlgGroupSettingsDefault from './DlgGroupSettingsDefault.ts'
 
 export default defineComponent({
   name: 'DlgCore',

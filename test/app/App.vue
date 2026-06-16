@@ -15,7 +15,7 @@
 
 <script>
 
-import DlgCore from 'vue-dlg/core/DlgCore.vue';
+import DlgCore from 'vue-dlg/v1/core/DlgCore.vue';
 //
 import HeaderPart from './component/HeaderPart.vue';
 import FooterPart from './component/FooterPart.vue';

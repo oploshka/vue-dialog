@@ -10,10 +10,10 @@
 //   install,
 // };
 
-import DlgCore from './core/DlgCore.vue';
-import DlgGroupSettingsDefault from './core/DlgGroupSettingsDefault';
-import DlgModalClass from './core/DlgModalClass';
-import DlgStoreClass from './core/DlgStoreClass';
+import DlgCore from 'vue-dlg/v1/core/DlgCore.vue';
+import DlgGroupSettingsDefault from 'vue-dlg/v1/core/DlgGroupSettingsDefault';
+import DlgModalClass from 'vue-dlg/v1/core/DlgModalClass';
+import DlgStoreClass from 'vue-dlg/v1/core/DlgStoreClass';
 
 export {
   DlgCore,

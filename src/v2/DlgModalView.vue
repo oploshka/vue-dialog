@@ -17,11 +17,11 @@
 
 // ts type
 import type { PropType } from 'vue';
-import type {tDlgGroupSettingsFullMap, tDlgGroupSettingsMap} from "../tsType/DlgType.ts";
+import type {tDlgGroupSettingsFullMap, tDlgGroupSettingsMap} from "vue-dlg/v1/tsType/DlgType.ts";
 //
 import { defineComponent} from 'vue';
 //
-import DlgGroupSettingsDefault from '../core/DlgGroupSettingsDefault.ts'
+import DlgGroupSettingsDefault from 'vue-dlg/v1/core/DlgGroupSettingsDefault.ts'
 
 export default defineComponent({
   name: 'DlgCore',
