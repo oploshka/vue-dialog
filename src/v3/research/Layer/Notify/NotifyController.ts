@@ -1,11 +1,12 @@
-import type { LayerItem, LayerManager } from './types'
+
+import type { sLayerItem, sLayerController } from '../../Type/Type'
 
 let counter = 0
 function generateId(): string {
   return `notify-${++counter}-${Date.now()}`
 }
 
-export interface NotificationDescriptor extends LayerItem {
+export interface sNotifyDescriptor extends sLayerItem {
   type: 'notification'
   message: string
   variant: 'info' | 'success' | 'warning' | 'error'
@@ -19,10 +20,10 @@ export interface NotificationDescriptor extends LayerItem {
   }
 }
 
-export class NotificationQueue implements LayerManager {
-  id = 'notification-queue'
+export class NotifyController implements sLayerController {
+  id = 'notify-controller'
   zIndex: number
-  private _items: NotificationDescriptor[] = []
+  private _items: sNotifyDescriptor[] = []
   private _timers = new Map<string, ReturnType<typeof setTimeout>>()
 
   constructor(zIndex: number = 5000) {
@@ -31,12 +32,12 @@ export class NotificationQueue implements LayerManager {
 
   show(
     message: string,
-    variant: NotificationDescriptor['variant'] = 'info',
+    variant: sNotifyDescriptor['variant'] = 'info',
     duration: number = 5000,
-    action?: NotificationDescriptor['action'],
-    callbacks: NotificationDescriptor['callbacks'] = {}
+    action?: sNotifyDescriptor['action'],
+    callbacks: sNotifyDescriptor['callbacks'] = {}
   ): string {
-    const item: NotificationDescriptor = {
+    const item: sNotifyDescriptor = {
       id: generateId(),
       type: 'notification',
       message,
@@ -75,7 +76,7 @@ export class NotificationQueue implements LayerManager {
   }
 
   close(id?: string): void {
-    let removed: NotificationDescriptor | undefined
+    let removed: sNotifyDescriptor | undefined
 
     if (id) {
       const index = this._items.findIndex(item => item.id === id)
@@ -106,7 +107,7 @@ export class NotificationQueue implements LayerManager {
     }
   }
 
-  get items(): readonly NotificationDescriptor[] {
+  get items(): readonly sNotifyDescriptor[] {
     return this._items
   }
 

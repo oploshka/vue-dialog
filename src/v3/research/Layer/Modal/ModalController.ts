@@ -1,15 +1,15 @@
 import type { Component } from 'vue'
-import type { LayerDescriptor, LayerManager } from './types'
+import type { sLayerDescriptor, sLayerController } from '../../Type/Type'
 
 let counter = 0
 function generateId(): string {
   return `modal-${++counter}-${Date.now()}`
 }
 
-export class ModalStack implements LayerManager {
-  id = 'modal-stack'
+export class ModalController implements sLayerController {
+  id = 'modal-controller'
   zIndex: number
-  private _items: LayerDescriptor[] = []
+  private _items: sLayerDescriptor[] = []
 
   constructor(zIndex: number = 3000) {
     this.zIndex = zIndex
@@ -20,10 +20,10 @@ export class ModalStack implements LayerManager {
     props: Record<string, any> = {},
     type: string = 'modal',
     variant?: string,
-    settings: LayerDescriptor['settings'] = {},
-    callbacks: LayerDescriptor['callbacks'] = {}
+    settings: sLayerDescriptor['settings'] = {},
+    callbacks: sLayerDescriptor['callbacks'] = {}
   ): string {
-    const descriptor: LayerDescriptor = {
+    const descriptor: sLayerDescriptor = {
       id: generateId(),
       type,
       variant,
@@ -45,7 +45,7 @@ export class ModalStack implements LayerManager {
   }
 
   close(id?: string): void {
-    let removed: LayerDescriptor | undefined
+    let removed: sLayerDescriptor | undefined
 
     if (id) {
       const index = this._items.findIndex(item => item.id === id)
@@ -64,11 +64,11 @@ export class ModalStack implements LayerManager {
     }
   }
 
-  get items(): readonly LayerDescriptor[] {
+  get items(): readonly sLayerDescriptor[] {
     return this._items
   }
 
-  get top(): LayerDescriptor | undefined {
+  get top(): sLayerDescriptor | undefined {
     return this._items[this._items.length - 1]
   }
 

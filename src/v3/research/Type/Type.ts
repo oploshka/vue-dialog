@@ -1,10 +1,11 @@
+
 import type { Component } from 'vue'
 
-export interface LayerItem {
+export interface sLayerItem {
   id: string
 }
 
-export interface LayerDescriptor extends LayerItem {
+export interface sLayerDescriptor extends sLayerItem {
   type: string
   variant?: string
   component: Component
@@ -20,14 +21,14 @@ export interface LayerDescriptor extends LayerItem {
   }
 }
 
-export interface LayerManager {
+export interface sLayerController {
   id: string
   zIndex: number
-  items: readonly LayerItem[]
+  items: readonly sLayerItem[]
   handleEsc?: () => boolean
 }
 
-export interface WrapperConfig {
+export interface sWrapperConfig {
   component: Component
   hasOverlay?: boolean
   overlayColor?: string

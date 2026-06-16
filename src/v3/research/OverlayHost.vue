@@ -1,3 +1,4 @@
+<!-- OverlayHost.vue -->
 <template>
   <div @keydown.esc="handleEsc">
     <component
@@ -10,19 +11,31 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import type { Component } from 'vue'
-import type { LayerManager } from './types'
+import type { sLayerController } from './Type/Type'
+import { lockBodyScroll, unlockBodyScroll } from './Utils/BodyScroll'
 
 const props = defineProps<{
   layers: Array<{
-    manager: LayerManager
+    manager: sLayerController
     template: Component
   }>
 }>()
 
 const sortedLayers = computed(() =>
     [...props.layers].sort((a, b) => a.manager.zIndex - b.manager.zIndex)
+)
+
+watch(
+    () => props.layers.some(l => l.manager.items.length > 0),
+    (hasItems) => {
+      if (hasItems) {
+        lockBodyScroll('modal')
+      } else {
+        unlockBodyScroll('modal')
+      }
+    }
 )
 
 function handleEsc() {

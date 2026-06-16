@@ -1,8 +1,8 @@
 import { defineAsyncComponent } from 'vue'
 import type { Component } from 'vue'
-import type { WrapperConfig } from './types'
+import type { sWrapperConfig } from './Type/Type'
 
-export type WrapperType =
+export type tWrapperType =
   | 'modal'
   | 'dialog'
   | 'sidebar-left'
@@ -10,46 +10,46 @@ export type WrapperType =
   | 'fullscreen'
   | 'notification'
 
-interface WrapperEntry {
+interface sWrapperEntry {
   loader: () => Promise<Component>
   hasOverlay?: boolean
   overlayColor?: string
   overlayClickToClose?: boolean
 }
 
-const registry: Record<WrapperType, WrapperEntry> = {
+const registry: Record<tWrapperType, sWrapperEntry> = {
   'modal': {
-    loader: () => import('./wrappers/ModalWrapper.vue'),
+    loader: () => import('./Wrapper/ModalWrapper.vue'),
     hasOverlay: true,
     overlayClickToClose: true,
   },
   'dialog': {
-    loader: () => import('./wrappers/DialogWrapper.vue'),
+    loader: () => import('./Wrapper/DialogWrapper.vue'),
     hasOverlay: true,
     overlayClickToClose: false,
   },
   'sidebar-left': {
-    loader: () => import('./wrappers/SidebarLeftWrapper.vue'),
+    loader: () => import('./Wrapper/SidebarLeftWrapper.vue'),
     hasOverlay: true,
     overlayClickToClose: true,
   },
   'sidebar-right': {
-    loader: () => import('./wrappers/SidebarRightWrapper.vue'),
+    loader: () => import('./Wrapper/SidebarRightWrapper.vue'),
     hasOverlay: true,
     overlayClickToClose: true,
   },
   'fullscreen': {
-    loader: () => import('./wrappers/FullscreenWrapper.vue'),
+    loader: () => import('./Wrapper/FullscreenWrapper.vue'),
     hasOverlay: false,
   },
   'notification': {
-    loader: () => import('./NotificationItem.vue'),
+    loader: () => import('./Wrapper/NotificationItem.vue'),
     hasOverlay: false,
   },
 }
 
-export function resolveWrapper(type: string): WrapperConfig | undefined {
-  const entry = registry[type as WrapperType]
+export function resolveWrapper(type: string): sWrapperConfig | undefined {
+  const entry = registry[type as tWrapperType]
   if (!entry) {
     console.warn(`[Overlay] Неизвестный тип слоя: "${type}"`)
     return undefined

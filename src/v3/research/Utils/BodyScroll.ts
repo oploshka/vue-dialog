@@ -1,3 +1,4 @@
+
 export function lockBodyScroll(type: 'modal' | 'notification'): void {
   document.body.classList.add(`body-scroll--${type}`)
 }

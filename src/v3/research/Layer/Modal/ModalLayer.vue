@@ -1,3 +1,4 @@
+<!-- Layer/Modal/ModalLayer.vue -->
 <template>
   <div class="manager-group" :style="{ zIndex: manager.zIndex }">
     <TransitionGroup name="modal-stack">
@@ -25,21 +26,8 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue'
-import { getWrapper } from './overlays'
-import { lockBodyScroll, unlockBodyScroll } from './utils/bodyScroll'
-import type { ModalStack } from './ModalStack'
+import { getWrapper } from '../../Overlays'
+import type { ModalController } from './ModalController'
 
-const props = defineProps<{ manager: ModalStack }>()
-
-watch(
-    () => props.manager.items.length,
-    (newLen, oldLen) => {
-      if (oldLen === 0 && newLen > 0) {
-        lockBodyScroll('modal')
-      } else if (oldLen > 0 && newLen === 0) {
-        unlockBodyScroll('modal')
-      }
-    }
-)
+defineProps<{ manager: ModalController }>()
 </script>

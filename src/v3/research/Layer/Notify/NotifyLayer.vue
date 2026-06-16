@@ -1,3 +1,4 @@
+<!-- Layer/Notify/NotifyLayer.vue -->
 <template>
   <div class="manager-group notification-layer" :style="{ zIndex: manager.zIndex }">
     <TransitionGroup name="notification">
@@ -19,10 +20,10 @@
 </template>
 
 <script setup lang="ts">
-import { getWrapper } from './overlays'
-import type { NotificationQueue } from './NotificationQueue'
+import { getWrapper } from '../../Overlays'
+import type { NotifyController } from './NotifyController'
 
-defineProps<{ manager: NotificationQueue }>()
+defineProps<{ manager: NotifyController }>()
 </script>
 
 <style scoped>
