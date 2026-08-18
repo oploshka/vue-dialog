@@ -6,6 +6,7 @@ export interface sLayerItem {
 }
 
 export interface sLayerDescriptor extends sLayerItem {
+  zIndex: number
   type: string
   variant?: string
   component: Component
