@@ -5,7 +5,16 @@ export interface sLayerItem {
   id: string
 }
 
-export interface sLayerDescriptor extends sLayerItem {
+/**
+ * Public control surface returned by a layer controller.
+ * Concrete controllers may expose additional methods and state.
+ */
+export interface sLayerControlItem extends sLayerItem {
+  close(): this
+  getComponentRef<T = unknown>(): T | null
+}
+
+export interface sLayerDescriptor extends sLayerControlItem {
   zIndex: number
   type: string
   variant?: string
