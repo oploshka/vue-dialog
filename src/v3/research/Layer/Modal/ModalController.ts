@@ -39,7 +39,7 @@ export class ModalController implements sLayerController {
     if (settings.singleton) {
       const existingIndex = this._items.findIndex(item => item.type === type)
       if (existingIndex !== -1) {
-        this.close(this._items[existingIndex].id)
+        this._items.splice(existingIndex, 1)
       }
     }
 
