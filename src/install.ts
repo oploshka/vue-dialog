@@ -1,23 +1,16 @@
+export { Modal } from './Layer/Modal/Modal'
+export { ModalController } from './Layer/Modal/ModalController'
 
-// TODO: понять данную необходимость, так как работа будет происходить через экземпляр стора.
-// export const install = (app: any, options) => {
-//   console.log('Installing plugin')
-//   app.config.globalProperties.$dialog      = options.action;
-//   app.config.globalProperties.$dialogStore = options.store;
-// };
-//
-// export default {
-//   install,
-// };
+export { default as ModalLayout } from './Layer/Modal/ModalLayout.vue'
+export { default as ModalPresenter } from './Presenter/ModalPresenter.vue'
+export { default as DefaultBridge } from './Bridge/DefaultBridge.vue'
+export { default as OverlayHost } from './OverlayHost.vue'
 
-import DlgCore from 'vue-dlg/v1/core/DlgCore.vue';
-import DlgGroupSettingsDefault from 'vue-dlg/v1/core/DlgGroupSettingsDefault';
-import DlgModalClass from 'vue-dlg/v1/core/DlgModalClass';
-import DlgStoreClass from 'vue-dlg/v1/core/DlgStoreClass';
-
-export {
-  DlgCore,
-  DlgGroupSettingsDefault,
-  DlgModalClass,
-  DlgStoreClass,
-};
+export type {
+  sLayerControlItem,
+  sLayerController,
+  sLayerDescriptor,
+  sLayerItem,
+  sModalSettings,
+  tProps,
+} from './Type/Type'
