@@ -1,5 +1,6 @@
-
 import type { Component } from 'vue'
+
+export type tProps = Record<string, any>
 
 export interface sLayerItem {
   id: string
@@ -14,21 +15,26 @@ export interface sLayerControlItem extends sLayerItem {
   getComponentRef<T = unknown>(): T | null
 }
 
+export interface sModalSettings {
+  presenterComp?: Component
+  presenterProps?: tProps
+
+  wrapComp?: Component
+  wrapProps?: tProps
+
+  bridgeComp?: Component
+  bridgeProps?: tProps
+
+  closeOnEsc?: boolean
+  closeOnBackdrop?: boolean
+  onClose?: () => void
+}
+
 export interface sLayerDescriptor extends sLayerControlItem {
   zIndex: number
-  type: string
-  variant?: string
   component: Component
-  props: Record<string, any>
-  settings: {
-    singleton?: boolean
-    closeOnEsc?: boolean
-    closeOnBackdrop?: boolean
-  }
-  callbacks: {
-    onClose?: () => void
-    onConfirm?: (result: any) => void
-  }
+  props: tProps
+  settings: sModalSettings
 }
 
 export interface sLayerController {
@@ -38,6 +44,7 @@ export interface sLayerController {
   handleEsc?: () => boolean
 }
 
+// Legacy research type. Wrapper selection is moving into Presenter settings.
 export interface sWrapperConfig {
   component: Component
   hasOverlay?: boolean
