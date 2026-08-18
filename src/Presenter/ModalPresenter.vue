@@ -17,38 +17,28 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import type { Component } from 'vue'
+<script lang="ts">
+import { defineComponent } from 'vue'
 import DefaultBridge from '../Bridge/DefaultBridge.vue'
-import type { tProps } from '../Type/Type'
+import { modalPresenterProps } from './ModalPresenterContract'
 
-const props = withDefaults(defineProps<{
-  component: Component
-  componentProps?: tProps
+export default defineComponent({
+  name: 'ModalPresenter',
 
-  wrapComp?: Component
-  wrapProps?: tProps
+  components: {
+    DefaultBridge,
+  },
 
-  bridgeComp?: Component
-  bridgeProps?: tProps
+  props: modalPresenterProps,
 
-  settings?: tProps
-
-  close: () => void
-  closeOnBackdrop?: boolean
-  bindComponentRef: (componentRef: unknown) => void
-}>(), {
-  componentProps: () => ({}),
-  wrapProps: () => ({}),
-  bridgeProps: () => ({}),
-  settings: () => ({}),
+  methods: {
+    handleBackdrop(): void {
+      if (this.closeOnBackdrop) {
+        this.close()
+      }
+    },
+  },
 })
-
-function handleBackdrop(): void {
-  if (props.closeOnBackdrop !== false) {
-    props.close()
-  }
-}
 </script>
 
 <style scoped>
