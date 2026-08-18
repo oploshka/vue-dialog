@@ -10,6 +10,7 @@ export class ModalController implements sLayerController {
   id = 'modal-controller'
   zIndex: number
   private _items: sLayerDescriptor[] = []
+  private _elementZIndex = 0
 
   constructor(zIndex: number = 3000) {
     this.zIndex = zIndex
@@ -25,6 +26,7 @@ export class ModalController implements sLayerController {
   ): string {
     const descriptor: sLayerDescriptor = {
       id: generateId(),
+      zIndex: ++this._elementZIndex,
       type,
       variant,
       component,
@@ -56,6 +58,10 @@ export class ModalController implements sLayerController {
     }
 
     removed?.callbacks.onClose?.()
+
+    if (this._items.length === 0) {
+      this._elementZIndex = 0
+    }
   }
 
   closeAll(): void {
