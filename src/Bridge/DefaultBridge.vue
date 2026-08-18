@@ -6,14 +6,12 @@
   />
 </template>
 
-<script setup lang="ts">
-import type { Component } from 'vue'
-import type { tProps } from '../Type/Type'
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { modalBridgeProps } from '../Presenter/ModalPresenterContract'
 
-defineProps<{
-  component: Component
-  componentProps: tProps
-  close: () => void
-  bindComponentRef: (componentRef: unknown) => void
-}>()
+export default defineComponent({
+  name: 'DefaultBridge',
+  props: modalBridgeProps,
+})
 </script>
