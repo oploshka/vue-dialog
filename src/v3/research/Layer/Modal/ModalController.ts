@@ -1,5 +1,5 @@
 import type { Component } from 'vue'
-import type { sLayerDescriptor, sLayerController } from '../../Type/Type'
+import type { sLayerController, sModalSettings, tProps } from '../../Type/Type'
 import { Modal } from './Modal'
 
 let counter = 0
@@ -19,46 +19,27 @@ export class ModalController implements sLayerController {
 
   open(
     component: Component,
-    props: Record<string, any> = {},
-    type: string = 'modal',
-    variant?: string,
-    settings: sLayerDescriptor['settings'] = {},
-    callbacks: sLayerDescriptor['callbacks'] = {}
+    props: tProps = {},
+    settings: sModalSettings = {},
   ): Modal {
     const modal = new Modal({
       id: generateId(),
       zIndex: ++this._elementZIndex,
-      type,
-      variant,
       component,
       props,
       settings,
-      callbacks,
-    }, item => this.close(item.id))
-
-    if (settings.singleton) {
-      const existingIndex = this._items.findIndex(item => item.type === type)
-      if (existingIndex !== -1) {
-        this._items.splice(existingIndex, 1)
-      }
-    }
+    }, item => this.removeModal(item))
 
     this._items.push(modal)
     return modal
   }
 
-  close(id?: string): void {
-    let removed: Modal | undefined
+  private removeModal(modal: Modal): void {
+    const index = this._items.indexOf(modal)
+    if (index === -1) return
 
-    if (id) {
-      const index = this._items.findIndex(item => item.id === id)
-      if (index === -1) return
-      removed = this._items.splice(index, 1)[0]
-    } else {
-      removed = this._items.pop()
-    }
-
-    removed?.callbacks.onClose?.()
+    this._items.splice(index, 1)
+    modal.settings.onClose?.()
 
     if (this._items.length === 0) {
       this._elementZIndex = 0
@@ -66,8 +47,8 @@ export class ModalController implements sLayerController {
   }
 
   closeAll(): void {
-    while (this._items.length) {
-      this.close()
+    while (this.top) {
+      this.top.close()
     }
   }
 
