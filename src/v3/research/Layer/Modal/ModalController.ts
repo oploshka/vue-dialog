@@ -47,8 +47,10 @@ export class ModalController implements sLayerController {
   }
 
   closeAll(): void {
-    while (this.top) {
-      this.top.close()
+    let top = this.top
+    while (top) {
+      top.close()
+      top = this.top
     }
   }
 
