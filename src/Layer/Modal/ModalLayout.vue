@@ -16,32 +16,48 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
+import { defineComponent, type PropType } from 'vue'
 import ModalPresenter from '../../Presenter/ModalPresenter.vue'
 import type { Modal } from './Modal'
 import type { ModalController } from './ModalController'
 import { setModalComponentRef } from './ModalRuntime'
 
-defineProps<{ manager: ModalController }>()
+export default defineComponent({
+  name: 'ModalLayout',
 
-function getPresenterProps(modal: Modal) {
-  return {
-    component: modal.component,
-    componentProps: modal.props,
+  components: {
+    ModalPresenter,
+  },
 
-    wrapComp: modal.settings.wrapComp,
-    wrapProps: modal.settings.wrapProps ?? {},
+  props: {
+    manager: {
+      type: Object as PropType<ModalController>,
+      required: true,
+    },
+  },
 
-    bridgeComp: modal.settings.bridgeComp,
-    bridgeProps: modal.settings.bridgeProps ?? {},
+  methods: {
+    getPresenterProps(modal: Modal) {
+      return {
+        component: modal.component,
+        componentProps: modal.props,
 
-    settings: modal.settings.presenterProps ?? {},
+        wrapComp: modal.settings.wrapComp,
+        wrapProps: modal.settings.wrapProps ?? {},
 
-    closeOnBackdrop: modal.settings.closeOnBackdrop,
-    close: () => modal.close(),
-    bindComponentRef: (componentRef: unknown) => setModalComponentRef(modal, componentRef),
-  }
-}
+        bridgeComp: modal.settings.bridgeComp,
+        bridgeProps: modal.settings.bridgeProps ?? {},
+
+        settings: modal.settings.presenterProps ?? {},
+
+        closeOnBackdrop: modal.settings.closeOnBackdrop,
+        close: () => modal.close(),
+        bindComponentRef: (componentRef: unknown) => setModalComponentRef(modal, componentRef),
+      }
+    },
+  },
+})
 </script>
 
 <style scoped>
