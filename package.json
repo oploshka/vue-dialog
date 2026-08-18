@@ -9,11 +9,11 @@
   "repository": "git@github.com:oploshka/vue-dialog.git",
   "homepage": "https://oploshka.github.io/vue-dialog/",
   "scripts": {
-    "dev": "vite",
-    "serve": "vite",
-    "build": "vite build",
-    "build:ph-pages": "cross-env NODE_ENV=production vite build --mode ph-pages",
-    "build:library": "cross-env NODE_ENV=production vite build --mode library"
+    "dev": "vite --config vite.demo.config.ts",
+    "serve": "vite --config vite.demo.config.ts",
+    "build": "vite build --config vite.demo.config.ts",
+    "build:ph-pages": "vite build --config vite.demo.config.ts --mode ph-pages",
+    "build:library": "vite build --config vite.lib.config.ts"
   },
   "main": "dist/index.umd.js",
   "files": [
