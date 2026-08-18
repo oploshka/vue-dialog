@@ -1,5 +1,6 @@
 import type { Component } from 'vue'
 import type { sLayerDescriptor, sLayerController } from '../../Type/Type'
+import { Modal } from './Modal'
 
 let counter = 0
 function generateId(): string {
@@ -9,7 +10,7 @@ function generateId(): string {
 export class ModalController implements sLayerController {
   id = 'modal-controller'
   zIndex: number
-  private _items: sLayerDescriptor[] = []
+  private _items: Modal[] = []
   private _elementZIndex = 0
 
   constructor(zIndex: number = 3000) {
@@ -23,8 +24,8 @@ export class ModalController implements sLayerController {
     variant?: string,
     settings: sLayerDescriptor['settings'] = {},
     callbacks: sLayerDescriptor['callbacks'] = {}
-  ): string {
-    const descriptor: sLayerDescriptor = {
+  ): Modal {
+    const modal = new Modal({
       id: generateId(),
       zIndex: ++this._elementZIndex,
       type,
@@ -33,21 +34,21 @@ export class ModalController implements sLayerController {
       props,
       settings,
       callbacks,
-    }
+    }, item => this.close(item.id))
 
     if (settings.singleton) {
       const existingIndex = this._items.findIndex(item => item.type === type)
       if (existingIndex !== -1) {
-        this._items.splice(existingIndex, 1)
+        this.close(this._items[existingIndex].id)
       }
     }
 
-    this._items.push(descriptor)
-    return descriptor.id
+    this._items.push(modal)
+    return modal
   }
 
   close(id?: string): void {
-    let removed: sLayerDescriptor | undefined
+    let removed: Modal | undefined
 
     if (id) {
       const index = this._items.findIndex(item => item.id === id)
@@ -70,18 +71,18 @@ export class ModalController implements sLayerController {
     }
   }
 
-  get items(): readonly sLayerDescriptor[] {
+  get items(): readonly Modal[] {
     return this._items
   }
 
-  get top(): sLayerDescriptor | undefined {
+  get top(): Modal | undefined {
     return this._items[this._items.length - 1]
   }
 
   handleEsc(): boolean {
     const top = this.top
     if (top && top.settings.closeOnEsc !== false) {
-      this.close()
+      top.close()
       return true
     }
     return false
