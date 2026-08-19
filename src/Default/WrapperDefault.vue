@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import WrapperMixin from '../Mixin/WrapperMixin'
+import WrapperMixin from 'vue-dlg/Mixin/WrapperMixin'
 
 export default defineComponent({
   name: 'WrapperDefault',

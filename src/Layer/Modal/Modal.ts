@@ -1,6 +1,6 @@
 import type { Component } from 'vue'
-import type { sLayerDescriptor, sResolvedModalSettings, tProps } from '../../Type/Type'
-import { getModalComponentRef } from './ModalRuntime'
+import type { sLayerDescriptor, sResolvedModalSettings, tProps } from 'vue-dlg/Type/Type'
+import { getModalComponentRef } from 'vue-dlg/Layer/Modal/ModalRuntime'
 
 type tModalConfig = {
   id: string

@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import OverlayMixin from '../Mixin/OverlayMixin'
+import OverlayMixin from 'vue-dlg/Mixin/OverlayMixin'
 
 export default defineComponent({
   name: 'OverlayDefault',

@@ -13,8 +13,8 @@
 
 <script lang="ts">
 import { defineComponent, type Component, type PropType } from 'vue'
-import type { sLayerController } from './Type/Type'
-import { lockBodyScroll, unlockBodyScroll } from './Utils/BodyScroll'
+import type { sLayerController } from 'vue-dlg/Type/Type'
+import { lockBodyScroll, unlockBodyScroll } from 'vue-dlg/Utils/BodyScroll'
 
 type tLayerEntry = {
   manager: sLayerController
