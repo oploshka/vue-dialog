@@ -13,3 +13,7 @@ export default defineComponent({
   mixins: [WrapperMixin],
 })
 </script>
+
+<style scoped>
+.wrapper-default { background: #fff; }
+</style>

@@ -24,5 +24,6 @@ export default defineComponent({
   padding: 35px 16px 35px 0;
   border-radius: 8px 0 0 8px;
   box-shadow: 4px 0 12px rgba(233, 233, 243, 0.4);
+  background: #ffffff;
 }
 </style>

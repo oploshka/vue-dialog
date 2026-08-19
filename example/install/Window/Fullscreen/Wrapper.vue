@@ -16,6 +16,7 @@ export default defineComponent({
 
 <style scoped>
 .fullscreen-wrapper {
+  background: #ffffff;
   box-sizing: border-box;
   width: 100%;
   height: 100%;
