@@ -1,4 +1,4 @@
-import { shallowReactive, type Component } from 'vue'
+import { shallowRef, type Component } from 'vue'
 import type { sLayerController, sModalSettings, tProps } from '../../Type/Type'
 import { Modal } from './Modal'
 import { resolveModalSettings } from './ModalSettings'
@@ -11,7 +11,7 @@ function generateId(): string {
 export class ModalController implements sLayerController {
   id = 'modal-controller'
   zIndex: number
-  private _items = shallowReactive<Modal[]>([])
+  private _items = shallowRef<Modal[]>([])
   private _elementZIndex = 0
 
   constructor(zIndex: number = 3000) {
@@ -31,18 +31,22 @@ export class ModalController implements sLayerController {
       settings: resolveModalSettings(settings),
     }, item => this.removeModal(item))
 
-    this._items.push(modal)
+    this._items.value = [...this._items.value, modal]
     return modal
   }
 
   private removeModal(modal: Modal): void {
-    const index = this._items.indexOf(modal)
+    const index = this._items.value.indexOf(modal)
     if (index === -1) return
 
-    this._items.splice(index, 1)
+    this._items.value = [
+      ...this._items.value.slice(0, index),
+      ...this._items.value.slice(index + 1),
+    ]
+
     modal.settings.onClose?.()
 
-    if (this._items.length === 0) {
+    if (this._items.value.length === 0) {
       this._elementZIndex = 0
     }
   }
@@ -56,11 +60,11 @@ export class ModalController implements sLayerController {
   }
 
   get items(): readonly Modal[] {
-    return this._items
+    return this._items.value
   }
 
   get top(): Modal | undefined {
-    return this._items[this._items.length - 1]
+    return this._items.value[this._items.value.length - 1]
   }
 
   handleEsc(): boolean {
