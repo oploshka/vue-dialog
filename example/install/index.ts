@@ -1,28 +1,10 @@
-import { reactive, type App } from 'vue'
-import { ModalController, ModalLayout } from 'vue-dlg'
+import type { App } from 'vue'
 import './style.scss'
-import { facadeConfig } from './facadeConfig'
-import { layerConfig } from './layerConfig'
+import { dialog } from './dialog'
 
-const modalLayerConfig = layerConfig.modal ?? {}
-
-export const modalController = reactive(
-  new ModalController(modalLayerConfig.zIndex ?? undefined),
-) as ModalController
-
-export const layerEntries = [
-  {
-    manager: modalController,
-    template: modalLayerConfig.layout ?? ModalLayout,
-  },
-]
-
-export const dialog = Object.fromEntries(
-  Object.entries(facadeConfig).map(([name, createFacade]) => [
-    name,
-    createFacade(modalController),
-  ]),
-)
+export { dialog } from './dialog'
+export { layerConfig as layerEntries } from './layerConfig'
+export { store } from './store'
 
 export default {
   install(app: App): void {

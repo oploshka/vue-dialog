@@ -1,15 +1,9 @@
-import type { Component } from 'vue'
+import { ModalLayout } from 'vue-dlg'
+import { store } from './store'
 
-export type tLayerConfig = {
-  modal?: {
-    zIndex?: number | null
-    layout?: Component | null
-  } | null
-}
-
-export const layerConfig: tLayerConfig = {
-  modal: {
-    zIndex: null,
-    layout: null,
+export const layerConfig = [
+  {
+    manager: store.modal,
+    template: ModalLayout,
   },
-}
+]
