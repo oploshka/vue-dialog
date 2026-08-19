@@ -26,9 +26,7 @@
           <ExampleBlockNotify />
         </div>
       </div>
-    </div>
 
-    <div class="row g-4">
       <div class="col-12 col-md-6 col-xl-3">
         <div class="h-100 border rounded-3 p-3">
           <ExampleBlockModal />
