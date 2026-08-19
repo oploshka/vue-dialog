@@ -3,14 +3,33 @@
     class="notification-item"
     :class="`notification-item--${variant}`"
   >
-    <strong
-      v-if="title"
-      class="notification-item__title"
-    >
-      {{ title }}
-    </strong>
+    <div class="notification-item__header">
+      <div class="notification-item__title-row">
+        <span class="notification-item__icon" aria-hidden="true">
+          {{ variant === 'success' ? '✓' : '!' }}
+        </span>
 
-    <div>{{ message }}</div>
+        <strong
+          v-if="title"
+          class="notification-item__title"
+        >
+          {{ title }}
+        </strong>
+      </div>
+
+      <button
+        class="notification-item__close"
+        type="button"
+        aria-label="Close notification"
+        @click="$emit('close')"
+      >
+        ×
+      </button>
+    </div>
+
+    <div class="notification-item__message">
+      {{ message }}
+    </div>
   </div>
 </template>
 
@@ -21,6 +40,8 @@ type tNotificationVariant = 'info' | 'success' | 'warning' | 'error'
 
 export default defineComponent({
   name: 'NotificationItem',
+
+  emits: ['close'],
 
   props: {
     title: {
@@ -41,30 +62,99 @@ export default defineComponent({
 
 <style scoped>
 .notification-item {
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
-  min-width: 280px;
-  max-width: 380px;
-  padding: 12px 16px;
-  background: #fff;
-  border-left: 4px solid #6c757d;
-  border-radius: 4px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+  width: 100%;
+  padding: 24px;
+  gap: 8px;
+  color: #181a35;
+  background: #eef6ff;
+  border-left: 5px solid #187fe7;
+  font-size: 12px;
+  text-align: left;
+}
+
+.notification-item__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.notification-item__title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.notification-item__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  color: #187fe7;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .notification-item__title {
-  display: block;
-  margin-bottom: 4px;
+  min-width: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.notification-item__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.notification-item__message {
+  font-size: 14px;
 }
 
 .notification-item--success {
-  border-left-color: #198754;
+  background: #eefff4;
+  border-left-color: #2d9d5b;
+}
+
+.notification-item--success .notification-item__icon {
+  color: #2d9d5b;
 }
 
 .notification-item--warning {
-  border-left-color: #ffc107;
+  background: #fff8e6;
+  border-left-color: #d99a00;
+}
+
+.notification-item--warning .notification-item__icon {
+  color: #d99a00;
 }
 
 .notification-item--error {
-  border-left-color: #dc3545;
+  background: #fff3f3;
+  border-left-color: #d64545;
+}
+
+.notification-item--error .notification-item__icon {
+  color: #d64545;
 }
 </style>
