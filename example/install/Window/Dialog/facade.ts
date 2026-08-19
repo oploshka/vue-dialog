@@ -1,6 +1,6 @@
 import type { Component } from 'vue'
 import type { ModalController, sModalSettings, tProps } from 'vue-dlg'
-import { dialogConfig } from './config'
+import { dialogConfig } from '@example/install/Window/Dialog/config'
 
 export const createDialogFacade = (controller: ModalController) => ({
   open(

@@ -1,6 +1,6 @@
 import type { App } from 'vue'
-import './style.scss'
-import { facadeConfig } from './facadeConfig'
+import '@example/install/style.scss'
+import { facadeConfig } from '@example/install/facadeConfig'
 
 export default {
   install(app: App): void {

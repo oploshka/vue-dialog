@@ -1,4 +1,4 @@
-import type { Modal } from './Modal'
+import type { Modal } from 'vue-dlg/Layer/Modal/Modal'
 
 const componentRefs = new WeakMap<Modal, unknown>()
 

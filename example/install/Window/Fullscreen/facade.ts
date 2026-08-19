@@ -1,6 +1,6 @@
 import type { Component } from 'vue'
 import type { ModalController, sModalSettings, tProps } from 'vue-dlg'
-import { fullscreenConfig } from './config'
+import { fullscreenConfig } from '@example/install/Window/Fullscreen/config'
 
 export const createFullscreenFacade = (controller: ModalController) => ({
   open(

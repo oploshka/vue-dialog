@@ -1,6 +1,6 @@
 import type { sModalSettings } from 'vue-dlg'
-import FullscreenPresenter from './Presenter.vue'
-import FullscreenWrapper from './Wrapper.vue'
+import FullscreenPresenter from '@example/install/Window/Fullscreen/Presenter.vue'
+import FullscreenWrapper from '@example/install/Window/Fullscreen/Wrapper.vue'
 
 export const fullscreenConfig: sModalSettings = {
   presenterComp: FullscreenPresenter,

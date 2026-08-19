@@ -1,11 +1,11 @@
 import type { Modal, ModalController } from 'vue-dlg'
-import PromptItem from './Item.vue'
+import PromptItem from '@example/install/Window/Dialog/Prompt/Item.vue'
 import {
   promptActions,
   type tPromptChoiceItem,
   type tPromptValue,
-} from './action'
-import { dialogConfig } from '../config'
+} from '@example/install/Window/Dialog/Prompt/action'
+import { dialogConfig } from '@example/install/Window/Dialog/config'
 
 export type tPromptSubmitEvent = {
   action: 'OK'

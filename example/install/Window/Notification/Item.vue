@@ -35,7 +35,7 @@ import { defineComponent, type PropType } from 'vue'
 import {
   notificationVariants,
   type tNotificationVariant,
-} from './variant'
+} from '@example/install/Window/Notification/variant'
 
 export default defineComponent({
   name: 'NotificationItem',

@@ -1,7 +1,7 @@
 import { shallowRef, type Component } from 'vue'
-import type { sLayerController, sModalSettings, tProps } from '../../Type/Type'
-import { Modal } from './Modal'
-import { resolveModalSettings } from './ModalSettings'
+import type { sLayerController, sModalSettings, tProps } from 'vue-dlg/Type/Type'
+import { Modal } from 'vue-dlg/Layer/Modal/Modal'
+import { resolveModalSettings } from 'vue-dlg/Layer/Modal/ModalSettings'
 
 let counter = 0
 function generateId(): string {

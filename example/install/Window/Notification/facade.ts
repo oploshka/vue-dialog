@@ -1,6 +1,6 @@
 import type { NotificationController } from 'vue-dlg'
-import NotificationItem from './Item.vue'
-import type { tNotificationVariant } from './variant'
+import NotificationItem from '@example/install/Window/Notification/Item.vue'
+import type { tNotificationVariant } from '@example/install/Window/Notification/variant'
 
 export const createNotificationFacade = (controller: NotificationController) => {
   const show = (

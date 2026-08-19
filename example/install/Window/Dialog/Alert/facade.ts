@@ -1,10 +1,10 @@
 import type { Modal, ModalController } from 'vue-dlg'
-import AlertItem from './Item.vue'
+import AlertItem from '@example/install/Window/Dialog/Alert/Item.vue'
 import {
   alertVariants,
   type tAlertVariant,
-} from './variant'
-import { dialogConfig } from '../config'
+} from '@example/install/Window/Dialog/Alert/variant'
+import { dialogConfig } from '@example/install/Window/Dialog/config'
 
 export type tAlertPositiveEvent = {
   action: 'OK'

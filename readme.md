@@ -1,192 +1,236 @@
+# Vue Dialog
 
-# Vue Dialog - показ диалоговых окон для Vue 3
+Vue 3 library for programmatic modal layers. The library core manages layer state and lifecycle; presentation, styles and application-specific facades stay outside the core.
+
+Current repository version: **3.0.0-alpha.3**.
+
+> The `develop` branch contains the current v3 rewrite. The old v2 documentation and examples are kept only as historical material.
+
+## Main ideas
+
+- User content remains a normal Vue component.
+- `ModalController.open()` returns a live `Modal` handle with `close()` and optional component-ref access.
+- Modal interaction results are delivered through props/callbacks instead of Promise-based APIs.
+- Presentation is split into `Presenter`, `Position`, `Wrapper` and `Bridge` responsibilities.
+- `NotificationController` has its own queue, duration and pause/resume lifecycle.
+- Application-specific facades (`Alert`, `Confirm`, `Prompt`, sidebars, fullscreen, notifications) are built on top of the core controllers.
+- `LayerHost` decides when a layer requires body-scroll locking, while the application supplies lock/unlock callbacks.
+- Core components do not impose application styling or direct `document.body` mutations.
+
+## Architecture
+
+```text
+LayerHost
+└─ Teleport → body
+   ├─ ModalLayout
+   │  └─ Presenter
+   │     ├─ Overlay
+   │     └─ Position
+   │        └─ Wrapper
+   │           └─ Bridge
+   │              └─ User component
+   └─ NotificationLayout
+      └─ Notification items
+```
+
+The core package exports the controllers, default presenter parts, mixins and `LayerHost`. A complete application setup is available in `example/install`.
+
+## Installation
+
+```bash
+pnpm add vue-dlg
+# or
+npm install vue-dlg
+```
+
+For the current alpha architecture, use `example/install` as the reference application configuration. It intentionally lives outside `src`: window appearance and convenience facades are application policy, not core policy.
+
+## Minimal core usage
+
+```ts
+import {
+  LayerHost,
+  ModalController,
+  ModalLayout,
+  NotificationController,
+} from 'vue-dlg'
+
+const modalController = new ModalController()
+const notificationController = new NotificationController({
+  maxVisible: 3,
+  duration: 5000,
+})
+
+export const layers = [
+  {
+    manager: modalController,
+    template: ModalLayout,
+    lockBodyScroll: true,
+  },
+]
+```
+
+Mount the host once in the application root and provide the body-scroll implementation explicitly:
+
+```vue
+<template>
+  <LayerHost
+    :layers="layers"
+    :on-lock-body-scroll="lockBodyScroll"
+    :on-unlock-body-scroll="unlockBodyScroll"
+  />
+  <router-view />
+</template>
+
+<script>
+import { LayerHost } from 'vue-dlg'
+
+export default {
+  components: { LayerHost },
+
+  methods: {
+    lockBodyScroll() {
+      document.body.classList.add('body-scroll--locked')
+    },
+    unlockBodyScroll() {
+      document.body.classList.remove('body-scroll--locked')
+    },
+  },
+}
+</script>
+```
+
+`LayerHost` calls lock only on the transition from no lock-enabled items to at least one such item, calls unlock when the last one disappears, and releases its active lock on unmount.
+
+Open an arbitrary component:
+
+```ts
+const modal = modalController.open(UserComponent, {
+  title: 'Example',
+  onSave(payload) {
+    console.log(payload)
+    modal.close()
+  },
+})
+```
+
+The returned `Modal` is a live handle:
+
+```ts
+modal.close()
+modal.getComponentRef()
+```
+
+## Application facade example
+
+`example/install` builds convenience APIs on the same controllers:
+
+```js
+this.$dialog.Alert.success('Запись добавлена')
+this.$dialog.Alert.warning('Сервис временно недоступен')
+this.$dialog.Alert.error('Ошибка сервера')
+
+this.$dialog.Confirm.add('Добавить запись?', {
+  onPositive(event) {},
+  onNegative(event) {},
+})
+
+this.$dialog.Confirm.delete('Удалить запись?')
+
+this.$dialog.Prompt.text('Как к Вам обратиться?', {
+  onSubmit(event) {
+    console.log(event.value)
+  },
+})
+
+this.$dialog.Prompt.choice([
+  { id: 1, name: 'Первый вариант' },
+  { id: 2, name: 'Второй вариант' },
+], {
+  onSubmit(event) {
+    console.log(event.value)
+  },
+})
+
+this.$dialog.Notification.success('Успешно', 'Запись добавлена')
+```
+
+Window facades are also provided by the example configuration:
+
+```js
+this.$dialog.Modal.open(Component, props, options)
+this.$dialog.Fullscreen.open(Component, props, options)
+this.$dialog.SidebarLeft.open(Component, props, options)
+this.$dialog.SidebarRight.open(Component, props, options)
+```
+
+`Alert`, `Confirm`, `Prompt`, `Modal`, `Fullscreen` and both sidebars use the same `ModalController`, so stacking and z-index ordering are shared naturally.
+
+## Notification behavior
+
+`NotificationController` supports:
+
+- `maxVisible` visible items;
+- FIFO queue for overflow;
+- default controller duration;
+- per-notification duration override;
+- pause/resume of an individual notification timer;
+- live `Notification.close()` handle.
+
+A duration of `0` disables automatic closing.
+
+## Project aliases
+
+The repository uses explicit aliases instead of deep relative imports:
+
+```text
+vue-dlg/*   → src/*
+@app/*      → test/app/*
+@example/*  → example/*
+```
+
+The aliases are defined in `tsconfig.paths.json` and consumed by the Vite configs.
+
+## Development
+
+```bash
+pnpm install
+pnpm dev
+pnpm build
+pnpm build:library
+```
+
+- `pnpm build` builds the demo application.
+- `pnpm build:library` builds the library package.
+
+Both Vite builds are part of the current v3 stabilization workflow. Type-check/test cleanup remains a separate development step.
+
+## Documentation
+
+- `doc/readme-plugin-install.md` — current application integration notes.
+- `doc/development/history.md` — project history.
+- `doc/development/run-and-publication.md` — development/publication notes.
+- `doc/development/todo.md` — current development roadmap.
+
+## Development roadmap
+
+The short version:
+
+1. Stabilize type-checking and remove stale v2/dead runtime files exposed by validation.
+2. Add controller/lifecycle tests for Modal and Notification behavior.
+3. Add focus management and accessibility behavior for modal-like windows.
+4. Review the final public facade surface (`Dialog.open`, specialized facades, exported types).
+5. Prepare the v3 release documentation and package metadata.
+
+See `doc/development/todo.md` for the maintained roadmap.
+
+## License
 
 ⚠️ **STRICT PROPRIETARY LICENSE**
 
 - Commercial use requires written agreement with the Author.
 - AI usage strictly prohibited.
 - Reverse engineering prohibited.
-- See LICENSE (English) for full legal terms.  
-  Русский перевод: LICENSE.ru  
-  In case of conflict, the English version prevails.
-
-Это обобщённый каркас для показа диалоговых окон, alert'ов, confirm'ов.
-Есть ряд подготовленных шаблонов, но что использовать в конечном итоге решаете Вы.
-
-Мы постарались не перегружать компоненты готовыми стилями и упростить кастомизацию,
-по этой причине установка будет чуть сложнее (чем обычно).
-
-Отличия от других:
-- Решение использует "тонкий клиент", 
-  поэтому вы можете работать с модальными окнами
-  до загрузки Vue App 
-  (отображение произойдёт после инициализации приложения).
-- Возможность задавать свои алиасы для модальных окон 
-  (пример: alertSuccess, alertWarning, alertError)
-- Мы не наслаиваем модальные окна друг на друга, 
-  а предлагаем отображать друг за другом и 
-  в том количестве которое приемлемо вам.
-- Не используем template для отображения модального окна. Показ модального реализован программно
-- Не предлагаем использовать кучу параметров
-  для задания ширины и высоты модального окна или
-  их адаптивности и тп. Для этого есть CSS стили.
-  
-
-## Setup
-
-<details>
-<summary><b style="font-size: 1.3em;">Установка (сложнее чем обычно)</b></summary>
-
-### Шаг 1
-```bash
-yarn add vue-dlg
-# Or using npm
-npm install vue-dlg --save
-```
-
-### Шаг 2
-- Создайте папку в удобном месте для файлов настроек плагина. Предположим, "./plugin/vue-dlg". 
-- Cкопируйте содержимое папки ./example/plugin-install из репозитория в "./plugin/vue-dlg".
-
-В данной папке находится пример того, как можно настраивать данный плагин.
-Вы можете менять данные настройки под себя.
-Прочитать про настройки можно в doc/readme-plugin-install.md
-
-
-### Шаг 3
-Add dependencies to your `main.js`:
-<details>
-<summary><b style="font-size: 1.3em;">main.js</b></summary>
-
-```js
-import { createApp } from 'vue';
-// [ADD]
-import vueDlgPluginProxy from './plugin/vue-dlg'
-// ...
-
-let app = createApp(App)
-// [ADD]
-app.use(vueDlgPluginProxy);
-// ...
-app.use(router);
-app.mount('#app');
-
-```
-
-</details>
-
-
-### Шаг 4
-Add the global component to your `App.vue`:
-
-<details>
-<summary><b style="font-size: 1.3em;">App.vue</b></summary>
-
-```vue
-<template>
-  <VueDlgCore />
-  <!-- -->
-  <router-view />
-</template>
-
-<script>
-import DialogCore from "vue-dlg/DlgCore";
-
-export default {
-  component: {
-    VueDlgCore,
-    // ...
-  }
-  // ...
-}
-</script>
-```
-
-</details>
-
-
-
-</details>
-
-
-
-## Пример использования
-
-### Простые Alert
-```js
-export default {
-  // vue component
-  // ...
-  methods: {
-    showAlertSuccess() {
-      this.$dialog.alert.success('Запись добавлена');
-      // TODO: дописать как слушать закрытие
-    },
-    showAlertWarning() {
-      this.$dialog.alert.warning('Данный сервис не доступен, попробуйте через 5 минут');
-      // TODO: дописать как слушать закрытие
-    },
-    showAlertError() {
-      this.$dialog.alert.error('Ошибка сервера');
-      // TODO: дописать как слушать закрытие
-    }
-  }
-}
-```
-
-### Произвольный компонент в модальном окне
-
-```js
-// props: {
-//   fullName: String,
-//   year: Number
-// },
-// emit: ['save']
-import ArbitraryComponent from "./ArbitraryComponent";
-
-export default {
-  mounted() {
-
-    let modal = null;
-    const closeModal = () => {
-      modal && modal.close(this);
-    };
-    const props = {
-      // data
-      fullName: 'Tester',
-      year: 2014,
-      // events (добавляем приставку on к emit: ['save'])
-      onSave: (saveObj) => {
-        console.log(saveObj);
-        closeModal();
-      },
-    };
-    //
-    modal = this.$dialog.open(this);
-
-    // TODO: поправить // modal.then(() => { modal = null; });
-
-  },
-};
-```
-
-### Использование дополнительной обёртки
-В редких случаях может понадобиться использовать дополнительную обёртку для отображения компонента 
-и добавления специфичной логики, связанной с модальным окном.
-В таком варианте вы можете дополнительно передавать функции и делать поведение более гибким.
-Но не стоит этим увлекаться.
-
-Вызов модального окна не отличается от предыдущего примера,
-а обёртки могут быть на любой вкус: от универсальных, до заточенных под конкретный компонент.
-По этой примчине мы не будем приводить пример.
-
-## Options $dialog.open
-
-| Name              | Type               | Required | Default value   | Info                                  |
-| ----------------- | ------------------ | -------- | --------------- | ------------------------------------- |
-| VueComponent      | VueComponent       | Yes      |                 | Vue component that opens in a modal   |
-| VueComponentProps | Object             | Yes      | {}              | Vue component props data              |
-| settings          | Object             | No       | {group: "modal"}| Настройки для диалоговых окон         |
-
-
-
+- See `LICENSE` (English) for full legal terms.
+- Russian translation: `LICENSE.ru`.
+- In case of conflict, the English version prevails.

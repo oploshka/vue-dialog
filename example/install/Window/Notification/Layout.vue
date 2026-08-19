@@ -26,11 +26,11 @@
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 import type { Notification, NotificationController } from 'vue-dlg'
-import NotificationWrapper from './Wrapper.vue'
+import NotificationWrapper from '@example/install/Window/Notification/Wrapper.vue'
 import {
   isNotificationVariant,
   type tNotificationVariant,
-} from './variant'
+} from '@example/install/Window/Notification/variant'
 
 export default defineComponent({
   name: 'NotificationLayout',

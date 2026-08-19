@@ -29,7 +29,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { PresenterMixin } from 'vue-dlg'
-import SidebarRightPosition from './Position.vue'
+import SidebarRightPosition from '@example/install/Window/SidebarRight/Position.vue'
 
 type tSidebarRightSize = 'small' | 'medium' | 'large'
 

@@ -13,14 +13,15 @@
 
 <script lang="ts">
 import { defineComponent, type Component, type PropType } from 'vue'
-import type { sLayerController } from './Type/Type'
-import { lockBodyScroll, unlockBodyScroll } from './Utils/BodyScroll'
+import type { sLayerController } from 'vue-dlg/Type/Type'
 
 type tLayerEntry = {
   manager: sLayerController
   template: Component
   lockBodyScroll?: boolean
 }
+
+type tBodyScrollCallback = () => void
 
 export default defineComponent({
   name: 'LayerHost',
@@ -30,6 +31,20 @@ export default defineComponent({
       type: Array as PropType<tLayerEntry[]>,
       required: true,
     },
+    onLockBodyScroll: {
+      type: Function as PropType<tBodyScrollCallback>,
+      default: undefined,
+    },
+    onUnlockBodyScroll: {
+      type: Function as PropType<tBodyScrollCallback>,
+      default: undefined,
+    },
+  },
+
+  data() {
+    return {
+      bodyScrollLocked: false,
+    }
   },
 
   computed: {
@@ -45,16 +60,34 @@ export default defineComponent({
   },
 
   watch: {
-    hasScrollLockItems(value: boolean): void {
-      if (value) {
-        lockBodyScroll('modal')
-      } else {
-        unlockBodyScroll('modal')
-      }
+    hasScrollLockItems: {
+      handler(value: boolean): void {
+        this.syncBodyScroll(value)
+      },
+      immediate: true,
     },
   },
 
+  beforeUnmount() {
+    if (!this.bodyScrollLocked) return
+
+    this.onUnlockBodyScroll?.()
+    this.bodyScrollLocked = false
+  },
+
   methods: {
+    syncBodyScroll(shouldLock: boolean): void {
+      if (shouldLock === this.bodyScrollLocked) return
+
+      if (shouldLock) {
+        this.onLockBodyScroll?.()
+      } else {
+        this.onUnlockBodyScroll?.()
+      }
+
+      this.bodyScrollLocked = shouldLock
+    },
+
     handleEsc(): void {
       const reversed = [...this.sortedLayers].reverse()
       for (const entry of reversed) {

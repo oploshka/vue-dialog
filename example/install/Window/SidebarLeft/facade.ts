@@ -1,6 +1,6 @@
 import type { Component } from 'vue'
 import type { ModalController, sModalSettings, tProps } from 'vue-dlg'
-import { sidebarLeftConfig } from './config'
+import { sidebarLeftConfig } from '@example/install/Window/SidebarLeft/config'
 
 export const createSidebarLeftFacade = (controller: ModalController) => ({
   open(

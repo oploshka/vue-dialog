@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import BridgeMixin from '../Mixin/BridgeMixin'
+import BridgeMixin from 'vue-dlg/Mixin/BridgeMixin'
 
 export default defineComponent({
   name: 'BridgeDefault',

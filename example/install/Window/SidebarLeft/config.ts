@@ -1,6 +1,6 @@
 import type { sModalSettings } from 'vue-dlg'
-import SidebarLeftPresenter from './Presenter.vue'
-import SidebarLeftWrapper from './Wrapper.vue'
+import SidebarLeftPresenter from '@example/install/Window/SidebarLeft/Presenter.vue'
+import SidebarLeftWrapper from '@example/install/Window/SidebarLeft/Wrapper.vue'
 
 export const sidebarLeftConfig: sModalSettings = {
   presenterComp: SidebarLeftPresenter,
