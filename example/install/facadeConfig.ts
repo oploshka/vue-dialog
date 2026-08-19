@@ -2,6 +2,7 @@ import { modalController, notificationController } from './layerConfig'
 import { createModalFacade } from './Window/Modal/facade'
 import { createDialogFacade } from './Window/Dialog/facade'
 import { createAlertFacade } from './Window/Dialog/Alert/facade'
+import { createConfirmFacade } from './Window/Dialog/Confirm/facade'
 import { createFullscreenFacade } from './Window/Fullscreen/facade'
 import { createSidebarLeftFacade } from './Window/SidebarLeft/facade'
 import { createSidebarRightFacade } from './Window/SidebarRight/facade'
@@ -11,6 +12,7 @@ export const facadeConfig = {
   Modal: createModalFacade(modalController),
   Dialog: createDialogFacade(modalController),
   Alert: createAlertFacade(modalController),
+  Confirm: createConfirmFacade(modalController),
   Fullscreen: createFullscreenFacade(modalController),
   SidebarLeft: createSidebarLeftFacade(modalController),
   SidebarRight: createSidebarRightFacade(modalController),
