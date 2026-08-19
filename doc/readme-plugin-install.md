@@ -1,190 +1,173 @@
+# Application integration
 
+The v3 core deliberately does not ship a single mandatory visual configuration. The current reference setup is `example/install`.
 
-<details>
-<summary><b style="font-size: 1.3em;">group-settings.js</b></summary>
+## Structure
 
-```js
-//
-import {addGroupSetting} from "vue-dlg/DlgGroupSettings";
-
-// задаем настройки для разных групп
-addGroupSetting('modal', {
-  // максимальное количество модальных окон на экране в этой группе
-  maxDisplayItem: 1,
-  // показывать overlay?
-  overlay      : true,
-});
-
-addGroupSetting('notify', {
-  maxDisplayItem: 3,
-  overlay      : false,
-});
+```text
+example/install/
+├─ Window/
+│  ├─ Dialog/
+│  │  ├─ Alert/
+│  │  ├─ Confirm/
+│  │  ├─ Prompt/
+│  │  ├─ Wrapper.vue
+│  │  ├─ config.ts
+│  │  └─ facade.ts
+│  ├─ Modal/
+│  ├─ Fullscreen/
+│  ├─ SidebarLeft/
+│  ├─ SidebarRight/
+│  └─ Notification/
+├─ facadeConfig.ts
+├─ index.ts
+├─ layerConfig.ts
+└─ style.scss
 ```
 
-</details>
+`src` contains the generic runtime. `example/install` contains application decisions: presenter composition, wrapper appearance, window sizes, dialog wording and facade names.
 
-<details>
-<summary><b style="font-size: 1.3em;">action.js</b></summary>
+## 1. Controllers and layers
 
-```js
-// Тонкий клиент
-import VueDlgThinClient from 'vue-dlg/DlgThinClient';
-// Темплейты модальных окон
-import DialogBox        from "vue-dlg/Template/DialogBox";
-import DialogNotify     from "vue-dlg/Template/DialogNotify";
+`layerConfig.ts` creates the controllers and describes which layer template renders each controller:
 
-// настраиваем список модальных окон
+```ts
+import {
+  ModalController,
+  ModalLayout,
+  NotificationController,
+} from 'vue-dlg'
+import NotificationLayout from '@example/install/Window/Notification/Layout.vue'
+
+export const modalController = new ModalController()
+export const notificationController = new NotificationController({
+  maxVisible: 3,
+  duration: 5000,
+})
+
+export const layerConfig = [
+  {
+    manager: modalController,
+    template: ModalLayout,
+    lockBodyScroll: true,
+  },
+  {
+    manager: notificationController,
+    template: NotificationLayout,
+    lockBodyScroll: false,
+  },
+]
+```
+
+`lockBodyScroll` is layer policy: modal-like windows request a body lock, notifications do not.
+
+## 2. LayerHost
+
+Mount the host in the application root:
+
+```vue
+<template>
+  <LayerHost :layers="layerConfig" />
+  <router-view />
+</template>
+
+<script>
+import { LayerHost } from 'vue-dlg'
+import { layerConfig } from '@example/install/layerConfig'
+
 export default {
-  open: VueDlgThinClient, // function (VueComponent, VueComponentProps, setting)
-
-  alert: {
-    success: (message) => {
-      return VueDlgThinClient(
-              DialogBox,
-              { title: "Успешно", message: message, okLabel: 'Ok', theme: "success", },
-              { group: 'modal' }
-      );
-    },
-    warning: (message) => {
-      return VueDlgThinClient(
-              DialogBox,
-              { title: "Предупреждение", message: message, okLabel: 'Ok', theme: "warning" },
-              { group: 'modal' }
-      );
-    },
-    error: (message) => {
-      return VueDlgThinClient(
-              DialogBox,
-              { title: "Ошибка", message: message, okLabel: 'Ok', theme: "error" },
-              { group: 'modal' }
-      );
-    },
+  components: { LayerHost },
+  data() {
+    return { layerConfig }
   },
-
-  confirm(message, options = {}){
-    return VueDlgThinClient(
-            DialogBox,
-            {
-              title: "Подтвердите действие",
-              message: message,
-              okLabel: (options && options.okLabel) ? options.okLabel : 'Ok',
-              cancelLabel: (options && options.cancelLabel) ? options.cancelLabel : 'Отмена',
-            },
-            { group: 'modal' }
-    );
-  },
-
-  notify: (title, message) => {
-    return VueDlgThinClient(
-            DialogNotify,
-            { title: title, message: message },
-            { group: 'notify' }
-    );
-  }
-};
+}
+</script>
 ```
 
-</details>
+The next planned lifecycle change moves the concrete body-scroll implementation out of the core and into two callbacks passed to `LayerHost`. See `doc/development/todo.md`.
 
-<details>
-<summary><b style="font-size: 1.3em;">style.scss</b></summary>
+## 3. Window configuration
 
-```scss
+Every modal-like facade ultimately calls:
 
-.dlg .dlg-overlay {
-  background: var(--dlg-overlay, rgba(0,0,0,0.5));
-  cursor: default;
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
+```ts
+modalController.open(component, props, settings)
+```
 
-.dlg .dlg-container{
-  pointer-events: none;
-  & > div {
-    pointer-events: all;
-  }
-}
+A settings object can replace the rendering pieces:
 
-.dlg .dlg-container.dlg-container-notify{
-  position: fixed;
-  left: 10px;
-  top: 10px;
-  width: 320px;
-  z-index: 420;
+```text
+presenterComp / presenterProps
+overlayComp   / overlayProps
+wrapComp      / wrapProps
+bridgeComp    / bridgeProps
+closeOnEsc
+closeOnBackdrop
+onClose
+```
 
-  & > div {
-    margin-bottom: 5px;
-  }
-  & > div:last-child {
-    margin-bottom: 0px;
-  }
+The reference application uses separate presenters/wrappers for centered modal, fullscreen and sidebars. `Alert`, `Confirm` and `Prompt` share the dialog shell.
 
-}
+## 4. Facades
 
+`facadeConfig.ts` builds convenience APIs using the same controller instances:
 
-.dlg .dlg-container.dlg-container-modal {
-
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 400;
-
-  overflow: hidden;
-  opacity: 1;
-
-  display: flex;
-  display: -ms-flexbox;
-  align-items: center;
-  -ms-flex-align: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-
-
-  & > div {
-    width: 100%;
-    max-width: 740px;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-bottom: 20px;
-  }
-  & > div:last-child {
-    margin-bottom: 0px;
-  }
+```ts
+export const facadeConfig = {
+  Modal: createModalFacade(modalController),
+  Dialog: createDialogFacade(modalController),
+  Alert: createAlertFacade(modalController),
+  Confirm: createConfirmFacade(modalController),
+  Prompt: createPromptFacade(modalController),
+  Fullscreen: createFullscreenFacade(modalController),
+  SidebarLeft: createSidebarLeftFacade(modalController),
+  SidebarRight: createSidebarRightFacade(modalController),
+  Notification: createNotificationFacade(notificationController),
 }
 ```
 
-</details>
+The example plugin exposes this object as `$dialog` and through Vue `provide`.
 
-<details>
-<summary><b style="font-size: 1.3em;">index.js</b></summary>
+## 5. Result handling
+
+The v3 API does not use Promise results for modal actions. Pass event callbacks as component props/facade options:
 
 ```js
-// Подключаем плагин
-import vueDlgPlugin from "vue-dlg/plugin";
-
-// настройки модальных групп
-import "./group-settings";
-// задаем стили
-import './style.scss';
-// список настроенных действий
-import dialogAction from "./action";
-
-// опционально можно сделать глобальным
-// global.DIALOG = dialogAction;
-
-// фасад для установки плагина (чтоб не перегружать основной main.js) 
-export default {
-  install: (app) => {
-    vueDlgPlugin.install(app, {action: dialogAction});
+this.$dialog.Confirm.delete('Удалить запись?', {
+  onPositive(event) {
+    // confirmed
   },
-};
+  onNegative(event) {
+    // cancelled
+  },
+})
 ```
 
-</details>
+`Prompt` returns the entered/selected value through `onSubmit`:
 
+```js
+this.$dialog.Prompt.text('Введите имя', {
+  onSubmit(event) {
+    console.log(event.value)
+  },
+})
+```
+
+The `Modal` returned by `open()` is still live and may be closed imperatively:
+
+```ts
+const modal = this.$dialog.Modal.open(Component)
+modal.close()
+```
+
+## 6. Aliases
+
+Repository code uses:
+
+```text
+vue-dlg/*   → src/*
+@example/*  → example/*
+@app/*      → test/app/*
+```
+
+When copying `example/install` into another application, replace `@example/*` with that application's own alias/path while leaving public `vue-dlg` imports unchanged.
