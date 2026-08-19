@@ -11,6 +11,7 @@
       <component
         :is="wrapComp"
         v-bind="wrapProps"
+        :close="close"
       >
         <component
           :is="bridgeComp"

@@ -7,7 +7,7 @@
       @click="handleBackdrop"
     />
 
-    <SidebarRightPosition>
+    <SidebarRightPosition :size="sidebarSize">
       <component
         :is="wrapComp"
         v-bind="wrapProps"
@@ -30,6 +30,8 @@ import { defineComponent } from 'vue'
 import { PresenterMixin } from 'vue-dlg'
 import SidebarRightPosition from './Position.vue'
 
+type tSidebarRightSize = 'small' | 'medium' | 'large'
+
 export default defineComponent({
   name: 'SidebarRightPresenter',
 
@@ -38,6 +40,18 @@ export default defineComponent({
   },
 
   mixins: [PresenterMixin],
+
+  computed: {
+    sidebarSize(): tSidebarRightSize {
+      const size = this.settings?.size
+
+      if (size === 'medium' || size === 'large') {
+        return size
+      }
+
+      return 'small'
+    },
+  },
 })
 </script>
 

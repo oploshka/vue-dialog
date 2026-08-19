@@ -1,5 +1,6 @@
 import type { sModalSettings } from 'vue-dlg'
 import ModalPresenter from './Presenter.vue'
+import ModalWrapper from './Wrapper.vue'
 
 export const modalConfig: sModalSettings = {
   presenterComp: ModalPresenter,
@@ -8,7 +9,7 @@ export const modalConfig: sModalSettings = {
   overlayComp: null,
   overlayProps: null,
 
-  wrapComp: null,
+  wrapComp: ModalWrapper,
   wrapProps: null,
 
   bridgeComp: null,
