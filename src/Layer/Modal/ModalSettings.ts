@@ -1,8 +1,8 @@
-import OverlayDefault from 'vue-dlg/Default/OverlayDefault.vue'
-import PresenterDefault from 'vue-dlg/Default/PresenterDefault.vue'
-import WrapperDefault from 'vue-dlg/Default/WrapperDefault.vue'
-import BridgeDefault from 'vue-dlg/Default/BridgeDefault.vue'
-import type { sModalSettings, sResolvedModalSettings } from 'vue-dlg/Type/Type'
+import OverlayDefault from '@/Default/OverlayDefault.vue'
+import PresenterDefault from '@/Default/PresenterDefault.vue'
+import WrapperDefault from '@/Default/WrapperDefault.vue'
+import BridgeDefault from '@/Default/BridgeDefault.vue'
+import type { sModalSettings, sResolvedModalSettings } from '@/Type/Type'
 
 export function resolveModalSettings(
   settings: sModalSettings = {},

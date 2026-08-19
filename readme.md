@@ -181,13 +181,16 @@ A duration of `0` disables automatic closing.
 
 ## Project aliases
 
-The repository uses explicit aliases instead of deep relative imports:
+The repository separates internal source imports from the public package entry:
 
 ```text
-vue-dlg/*   → src/*
-@app/*      → test/app/*
-@example/*  → example/*
+@/*          → src/*
+@app/*       → test/app/*
+@example/*   → example/*
+vue-dlg      → src/install.ts
 ```
+
+Code inside `src` uses `@/*`. Application/example code imports the library through `vue-dlg`, so it exercises the same public exports as a package consumer. There is intentionally no `vue-dlg/*` source alias: internal folders are not public package subpaths.
 
 The aliases are defined in `tsconfig.paths.json` and consumed by the Vite configs.
 
@@ -201,7 +204,7 @@ pnpm build:library
 ```
 
 - `pnpm build` builds the demo application.
-- `pnpm build:library` builds the library package.
+- `pnpm build:library` builds the ESM library entry as `lib/index.js` from `src/install.ts`.
 
 Both Vite builds are part of the current v3 stabilization workflow. Type-check/test cleanup remains a separate development step.
 

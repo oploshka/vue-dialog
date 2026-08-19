@@ -1,5 +1,5 @@
 import { shallowRef, type Component } from 'vue'
-import type { sLayerController, sLayerItem, tProps } from 'vue-dlg/Type/Type'
+import type { sLayerController, sLayerItem, tProps } from '@/Type/Type'
 
 let counter = 0
 function generateId(): string {

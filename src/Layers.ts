@@ -1,7 +1,7 @@
-import { ModalController } from 'vue-dlg/Layer/Modal/ModalController'
-import { NotifyController } from 'vue-dlg/Layer/Notify/NotifyController'
-import ModalLayout from 'vue-dlg/Layer/Modal/ModalLayout.vue'
-import NotifyLayer from 'vue-dlg/Layer/Notify/NotifyLayer.vue'
+import { ModalController } from '@/Layer/Modal/ModalController'
+import { NotifyController } from '@/Layer/Notify/NotifyController'
+import ModalLayout from '@/Layer/Modal/ModalLayout.vue'
+import NotifyLayer from '@/Layer/Notify/NotifyLayer.vue'
 
 const modalController = new ModalController(3000)
 const notifyController = new NotifyController(5000)

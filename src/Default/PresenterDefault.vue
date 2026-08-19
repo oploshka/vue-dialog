@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import PresenterMixin from 'vue-dlg/Mixin/PresenterMixin'
+import PresenterMixin from '@/Mixin/PresenterMixin'
 
 export default defineComponent({
   name: 'PresenterDefault',

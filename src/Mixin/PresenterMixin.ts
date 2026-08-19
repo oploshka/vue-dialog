@@ -1,6 +1,6 @@
 import { defineComponent, type Component, type PropType } from 'vue'
-import type { tProps } from 'vue-dlg/Type/Type'
-import { bridgeProps as bridgeMixinProps } from 'vue-dlg/Mixin/BridgeMixin'
+import type { tProps } from '@/Type/Type'
+import { bridgeProps as bridgeMixinProps } from '@/Mixin/BridgeMixin'
 
 export const presenterProps = {
   ...bridgeMixinProps,

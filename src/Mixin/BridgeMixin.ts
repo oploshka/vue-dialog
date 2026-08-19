@@ -1,5 +1,5 @@
 import { defineComponent, type Component, type PropType } from 'vue'
-import type { tProps } from 'vue-dlg/Type/Type'
+import type { tProps } from '@/Type/Type'
 
 export type tBridgeClose = () => void
 export type tBindComponentRef = (componentRef: unknown) => void

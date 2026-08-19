@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { defineComponent, type Component, type PropType } from 'vue'
-import type { sLayerController } from 'vue-dlg/Type/Type'
+import type { sLayerController } from '@/Type/Type'
 
 type tLayerEntry = {
   manager: sLayerController
