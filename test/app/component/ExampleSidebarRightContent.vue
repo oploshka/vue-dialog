@@ -1,7 +1,7 @@
 <template>
   <div class="px-3">
     <template v-if="variant === 'profile'">
-      <div class="d-flex align-items-center gap-3 mb-4">
+      <div class="d-flex align-items-center gap-3 mb-4 pe-4">
         <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px;">
           VA
         </div>
@@ -14,15 +14,15 @@
       <dl class="row mb-0">
         <dt class="col-5">Status</dt>
         <dd class="col-7">Active</dd>
-        <dt class="col-5">Version</dt>
-        <dd class="col-7">v3 prototype</dd>
+        <dt class="col-5">Size</dt>
+        <dd class="col-7 text-capitalize">{{ size }}</dd>
         <dt class="col-5">Position</dt>
         <dd class="col-7">Right</dd>
       </dl>
     </template>
 
     <template v-else-if="variant === 'settings'">
-      <h5 class="mb-4">Settings</h5>
+      <h5 class="mb-4 pe-4">Settings</h5>
 
       <div class="mb-3">
         <label class="form-label">Title</label>
@@ -41,7 +41,7 @@
     </template>
 
     <template v-else>
-      <h5 class="mb-3">Recent activity</h5>
+      <h5 class="mb-3 pe-4">Recent activity</h5>
 
       <div class="list-group list-group-flush">
         <div class="list-group-item px-0">
@@ -58,6 +58,34 @@
         </div>
       </div>
     </template>
+
+    <hr class="my-4">
+
+    <div class="d-grid gap-2">
+      <button
+        class="btn btn-outline-primary"
+        type="button"
+        @click="openSidebar(nextSidebarSize)"
+      >
+        Open {{ nextSidebarSize }} sidebar
+      </button>
+
+      <button
+        class="btn btn-outline-secondary"
+        type="button"
+        @click="openModal(size)"
+      >
+        Open {{ size }} modal
+      </button>
+
+      <button
+        class="btn btn-outline-secondary"
+        type="button"
+        @click="notify()"
+      >
+        Show notification
+      </button>
+    </div>
   </div>
 </template>
 
@@ -65,6 +93,7 @@
 import { defineComponent, type PropType } from 'vue'
 
 type tSidebarRightVariant = 'profile' | 'settings' | 'activity'
+type tWindowSize = 'small' | 'medium' | 'large'
 
 export default defineComponent({
   name: 'ExampleSidebarRightContent',
@@ -73,6 +102,30 @@ export default defineComponent({
     variant: {
       type: String as PropType<tSidebarRightVariant>,
       default: 'profile',
+    },
+    size: {
+      type: String as PropType<tWindowSize>,
+      required: true,
+    },
+    openSidebar: {
+      type: Function as PropType<(size: tWindowSize) => void>,
+      required: true,
+    },
+    openModal: {
+      type: Function as PropType<(size: tWindowSize) => void>,
+      required: true,
+    },
+    notify: {
+      type: Function as PropType<() => void>,
+      required: true,
+    },
+  },
+
+  computed: {
+    nextSidebarSize(): tWindowSize {
+      if (this.size === 'small') return 'medium'
+      if (this.size === 'medium') return 'large'
+      return 'small'
     },
   },
 })

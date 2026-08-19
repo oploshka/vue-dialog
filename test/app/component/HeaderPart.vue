@@ -38,7 +38,7 @@
           -->
 
           <li class="nav-item">
-            <router-link class="nav-link " to="/">Примеры</router-link>
+            <router-link class="nav-link " to="/">Example</router-link>
           </li>
         </ul>
       </div>

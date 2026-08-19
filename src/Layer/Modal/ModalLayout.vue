@@ -1,6 +1,9 @@
 <template>
   <div class="modal-layout" :style="{ zIndex: manager.zIndex }">
-    <TransitionGroup name="modal-stack">
+    <TransitionGroup
+      name="modal-stack"
+      :duration="300"
+    >
       <div
         v-for="item in manager.items"
         :key="item.id"

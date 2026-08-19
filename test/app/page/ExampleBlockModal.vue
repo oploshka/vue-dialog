@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Modal</h2>
-    <p>Centered modal sizes</p>
+    <p>Bootstrap-style modal sizes and stacking</p>
 
     <ul class="icon-list">
       <li><a href="#" @click.prevent="showModal('small')">Show small modal</a></li>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import ExampleBlockModalAbout from '@app/page/ExampleBlockModalAbout.vue'
+import ExampleModalContent from '@app/component/ExampleModalContent.vue'
 import { facadeConfig } from '@example/install/facadeConfig'
 
 export default {
@@ -21,10 +21,14 @@ export default {
   methods: {
     showModal(size) {
       return facadeConfig.Modal.open(
-        ExampleBlockModalAbout,
+        ExampleModalContent,
         {
-          version: `Modal ${size}`,
-          companyName: `${size} centered window`,
+          size,
+          openModal: nextSize => this.showModal(nextSize),
+          notify: () => facadeConfig.Notification.info(
+            'Modal chain',
+            `Notification from ${size} modal`,
+          ),
         },
         {
           wrapProps: { size },

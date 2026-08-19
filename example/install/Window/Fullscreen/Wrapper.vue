@@ -39,6 +39,8 @@ export default defineComponent({
   overflow: auto;
   padding: 32px;
   background: #ffffff;
+  transition: opacity 0.24s ease;
+  will-change: opacity;
 }
 
 .fullscreen-wrapper__close {
@@ -64,5 +66,16 @@ export default defineComponent({
 
 .fullscreen-wrapper__close:hover {
   background: #f3f4f6;
+}
+
+:global(.modal-stack-enter-from) .fullscreen-wrapper,
+:global(.modal-stack-leave-to) .fullscreen-wrapper {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fullscreen-wrapper {
+    transition: none;
+  }
 }
 </style>

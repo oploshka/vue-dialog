@@ -30,17 +30,31 @@ export default defineComponent({
   top: 0;
   right: 0;
   bottom: 0;
+  max-width: 90vw;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
 .sidebar-right-position--small {
-  width: min(90vw, 380px);
+  width: 380px;
 }
 
 .sidebar-right-position--medium {
-  width: min(90vw, 760px);
+  width: 760px;
 }
 
 .sidebar-right-position--large {
-  width: min(90vw, 1140px);
+  width: 1140px;
+}
+
+:global(.modal-stack-enter-from) .sidebar-right-position,
+:global(.modal-stack-leave-to) .sidebar-right-position {
+  transform: translate3d(110%, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-right-position {
+    transition: none;
+  }
 }
 </style>
