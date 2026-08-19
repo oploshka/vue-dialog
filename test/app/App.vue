@@ -13,10 +13,12 @@
 </template>
 
 <script>
-import { LayerHost } from 'vue-dlg'
-import { layerEntries } from '@example/install/index'
+
 import HeaderPart from './component/HeaderPart.vue'
 import FooterPart from './component/FooterPart.vue'
+//
+import { LayerHost } from 'vue-dlg'
+import {layerConfig} from "@example/install/layerConfig.ts";
 
 export default {
   name: 'App',
@@ -29,7 +31,7 @@ export default {
 
   computed: {
     dialogLayers() {
-      return layerEntries
+      return layerConfig
     },
   },
 }

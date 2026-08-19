@@ -1,13 +1,10 @@
 import type { App } from 'vue'
 import './style.scss'
-import { facadeConfig as dialog } from './facadeConfig'
-
-export { facadeConfig as dialog } from './facadeConfig'
-export { layerConfig as layerEntries } from './layerConfig'
+import { facadeConfig } from './facadeConfig'
 
 export default {
   install(app: App): void {
-    app.config.globalProperties.$dialog = dialog
-    app.provide('dialog', dialog)
+    app.config.globalProperties.$dialog = facadeConfig
+    app.provide('dialog', facadeConfig)
   },
 }

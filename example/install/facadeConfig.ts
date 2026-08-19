@@ -12,3 +12,6 @@ export const facadeConfig = {
   SidebarLeft: createSidebarLeftFacade(modalController),
   SidebarRight: createSidebarRightFacade(modalController),
 }
+
+// @ts-ignore
+window.DIALOG = facadeConfig;
