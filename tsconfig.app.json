@@ -1,8 +1,13 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "extends": [
+    "@vue/tsconfig/tsconfig.dom.json",
+    "./tsconfig.paths.json"
+  ],
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "types": ["vite/client"],
+    "allowJs": true,
+    "checkJs": false,
 
     /* Linting */
     "strict": true,
@@ -10,17 +15,11 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-
-    "paths": {
-      "@app/*": [ "./test/app/*" ],
-      "@example/*": [ "./example/*" ],
-      "vue-dlg/*": [ "./src/*" ],
-    },
+    "noUncheckedSideEffectImports": true
   },
   "include": [
-    "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue",
-    "test/**/*.ts", "test/**/*.tsx", "test/**/*.vue",
-    "example/**/*.ts", "example/**/*.tsx", "example/**/*.vue",
+    "src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.vue",
+    "test/**/*.ts", "test/**/*.tsx", "test/**/*.js", "test/**/*.vue",
+    "example/**/*.ts", "example/**/*.tsx", "example/**/*.js", "example/**/*.vue"
   ]
 }

@@ -1,37 +1,41 @@
 <template>
   <div id="app">
+    <LayerHost :layers="dialogLayers" />
 
-    <DlgCore />
-
-    <HeaderPart title="VUE DIALOG"/>
+    <HeaderPart title="VUE DIALOG" />
 
     <div class="main-content container" style="padding-top: 80px;">
       <router-view />
     </div>
 
-    <FooterPart/>
+    <FooterPart />
   </div>
 </template>
 
 <script>
 
-import DlgCore from 'vue-dlg/core/DlgCore.vue';
+import HeaderPart from './component/HeaderPart.vue'
+import FooterPart from './component/FooterPart.vue'
 //
-import HeaderPart from './component/HeaderPart.vue';
-import FooterPart from './component/FooterPart.vue';
-//
+import { LayerHost } from 'vue-dlg'
+import {layerConfig} from "@example/install/layerConfig.ts";
+
 export default {
   name: 'App',
+
   components: {
-    DlgCore,
-    //
+    LayerHost,
     HeaderPart,
     FooterPart,
   },
-};
 
+  computed: {
+    dialogLayers() {
+      return layerConfig
+    },
+  },
+}
 </script>
 
 <style lang="scss">
-
 </style>
