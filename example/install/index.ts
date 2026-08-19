@@ -1,8 +1,8 @@
 import type { App } from 'vue'
 import './style.scss'
-import { dialog } from './dialog'
+import { facadeConfig as dialog } from './facadeConfig'
 
-export { dialog } from './dialog'
+export { facadeConfig as dialog } from './facadeConfig'
 export { layerConfig as layerEntries } from './layerConfig'
 export { store } from './store'
 
