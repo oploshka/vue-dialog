@@ -14,8 +14,6 @@ export default defineComponent({
 
 <style scoped>
 .overlay-default {
-  position: absolute;
-  inset: 0;
   background: rgba(0, 0, 0, 0.45);
 }
 </style>
