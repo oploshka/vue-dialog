@@ -45,7 +45,7 @@ export default defineComponent({
   methods: {
     handleBackdrop(): void {
       if (this.closeOnBackdrop) {
-        this.close()
+        this.close?.()
       }
     },
   },
