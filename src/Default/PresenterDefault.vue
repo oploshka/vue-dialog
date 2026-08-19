@@ -1,6 +1,9 @@
 <template>
   <div class="presenter-default">
-    <OverlayDefault @click="handleBackdrop" />
+    <OverlayDefault
+      class="presenter-default__overlay"
+      @click="handleBackdrop"
+    />
 
     <component
       :is="wrapComp ?? WrapperDefault"
@@ -45,6 +48,11 @@ export default defineComponent({
   inset: 0;
   display: grid;
   place-items: center;
+}
+
+.presenter-default__overlay {
+  position: absolute;
+  inset: 0;
 }
 
 .presenter-default__wrapper {
