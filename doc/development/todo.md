@@ -18,10 +18,10 @@
   - `vue-dlg` for the public `src/install.ts` package entry.
 - v3 README and application integration documentation.
 - LayerHost body-scroll lifecycle delegated through `onLockBodyScroll` / `onUnlockBodyScroll` callbacks, including unlock on host unmount.
-- Strict `npm run typecheck` covering `src`, `example`, `test` and Vite configs.
+- Strict `pnpm typecheck` covering `src`, `example`, `test` and Vite configs.
 - TypeScript 6.x pinned while the current `vue-tsc` integration is incompatible with TypeScript 7.
 - Obsolete `src/Layers.ts` / old `Layer/Notify/*` bootstrap removed.
-- Demo build, library build and `npm pack --dry-run` verified together with typecheck.
+- Demo build, library build and `pnpm pack --dry-run` verified together with typecheck.
 
 ## Next
 

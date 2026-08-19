@@ -11,11 +11,11 @@ __*
 
 # Build dir
 /dist
+/lib/
 /web
 ### Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 ### predeploy
-/lib-build/
 /demo/
 
 

@@ -1,56 +1,65 @@
 # Разработка
+
 ```shell
-npm run serve
+pnpm install
+pnpm dev
+pnpm typecheck
 ```
 
-# Сборка библиотеки
+# Сборка
+
+Демо:
+
 ```shell
-npm run build
-git commit - m "commit"
-git push
+pnpm build
 ```
 
-# Сборка демо проекта
+Библиотека:
+
 ```shell
-npm run predeploy
+pnpm build:library
+pnpm pack --dry-run
 ```
 
-# Публикация ветки gh-pages
+`build:library` собирает пакет в `lib/`. Каталог очищается Vite перед новой сборкой и не хранится в git.
+
+# GitHub Pages
+
+Локально production-сборку для GitHub Pages можно проверить так:
+
 ```shell
-npm run deploy
+pnpm build:ph-pages
 ```
 
-# Публикация пакета на npmjs
+Публиковать отдельную ветку `gh-pages` вручную не нужно. Push в `master` запускает `.github/workflows/gh-pages.yml`, который собирает demo и публикует `dist/` через GitHub Pages Actions.
+
+# Публикация пакета в npm
+
+Перед публикацией авторизоваться в npm registry:
+
 ```shell
-# (предварительно npm login)
-npm publish
+npm login
+npm whoami
 ```
 
-npm version 1.0.0-beta.0
-npm version 1.0.0-alpha.2
-npm publish --tag beta
+Перед beta-релизом обновить версию пакета, например `3.0.0-beta.1`, затем проверить сборку:
 
-npm i vue-dlg@beta
+```shell
+pnpm typecheck
+pnpm build:library
+pnpm publish --dry-run --tag beta
+```
 
+Публикация beta:
 
+```shell
+pnpm publish --tag beta
+```
 
+`--tag beta` обязателен для prerelease, чтобы версия не стала `latest`.
 
+Установка beta-версии:
 
-//
-https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable
-
-npm install --global yarn
-yarn --version
-
-
-https://habr.com/ru/articles/554944/
-yarn set version berry
-
-
-yarn init  —  инициализация проекта
-
-yarn add <package> [--dev]  —  добавление пакета
-
-yarn remove <package>  —  удаление пакета
-
-yarn up <package>  —  обновление пакета
+```shell
+pnpm add vue-dlg@beta
+```

@@ -208,7 +208,7 @@ pnpm build:library
 - `pnpm build` builds the demo application.
 - `pnpm build:library` builds the ESM library entry as `lib/index.js` from `src/install.ts`.
 
-The current validation baseline is a clean typecheck plus successful demo/library builds and `npm pack --dry-run`.
+The current validation baseline is a clean typecheck plus successful demo/library builds and `pnpm pack --dry-run`.
 
 ## Documentation
 
