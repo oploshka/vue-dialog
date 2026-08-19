@@ -15,9 +15,13 @@
     "build:ph-pages": "vite build --config vite.demo.config.ts --mode ph-pages",
     "build:library": "vite build --config vite.lib.config.ts"
   },
-  "main": "dist/index.umd.js",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js"
+  },
   "files": [
-    "dist/*"
+    "lib/*"
   ],
   "keywords": [
     "vue",

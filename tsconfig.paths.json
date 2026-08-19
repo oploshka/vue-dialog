@@ -5,8 +5,7 @@
       "@/*": ["./src/*"],
       "@app/*": ["./test/app/*"],
       "@example/*": ["./example/*"],
-      "vue-dlg": ["./src/install.ts"],
-      "vue-dlg/*": ["./src/*"]
+      "vue-dlg": ["./src/install.ts"]
     }
   }
 }

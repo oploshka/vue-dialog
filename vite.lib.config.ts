@@ -20,6 +20,8 @@ export default defineConfig({
     lib: {
       entry: path.resolve(rootDir, './src/install.ts'),
       name: 'VueDlg',
+      formats: ['es'],
+      fileName: 'index',
     },
 
     rolldownOptions: {
