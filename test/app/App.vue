@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <LayerHost :layers="dialogLayers" />
+    <LayerHost
+      :layers="dialogLayers"
+      :on-lock-body-scroll="lockBodyScroll"
+      :on-unlock-body-scroll="unlockBodyScroll"
+    />
 
     <HeaderPart title="VUE DIALOG" />
 
@@ -17,6 +21,10 @@ import HeaderPart from '@app/component/HeaderPart.vue'
 import FooterPart from '@app/component/FooterPart.vue'
 import { LayerHost } from 'vue-dlg'
 import { layerConfig } from '@example/install/layerConfig'
+import {
+  lockBodyScroll,
+  unlockBodyScroll,
+} from '@example/install/bodyScroll'
 
 export default {
   name: 'App',
@@ -31,6 +39,11 @@ export default {
     dialogLayers() {
       return layerConfig
     },
+  },
+
+  methods: {
+    lockBodyScroll,
+    unlockBodyScroll,
   },
 }
 </script>
