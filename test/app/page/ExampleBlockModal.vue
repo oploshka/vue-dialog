@@ -8,30 +8,23 @@
   </div>
 </template>
 
-
 <script>
-
-import ExampleBlockModalAbout from '@app/page/ExampleBlockModalAbout.vue';
-
-import {reactive} from "vue";
+import { reactive } from 'vue'
+import ExampleBlockModalAbout from '@app/page/ExampleBlockModalAbout.vue'
 
 export default {
   name: 'ExampleBlockModal',
+
   methods: {
     showModal() {
-      // если нужна реактивность пропсов
-      const props = reactive({ version: '213' });
-      // const props = { version: '213' }; // Так реактивности props не будет, но аккуратнее с объектами
-      const modal = this.$dialog.Modal.open(this);
-      console.log(modal, props);
+      const props = reactive({ version: '213' })
+      const modal = this.$dialog.Modal.open(ExampleBlockModalAbout, props)
+      console.log(modal, props)
     },
   },
-};
-
+}
 </script>
 
 <style scoped>
-
 @import 'ExampleBlock.css';
-
 </style>
