@@ -12,26 +12,20 @@
 - Shared dialog shell and application presenters/wrappers.
 - Window/notification animations and interactive showcase examples.
 - Repository aliases:
-  - `vue-dlg/*` for `src/*`;
+  - `@/*` for `src/*`;
   - `@example/*` for `example/*`;
-  - `@app/*` for `test/app/*`.
+  - `@app/*` for `test/app/*`;
+  - `vue-dlg` for the public `src/install.ts` package entry.
 - v3 README and application integration documentation.
 - LayerHost body-scroll lifecycle delegated through `onLockBodyScroll` / `onUnlockBodyScroll` callbacks, including unlock on host unmount.
-- Demo and library Vite builds verified on GitHub Actions.
+- Strict `npm run typecheck` covering `src`, `example`, `test` and Vite configs.
+- TypeScript 6.x pinned while the current `vue-tsc` integration is incompatible with TypeScript 7.
+- Obsolete `src/Layers.ts` / old `Layer/Notify/*` bootstrap removed.
+- Demo build, library build and `npm pack --dry-run` verified together with typecheck.
 
 ## Next
 
-### 1. Type-check and dead-code cleanup
-
-Run strict validation in addition to the Vite builds and clean up code that is no longer part of the v3 runtime.
-
-Known candidate:
-
-- `src/Layers.ts` still references obsolete `Layer/Notify/*` paths and is not exported by the current package entry.
-
-Do not hide validation failures by weakening TypeScript settings without a concrete reason.
-
-### 2. Automated tests
+### 1. Automated tests
 
 Cover controller behavior first.
 
@@ -60,7 +54,7 @@ Cover controller behavior first.
 - unlock on unmount;
 - ESC delegation by layer z-index.
 
-### 3. Focus and accessibility
+### 2. Focus and accessibility
 
 Deferred until the runtime/build are stable.
 
@@ -70,7 +64,7 @@ Deferred until the runtime/build are stable.
 - review dialog semantics/ARIA labels;
 - reduced-motion behavior already exists in the example animations.
 
-### 4. Public API review
+### 3. Public API review
 
 Before v3 release decide/finalize:
 
@@ -80,10 +74,10 @@ Before v3 release decide/finalize:
 - component-ref escape hatch documentation;
 - which parts of `example/install` remain examples versus become package helpers.
 
-### 5. Release preparation
+### 4. Release preparation
 
 - final package output/metadata check;
-- remove or archive obsolete v2 runtime files;
+- remove or archive remaining obsolete v2 material;
 - update publication notes;
 - verify GitHub Pages demo;
 - prepare v3 changelog/migration notes.
