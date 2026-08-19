@@ -33,4 +33,12 @@ export const presenterProps = {
 export default defineComponent({
   name: 'PresenterMixin',
   props: presenterProps,
+
+  methods: {
+    handleBackdrop(): void {
+      if (this.closeOnBackdrop) {
+        this.close()
+      }
+    },
+  },
 })

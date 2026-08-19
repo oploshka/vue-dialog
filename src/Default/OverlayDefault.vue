@@ -1,5 +1,5 @@
 <template>
-  <div class="overlay-default" @click="handleClick" />
+  <div class="overlay-default" />
 </template>
 
 <script lang="ts">
@@ -16,5 +16,6 @@ export default defineComponent({
 .overlay-default {
   position: absolute;
   inset: 0;
+  background: rgba(0, 0, 0, 0.45);
 }
 </style>

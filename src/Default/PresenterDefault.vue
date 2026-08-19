@@ -1,9 +1,6 @@
 <template>
   <div class="presenter-default">
-    <OverlayDefault
-      :close="close"
-      :close-on-click="closeOnBackdrop"
-    />
+    <OverlayDefault @click="handleBackdrop" />
 
     <component
       :is="wrapComp ?? WrapperDefault"
