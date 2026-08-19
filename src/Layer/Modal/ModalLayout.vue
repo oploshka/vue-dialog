@@ -72,4 +72,21 @@ export default defineComponent({
 .modal-element {
   pointer-events: auto;
 }
+
+.modal-stack-enter-active,
+.modal-stack-leave-active {
+  transition: opacity 0.28s ease;
+}
+
+.modal-stack-enter-from,
+.modal-stack-leave-to {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-stack-enter-active,
+  .modal-stack-leave-active {
+    transition: none;
+  }
+}
 </style>

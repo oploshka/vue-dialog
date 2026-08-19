@@ -69,20 +69,46 @@ export default defineComponent({
 .notification-element {
   width: 100%;
   margin-bottom: 10px;
+  transform-origin: center;
 }
 
 .notification-element:last-child {
   margin-bottom: 0;
 }
 
-.notification-enter-active,
-.notification-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+.notification-enter-active {
+  transition:
+    opacity 0.22s ease,
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.notification-enter-from,
+.notification-leave-active {
+  position: absolute;
+  left: 0;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.notification-enter-from {
+  opacity: 0;
+  transform: scale(0.82);
+}
+
 .notification-leave-to {
   opacity: 0;
-  transform: translateX(24px);
+  transform: scale(0.92);
+}
+
+.notification-move {
+  transition: transform 0.22s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notification-enter-active,
+  .notification-leave-active,
+  .notification-move {
+    transition: none;
+  }
 }
 </style>
