@@ -2,6 +2,9 @@ export { Modal } from './Layer/Modal/Modal'
 export { ModalController } from './Layer/Modal/ModalController'
 export { default as ModalLayout } from './Layer/Modal/ModalLayout.vue'
 
+export { Notification, NotificationController } from './Layer/Notification/NotificationController'
+export type { sNotificationSettings } from './Layer/Notification/NotificationController'
+
 export { default as LayerHost } from './LayerHost.vue'
 
 export { default as OverlayMixin, overlayProps } from './Mixin/OverlayMixin'
