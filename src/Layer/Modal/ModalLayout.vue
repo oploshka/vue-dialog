@@ -64,4 +64,12 @@ export default defineComponent({
   position: fixed;
   inset: 0;
 }
+
+.modal-layout {
+  pointer-events: none;
+}
+
+.modal-element {
+  pointer-events: auto;
+}
 </style>
