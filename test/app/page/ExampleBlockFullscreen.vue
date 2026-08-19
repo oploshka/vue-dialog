@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h2>Modal</h2>
-    <p>Centered modal window example</p>
+    <h2>Fullscreen</h2>
+    <p>Fullscreen window example</p>
 
     <ul class="icon-list">
-      <li><a href="#" @click.prevent="showModal">Show modal</a></li>
+      <li><a href="#" @click.prevent="showFullscreen">Show fullscreen</a></li>
     </ul>
   </div>
 </template>
@@ -14,13 +14,13 @@ import ExampleBlockModalAbout from '@app/page/ExampleBlockModalAbout.vue'
 import { facadeConfig } from '@example/install/facadeConfig'
 
 export default {
-  name: 'ExampleBlockModal',
+  name: 'ExampleBlockFullscreen',
 
   methods: {
-    showModal() {
-      return facadeConfig.Modal.open(ExampleBlockModalAbout, {
-        version: 'Modal',
-        companyName: 'Centered window',
+    showFullscreen() {
+      return facadeConfig.Fullscreen.open(ExampleBlockModalAbout, {
+        version: 'Fullscreen',
+        companyName: 'Fullscreen window',
       })
     },
   },

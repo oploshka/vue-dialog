@@ -18,12 +18,6 @@ export default defineComponent({
   top: 0;
   right: 0;
   bottom: 0;
-  width: 80vw;
-}
-
-@media (min-width: 768px) {
-  .sidebar-right-position {
-    width: 240px;
-  }
+  width: min(90vw, 380px);
 }
 </style>
