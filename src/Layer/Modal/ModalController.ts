@@ -1,4 +1,4 @@
-import type { Component } from 'vue'
+import { shallowReactive, type Component } from 'vue'
 import type { sLayerController, sModalSettings, tProps } from '../../Type/Type'
 import { Modal } from './Modal'
 import { resolveModalSettings } from './ModalSettings'
@@ -11,7 +11,7 @@ function generateId(): string {
 export class ModalController implements sLayerController {
   id = 'modal-controller'
   zIndex: number
-  private _items: Modal[] = []
+  private _items = shallowReactive<Modal[]>([])
   private _elementZIndex = 0
 
   constructor(zIndex: number = 3000) {

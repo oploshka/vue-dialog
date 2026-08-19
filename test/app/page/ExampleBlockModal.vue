@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
 import ExampleBlockModalAbout from '@app/page/ExampleBlockModalAbout.vue'
 
 export default {
@@ -21,25 +20,25 @@ export default {
 
   methods: {
     showModal() {
-      const props = reactive({ version: 'Modal', companyName: 'Centered window' })
+      const props = { version: 'Modal', companyName: 'Centered window' }
       const modal = this.$dialog.Modal.open(ExampleBlockModalAbout, props)
       console.log(modal, props)
     },
 
     showFullscreen() {
-      const props = reactive({ version: 'Fullscreen', companyName: 'Fullscreen window' })
+      const props = { version: 'Fullscreen', companyName: 'Fullscreen window' }
       const modal = this.$dialog.Fullscreen.open(ExampleBlockModalAbout, props)
       console.log(modal, props)
     },
 
     showSidebarLeft() {
-      const props = reactive({ version: 'SidebarLeft', companyName: 'Left sidebar' })
+      const props = { version: 'SidebarLeft', companyName: 'Left sidebar' }
       const modal = this.$dialog.SidebarLeft.open(ExampleBlockModalAbout, props)
       console.log(modal, props)
     },
 
     showSidebarRight() {
-      const props = reactive({ version: 'SidebarRight', companyName: 'Right sidebar' })
+      const props = { version: 'SidebarRight', companyName: 'Right sidebar' }
       const modal = this.$dialog.SidebarRight.open(ExampleBlockModalAbout, props)
       console.log(modal, props)
     },

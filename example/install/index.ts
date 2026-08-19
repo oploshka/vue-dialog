@@ -4,7 +4,6 @@ import { facadeConfig as dialog } from './facadeConfig'
 
 export { facadeConfig as dialog } from './facadeConfig'
 export { layerConfig as layerEntries } from './layerConfig'
-export { store } from './store'
 
 export default {
   install(app: App): void {
