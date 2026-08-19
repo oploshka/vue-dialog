@@ -19,6 +19,7 @@ import { lockBodyScroll, unlockBodyScroll } from './Utils/BodyScroll'
 type tLayerEntry = {
   manager: sLayerController
   template: Component
+  lockBodyScroll?: boolean
 }
 
 export default defineComponent({
@@ -36,13 +37,15 @@ export default defineComponent({
       return [...this.layers].sort((a, b) => a.manager.zIndex - b.manager.zIndex)
     },
 
-    hasItems(): boolean {
-      return this.layers.some(layer => layer.manager.items.length > 0)
+    hasScrollLockItems(): boolean {
+      return this.layers.some(
+        layer => layer.lockBodyScroll === true && layer.manager.items.length > 0,
+      )
     },
   },
 
   watch: {
-    hasItems(value: boolean): void {
+    hasScrollLockItems(value: boolean): void {
       if (value) {
         lockBodyScroll('modal')
       } else {
