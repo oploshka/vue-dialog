@@ -1,37 +1,52 @@
 <template>
   <div id="app">
+    <LayerHost
+      :layers="dialogLayers"
+      :on-lock-body-scroll="lockBodyScroll"
+      :on-unlock-body-scroll="unlockBodyScroll"
+    />
 
-    <DlgCore />
-
-    <HeaderPart title="VUE DIALOG"/>
+    <HeaderPart title="VUE DIALOG" />
 
     <div class="main-content container" style="padding-top: 80px;">
       <router-view />
     </div>
 
-    <FooterPart/>
+    <FooterPart />
   </div>
 </template>
 
 <script>
+import HeaderPart from '@app/component/HeaderPart.vue'
+import FooterPart from '@app/component/FooterPart.vue'
+import { LayerHost } from 'vue-dlg'
+import { layerConfig } from '@example/install/layerConfig'
+import {
+  lockBodyScroll,
+  unlockBodyScroll,
+} from '@example/install/bodyScroll'
 
-import DlgCore from 'vue-dlg/core/DlgCore.vue';
-//
-import HeaderPart from './component/HeaderPart.vue';
-import FooterPart from './component/FooterPart.vue';
-//
 export default {
   name: 'App',
+
   components: {
-    DlgCore,
-    //
+    LayerHost,
     HeaderPart,
     FooterPart,
   },
-};
 
+  computed: {
+    dialogLayers() {
+      return layerConfig
+    },
+  },
+
+  methods: {
+    lockBodyScroll,
+    unlockBodyScroll,
+  },
+}
 </script>
 
 <style lang="scss">
-
 </style>

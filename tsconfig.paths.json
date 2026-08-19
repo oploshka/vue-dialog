@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"],
+      "@app/*": ["./test/app/*"],
+      "@example/*": ["./example/*"],
+      "vue-dlg": ["./src/install.ts"]
+    }
+  }
+}

@@ -9,15 +9,20 @@
   "repository": "git@github.com:oploshka/vue-dialog.git",
   "homepage": "https://oploshka.github.io/vue-dialog/",
   "scripts": {
-    "dev": "vite",
-    "serve": "vite",
-    "build": "vite build",
-    "build:ph-pages": "cross-env NODE_ENV=production vite build --mode ph-pages",
-    "build:library": "cross-env NODE_ENV=production vite build --mode library"
+    "dev": "vite --config vite.demo.config.ts",
+    "serve": "vite --config vite.demo.config.ts",
+    "build": "vite build --config vite.demo.config.ts",
+    "build:ph-pages": "vite build --config vite.demo.config.ts --mode ph-pages",
+    "build:library": "vite build --config vite.lib.config.ts",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json"
   },
-  "main": "dist/index.umd.js",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js"
+  },
   "files": [
-    "dist/*"
+    "lib/*"
   ],
   "keywords": [
     "vue",
@@ -35,20 +40,21 @@
     "v-dialogs"
   ],
   "dependencies": {
-    "vue": "3.5.27",
-    "vue-router": "4.6.4"
+    "vue": "3.5.41",
+    "vue-router": "5.2.0"
   },
   "devDependencies": {
-    "@types/node": "24.10.9",
-    "@vitejs/plugin-vue": "6.0.3",
-    "@vue/tsconfig": "^0.8.1",
-    "cross-env": "10.1.0",
-    "eslint": "9.39.2",
-    "eslint-plugin-oploshka": "9.0.6",
-    "gh-pages": "6.3.0",
-    "typescript": "5.9.3",
-    "vite": "7.3.1",
-    "vite-plugin-dts": "^4.5.4",
-    "vue-tsc": "3.2.4"
+    "@tsconfig/node24": "24.0.5",
+    "@types/node": "24.12.4",
+    "@vitejs/plugin-vue": "6.0.8",
+    "@vue/eslint-config-typescript": "14.9.0",
+    "@vue/tsconfig": "0.9.1",
+    "eslint": "10.8.1",
+    "eslint-plugin-vue": "10.10.0",
+    "sass-embedded": "1.102.0",
+    "typescript": "6.0.3",
+    "vite": "8.2.1",
+    "vite-plugin-inspect": "12.0.2",
+    "vue-tsc": "3.3.10"
   }
 }
