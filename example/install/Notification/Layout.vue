@@ -13,6 +13,7 @@
       <component
         :is="item.component"
         v-bind="item.props"
+        @close="item.close()"
       />
     </div>
   </TransitionGroup>
@@ -37,11 +38,22 @@ export default defineComponent({
 <style scoped>
 .notification-layout {
   position: fixed;
-  top: 16px;
-  right: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  right: 10px;
+  bottom: 10px;
+  width: 320px;
+  filter:
+    drop-shadow(0 -18px 45px rgba(0, 0, 0, 0.03))
+    drop-shadow(0 4px 8px rgba(28, 41, 61, 0.1));
+}
+
+.notification-element {
+  width: 100%;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.notification-element:last-child {
+  margin-bottom: 0;
 }
 
 .notification-enter-active,
