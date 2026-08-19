@@ -1,6 +1,6 @@
 # Modal
 
-`Modal` is an application-level `ModalWindow` preset built on top of the core `ModalController`.
+`Modal` is an application-level `Window` preset built on top of the core `ModalController`.
 
 For now the preset only needs `config.ts`. Core components are used by default while the config does not override them.
 
