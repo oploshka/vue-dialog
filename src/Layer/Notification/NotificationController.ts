@@ -57,6 +57,7 @@ export class NotificationController implements sLayerController {
 
   private readonly maxVisible: number
   private _items = shallowRef<Notification[]>([])
+  private _queue: Notification[] = []
   private _timers = new Map<Notification, ReturnType<typeof setTimeout>>()
 
   constructor(settings: sNotificationControllerSettings = {}) {
@@ -77,41 +78,77 @@ export class NotificationController implements sLayerController {
       onClose: settings.onClose,
     }, item => this.removeNotification(item))
 
-    while (this._items.value.length >= this.maxVisible) {
-      this._items.value[0]?.close()
+    if (this._items.value.length < this.maxVisible) {
+      this.showNotification(notification)
+    } else {
+      this._queue.push(notification)
     }
 
+    return notification
+  }
+
+  private showNotification(notification: Notification): void {
     this._items.value = [...this._items.value, notification]
 
     if (notification.duration > 0) {
       const timer = setTimeout(() => notification.close(), notification.duration)
       this._timers.set(notification, timer)
     }
-
-    return notification
   }
 
   private removeNotification(notification: Notification): void {
-    const index = this._items.value.indexOf(notification)
-    if (index === -1) return
+    const visibleIndex = this._items.value.indexOf(notification)
 
-    const timer = this._timers.get(notification)
-    if (timer) {
-      clearTimeout(timer)
-      this._timers.delete(notification)
+    if (visibleIndex !== -1) {
+      this.clearTimer(notification)
+
+      this._items.value = [
+        ...this._items.value.slice(0, visibleIndex),
+        ...this._items.value.slice(visibleIndex + 1),
+      ]
+
+      notification.onClose?.()
+      this.showNext()
+      return
     }
 
-    this._items.value = [
-      ...this._items.value.slice(0, index),
-      ...this._items.value.slice(index + 1),
-    ]
+    const queueIndex = this._queue.indexOf(notification)
+    if (queueIndex === -1) return
 
+    this._queue.splice(queueIndex, 1)
     notification.onClose?.()
   }
 
+  private showNext(): void {
+    while (this._items.value.length < this.maxVisible && this._queue.length > 0) {
+      const notification = this._queue.shift()
+      if (notification) this.showNotification(notification)
+    }
+  }
+
+  private clearTimer(notification: Notification): void {
+    const timer = this._timers.get(notification)
+    if (!timer) return
+
+    clearTimeout(timer)
+    this._timers.delete(notification)
+  }
+
   closeAll(): void {
-    while (this._items.value.length > 0) {
-      this._items.value[this._items.value.length - 1]?.close()
+    const notifications = [
+      ...this._items.value,
+      ...this._queue,
+    ]
+
+    for (const notification of this._items.value) {
+      this.clearTimer(notification)
+    }
+
+    this._items.value = []
+    this._queue = []
+
+    for (const notification of notifications) {
+      notification.onClose?.()
     }
   }
 
