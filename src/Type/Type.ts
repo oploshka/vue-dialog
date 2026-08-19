@@ -16,14 +16,14 @@ export interface sLayerControlItem extends sLayerItem {
 }
 
 export interface sModalSettings {
-  presenterComp?: Component
-  presenterProps?: tProps
+  presenterComp?: Component | null
+  presenterProps?: tProps | null
 
-  wrapComp?: Component
-  wrapProps?: tProps
+  wrapComp?: Component | null
+  wrapProps?: tProps | null
 
-  bridgeComp?: Component
-  bridgeProps?: tProps
+  bridgeComp?: Component | null
+  bridgeProps?: tProps | null
 
   closeOnEsc?: boolean
   closeOnBackdrop?: boolean
