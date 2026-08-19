@@ -20,5 +20,6 @@ export type {
   sLayerDescriptor,
   sLayerItem,
   sModalSettings,
+  sResolvedModalSettings,
   tProps,
 } from './Type/Type'

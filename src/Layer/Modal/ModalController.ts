@@ -1,6 +1,7 @@
 import type { Component } from 'vue'
 import type { sLayerController, sModalSettings, tProps } from '../../Type/Type'
 import { Modal } from './Modal'
+import { resolveModalSettings } from './ModalSettings'
 
 let counter = 0
 function generateId(): string {
@@ -27,7 +28,7 @@ export class ModalController implements sLayerController {
       zIndex: ++this._elementZIndex,
       component,
       props,
-      settings,
+      settings: resolveModalSettings(settings),
     }, item => this.removeModal(item))
 
     this._items.push(modal)
@@ -64,7 +65,7 @@ export class ModalController implements sLayerController {
 
   handleEsc(): boolean {
     const top = this.top
-    if (top && top.settings.closeOnEsc !== false) {
+    if (top && top.settings.closeOnEsc) {
       top.close()
       return true
     }

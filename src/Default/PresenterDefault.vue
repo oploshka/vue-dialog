@@ -1,17 +1,19 @@
 <template>
   <div class="presenter-default">
-    <OverlayDefault
+    <component
+      :is="overlayComp"
       class="presenter-default__overlay"
+      v-bind="overlayProps"
       @click="handleBackdrop"
     />
 
     <component
-      :is="wrapComp ?? WrapperDefault"
+      :is="wrapComp"
       class="presenter-default__wrapper"
       v-bind="wrapProps"
     >
       <component
-        :is="bridgeComp ?? BridgeDefault"
+        :is="bridgeComp"
         v-bind="bridgeProps"
         :component="component"
         :component-props="componentProps"
@@ -25,19 +27,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import PresenterMixin from '../Mixin/PresenterMixin'
-import OverlayDefault from './OverlayDefault.vue'
-import WrapperDefault from './WrapperDefault.vue'
-import BridgeDefault from './BridgeDefault.vue'
 
 export default defineComponent({
   name: 'PresenterDefault',
-
-  components: {
-    OverlayDefault,
-    WrapperDefault,
-    BridgeDefault,
-  },
-
   mixins: [PresenterMixin],
 })
 </script>

@@ -4,9 +4,17 @@ import { bridgeProps as bridgeMixinProps } from './BridgeMixin'
 
 export const presenterProps = {
   ...bridgeMixinProps,
+  overlayComp: {
+    type: [Object, Function] as PropType<Component>,
+    required: true,
+  },
+  overlayProps: {
+    type: Object as PropType<tProps>,
+    default: () => ({}),
+  },
   wrapComp: {
     type: [Object, Function] as PropType<Component>,
-    default: undefined,
+    required: true,
   },
   wrapProps: {
     type: Object as PropType<tProps>,
@@ -14,7 +22,7 @@ export const presenterProps = {
   },
   bridgeComp: {
     type: [Object, Function] as PropType<Component>,
-    default: undefined,
+    required: true,
   },
   bridgeProps: {
     type: Object as PropType<tProps>,

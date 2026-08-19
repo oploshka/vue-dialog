@@ -19,6 +19,9 @@ export interface sModalSettings {
   presenterComp?: Component | null
   presenterProps?: tProps | null
 
+  overlayComp?: Component | null
+  overlayProps?: tProps | null
+
   wrapComp?: Component | null
   wrapProps?: tProps | null
 
@@ -30,11 +33,29 @@ export interface sModalSettings {
   onClose?: () => void
 }
 
+export interface sResolvedModalSettings {
+  presenterComp: Component
+  presenterProps: tProps
+
+  overlayComp: Component
+  overlayProps: tProps
+
+  wrapComp: Component
+  wrapProps: tProps
+
+  bridgeComp: Component
+  bridgeProps: tProps
+
+  closeOnEsc: boolean
+  closeOnBackdrop: boolean
+  onClose?: () => void
+}
+
 export interface sLayerDescriptor extends sLayerControlItem {
   zIndex: number
   component: Component
   props: tProps
-  settings: sModalSettings
+  settings: sResolvedModalSettings
 }
 
 export interface sLayerController {

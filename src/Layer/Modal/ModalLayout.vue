@@ -8,7 +8,7 @@
         :style="{ zIndex: item.zIndex }"
       >
         <component
-          :is="item.settings.presenterComp ?? PresenterDefault"
+          :is="item.settings.presenterComp"
           v-bind="getPresenterProps(item)"
         />
       </div>
@@ -18,17 +18,12 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import PresenterDefault from '../../Default/PresenterDefault.vue'
 import type { Modal } from './Modal'
 import type { ModalController } from './ModalController'
 import { setModalComponentRef } from './ModalRuntime'
 
 export default defineComponent({
   name: 'ModalLayout',
-
-  components: {
-    PresenterDefault,
-  },
 
   props: {
     manager: {
@@ -43,13 +38,16 @@ export default defineComponent({
         component: modal.component,
         componentProps: modal.props,
 
+        overlayComp: modal.settings.overlayComp,
+        overlayProps: modal.settings.overlayProps,
+
         wrapComp: modal.settings.wrapComp,
-        wrapProps: modal.settings.wrapProps ?? {},
+        wrapProps: modal.settings.wrapProps,
 
         bridgeComp: modal.settings.bridgeComp,
-        bridgeProps: modal.settings.bridgeProps ?? {},
+        bridgeProps: modal.settings.bridgeProps,
 
-        settings: modal.settings.presenterProps ?? {},
+        settings: modal.settings.presenterProps,
 
         closeOnBackdrop: modal.settings.closeOnBackdrop,
         close: () => modal.close(),

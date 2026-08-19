@@ -1,5 +1,5 @@
 import type { Component } from 'vue'
-import type { sLayerDescriptor, sModalSettings, tProps } from '../../Type/Type'
+import type { sLayerDescriptor, sResolvedModalSettings, tProps } from '../../Type/Type'
 import { getModalComponentRef } from './ModalRuntime'
 
 type tModalConfig = {
@@ -7,7 +7,7 @@ type tModalConfig = {
   zIndex: number
   component: Component
   props: tProps
-  settings: sModalSettings
+  settings: sResolvedModalSettings
 }
 
 export class Modal implements sLayerDescriptor {
@@ -15,7 +15,7 @@ export class Modal implements sLayerDescriptor {
   readonly zIndex: number
   readonly component: Component
   readonly props: tProps
-  readonly settings: sModalSettings
+  readonly settings: sResolvedModalSettings
 
   private readonly requestClose: (modal: Modal) => void
 
