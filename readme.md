@@ -4,7 +4,7 @@ Vue 3 library for programmatic modal layers. The library core manages layer stat
 
 Current repository version: **3.0.0-alpha.3**.
 
-> The `develop` branch contains the current v3 rewrite. The old v2 documentation and examples are kept only as historical material.
+> The `develop` branch contains the current v3 rewrite.
 
 ## Main ideas
 
@@ -204,11 +204,11 @@ pnpm build
 pnpm build:library
 ```
 
-- `pnpm typecheck` runs strict Vue/TypeScript validation for `src`, `example`, `test` and the Vite configs.
+- `pnpm typecheck` runs strict Vue/TypeScript validation for source, example, test app and Vite configs.
 - `pnpm build` builds the demo application.
 - `pnpm build:library` builds the ESM library entry as `lib/index.js` from `src/install.ts`.
 
-The current stabilization baseline is a clean typecheck, demo build, library build and package dry-run. Automated controller/lifecycle tests are the next validation layer.
+The current validation baseline is a clean typecheck plus successful demo/library builds and `npm pack --dry-run`.
 
 ## Documentation
 
