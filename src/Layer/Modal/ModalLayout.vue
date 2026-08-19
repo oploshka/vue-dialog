@@ -1,6 +1,9 @@
 <template>
   <div class="modal-layout" :style="{ zIndex: manager.zIndex }">
-    <TransitionGroup name="modal-stack">
+    <TransitionGroup
+      name="modal-stack"
+      :duration="300"
+    >
       <div
         v-for="item in manager.items"
         :key="item.id"
@@ -71,22 +74,5 @@ export default defineComponent({
 
 .modal-element {
   pointer-events: auto;
-}
-
-.modal-stack-enter-active,
-.modal-stack-leave-active {
-  transition: opacity 0.28s ease;
-}
-
-.modal-stack-enter-from,
-.modal-stack-leave-to {
-  opacity: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .modal-stack-enter-active,
-  .modal-stack-leave-active {
-    transition: none;
-  }
 }
 </style>

@@ -31,7 +31,7 @@ export default defineComponent({
   right: 0;
   bottom: 0;
   max-width: 90vw;
-  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
 
@@ -49,7 +49,7 @@ export default defineComponent({
 
 :global(.modal-stack-enter-from) .sidebar-right-position,
 :global(.modal-stack-leave-to) .sidebar-right-position {
-  transform: translateX(100%);
+  transform: translate3d(110%, 0, 0);
 }
 
 @media (prefers-reduced-motion: reduce) {

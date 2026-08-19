@@ -19,13 +19,13 @@ export default defineComponent({
   bottom: 0;
   left: 0;
   width: 80vw;
-  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
 
 :global(.modal-stack-enter-from) .sidebar-left-position,
 :global(.modal-stack-leave-to) .sidebar-left-position {
-  transform: translateX(-100%);
+  transform: translate3d(-110%, 0, 0);
 }
 
 @media (min-width: 768px) {
