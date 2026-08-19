@@ -14,7 +14,8 @@ Current repository version: **3.0.0-alpha.3**.
 - Presentation is split into `Presenter`, `Position`, `Wrapper` and `Bridge` responsibilities.
 - `NotificationController` has its own queue, duration and pause/resume lifecycle.
 - Application-specific facades (`Alert`, `Confirm`, `Prompt`, sidebars, fullscreen, notifications) are built on top of the core controllers.
-- Core components do not impose application styling.
+- `LayerHost` decides when a layer requires body-scroll locking, while the application supplies lock/unlock callbacks.
+- Core components do not impose application styling or direct `document.body` mutations.
 
 ## Architecture
 
@@ -69,14 +70,37 @@ export const layers = [
 ]
 ```
 
-Mount the host once in the application root:
+Mount the host once in the application root and provide the body-scroll implementation explicitly:
 
 ```vue
 <template>
-  <LayerHost :layers="layers" />
+  <LayerHost
+    :layers="layers"
+    :on-lock-body-scroll="lockBodyScroll"
+    :on-unlock-body-scroll="unlockBodyScroll"
+  />
   <router-view />
 </template>
+
+<script>
+import { LayerHost } from 'vue-dlg'
+
+export default {
+  components: { LayerHost },
+
+  methods: {
+    lockBodyScroll() {
+      document.body.classList.add('body-scroll--locked')
+    },
+    unlockBodyScroll() {
+      document.body.classList.remove('body-scroll--locked')
+    },
+  },
+}
+</script>
 ```
+
+`LayerHost` calls lock only on the transition from no lock-enabled items to at least one such item, calls unlock when the last one disappears, and releases its active lock on unmount.
 
 Open an arbitrary component:
 
@@ -179,7 +203,7 @@ pnpm build:library
 - `pnpm build` builds the demo application.
 - `pnpm build:library` builds the library package.
 
-The project is currently in alpha; build/type cleanup is part of the active v3 stabilization work.
+Both Vite builds are part of the current v3 stabilization workflow. Type-check/test cleanup remains a separate development step.
 
 ## Documentation
 
@@ -192,12 +216,11 @@ The project is currently in alpha; build/type cleanup is part of the active v3 s
 
 The short version:
 
-1. Move body-scroll implementation out of core policy and expose LayerHost lock/unlock callbacks.
-2. Stabilize demo and library builds and remove stale v2 runtime files caught by the build.
-3. Add controller/lifecycle tests for Modal and Notification behavior.
-4. Add focus management and accessibility behavior for modal-like windows.
-5. Review the final public facade surface (`Dialog.open`, specialized facades, exported types).
-6. Prepare the v3 release documentation and package metadata.
+1. Stabilize type-checking and remove stale v2/dead runtime files exposed by validation.
+2. Add controller/lifecycle tests for Modal and Notification behavior.
+3. Add focus management and accessibility behavior for modal-like windows.
+4. Review the final public facade surface (`Dialog.open`, specialized facades, exported types).
+5. Prepare the v3 release documentation and package metadata.
 
 See `doc/development/todo.md` for the maintained roadmap.
 

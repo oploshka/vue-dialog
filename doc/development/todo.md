@@ -16,51 +16,22 @@
   - `@example/*` for `example/*`;
   - `@app/*` for `test/app/*`.
 - v3 README and application integration documentation.
+- LayerHost body-scroll lifecycle delegated through `onLockBodyScroll` / `onUnlockBodyScroll` callbacks, including unlock on host unmount.
+- Demo and library Vite builds verified on GitHub Actions.
 
 ## Next
 
-### 1. LayerHost lifecycle / body scroll
+### 1. Type-check and dead-code cleanup
 
-Move the concrete body-scroll DOM implementation out of core.
+Run strict validation in addition to the Vite builds and clean up code that is no longer part of the v3 runtime.
 
-Target API:
+Known candidate:
 
-```vue
-<LayerHost
-  :layers="layers"
-  :on-lock-body-scroll="lockBodyScroll"
-  :on-unlock-body-scroll="unlockBodyScroll"
-/>
-```
+- `src/Layers.ts` still references obsolete `Layer/Notify/*` paths and is not exported by the current package entry.
 
-LayerHost remains responsible for deciding *when* a configured layer requires scroll locking. The application decides *how* body scroll is locked/unlocked.
+Do not hide validation failures by weakening TypeScript settings without a concrete reason.
 
-Requirements:
-
-- lock callback fires when the first lock-enabled layer becomes non-empty;
-- unlock callback fires when no lock-enabled layers contain items;
-- unmount must release a lock owned by that host;
-- avoid embedding application-specific CSS/body mutations in core.
-
-### 2. Build stabilization
-
-Run and fix:
-
-```bash
-pnpm build
-pnpm build:library
-```
-
-Expected cleanup areas:
-
-- stale v2/dead runtime files still included by TypeScript config;
-- unresolved legacy imports;
-- TypeScript strict/no-unused errors;
-- package output metadata and library entry verification.
-
-Do not hide build failures by weakening TypeScript settings without a concrete reason.
-
-### 3. Automated tests
+### 2. Automated tests
 
 Cover controller behavior first.
 
@@ -82,7 +53,14 @@ Cover controller behavior first.
 - closing queued notifications;
 - closeAll.
 
-### 4. Focus and accessibility
+`LayerHost`:
+
+- aggregate lock state;
+- lock/unlock callback transitions;
+- unlock on unmount;
+- ESC delegation by layer z-index.
+
+### 3. Focus and accessibility
 
 Deferred until the runtime/build are stable.
 
@@ -92,7 +70,7 @@ Deferred until the runtime/build are stable.
 - review dialog semantics/ARIA labels;
 - reduced-motion behavior already exists in the example animations.
 
-### 5. Public API review
+### 4. Public API review
 
 Before v3 release decide/finalize:
 
@@ -102,9 +80,9 @@ Before v3 release decide/finalize:
 - component-ref escape hatch documentation;
 - which parts of `example/install` remain examples versus become package helpers.
 
-### 6. Release preparation
+### 5. Release preparation
 
-- final package build/output check;
+- final package output/metadata check;
 - remove or archive obsolete v2 runtime files;
 - update publication notes;
 - verify GitHub Pages demo;
@@ -115,4 +93,5 @@ Before v3 release decide/finalize:
 - Promise-based dialog results;
 - mandatory application themes/styles;
 - width/height preset systems in core;
-- application-specific Alert/Confirm/Prompt wording in core.
+- application-specific Alert/Confirm/Prompt wording in core;
+- direct body-scroll DOM mutations inside core.

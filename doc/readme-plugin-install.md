@@ -19,13 +19,14 @@ example/install/
 │  ├─ SidebarLeft/
 │  ├─ SidebarRight/
 │  └─ Notification/
+├─ bodyScroll.ts
 ├─ facadeConfig.ts
 ├─ index.ts
 ├─ layerConfig.ts
 └─ style.scss
 ```
 
-`src` contains the generic runtime. `example/install` contains application decisions: presenter composition, wrapper appearance, window sizes, dialog wording and facade names.
+`src` contains the generic runtime. `example/install` contains application decisions: presenter composition, wrapper appearance, window sizes, body-scroll DOM behavior, dialog wording and facade names.
 
 ## 1. Controllers and layers
 
@@ -61,30 +62,56 @@ export const layerConfig = [
 
 `lockBodyScroll` is layer policy: modal-like windows request a body lock, notifications do not.
 
-## 2. LayerHost
+## 2. LayerHost and body scroll
 
-Mount the host in the application root:
+Core decides *when* a lock is needed, but does not mutate `document.body` itself. The reference application keeps that code in `example/install/bodyScroll.ts`:
+
+```ts
+const bodyScrollClass = 'body-scroll--locked'
+
+export function lockBodyScroll(): void {
+  document.body.classList.add(bodyScrollClass)
+}
+
+export function unlockBodyScroll(): void {
+  document.body.classList.remove(bodyScrollClass)
+}
+```
+
+Mount `LayerHost` in the application root and pass both callbacks:
 
 ```vue
 <template>
-  <LayerHost :layers="layerConfig" />
+  <LayerHost
+    :layers="layerConfig"
+    :on-lock-body-scroll="lockBodyScroll"
+    :on-unlock-body-scroll="unlockBodyScroll"
+  />
   <router-view />
 </template>
 
 <script>
 import { LayerHost } from 'vue-dlg'
 import { layerConfig } from '@example/install/layerConfig'
+import {
+  lockBodyScroll,
+  unlockBodyScroll,
+} from '@example/install/bodyScroll'
 
 export default {
   components: { LayerHost },
   data() {
     return { layerConfig }
   },
+  methods: {
+    lockBodyScroll,
+    unlockBodyScroll,
+  },
 }
 </script>
 ```
 
-The next planned lifecycle change moves the concrete body-scroll implementation out of the core and into two callbacks passed to `LayerHost`. See `doc/development/todo.md`.
+`LayerHost` invokes the callbacks only when the aggregate lock state changes and calls unlock during unmount if that host still owns an active lock state.
 
 ## 3. Window configuration
 
