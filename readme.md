@@ -199,14 +199,16 @@ The aliases are defined in `tsconfig.paths.json` and consumed by the Vite config
 ```bash
 pnpm install
 pnpm dev
+pnpm typecheck
 pnpm build
 pnpm build:library
 ```
 
+- `pnpm typecheck` runs strict Vue/TypeScript validation for `src`, `example`, `test` and the Vite configs.
 - `pnpm build` builds the demo application.
 - `pnpm build:library` builds the ESM library entry as `lib/index.js` from `src/install.ts`.
 
-Both Vite builds are part of the current v3 stabilization workflow. Type-check/test cleanup remains a separate development step.
+The current stabilization baseline is a clean typecheck, demo build, library build and package dry-run. Automated controller/lifecycle tests are the next validation layer.
 
 ## Documentation
 
@@ -219,11 +221,10 @@ Both Vite builds are part of the current v3 stabilization workflow. Type-check/t
 
 The short version:
 
-1. Stabilize type-checking and remove stale v2/dead runtime files exposed by validation.
-2. Add controller/lifecycle tests for Modal and Notification behavior.
-3. Add focus management and accessibility behavior for modal-like windows.
-4. Review the final public facade surface (`Dialog.open`, specialized facades, exported types).
-5. Prepare the v3 release documentation and package metadata.
+1. Add controller/lifecycle tests for Modal, Notification and LayerHost behavior.
+2. Add focus management and accessibility behavior for modal-like windows.
+3. Review the final public facade surface (`Dialog.open`, specialized facades, exported types).
+4. Prepare the v3 release documentation and package metadata.
 
 See `doc/development/todo.md` for the maintained roadmap.
 
