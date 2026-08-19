@@ -70,7 +70,7 @@ import {
   type tPromptAction,
   type tPromptChoiceItem,
   type tPromptValue,
-} from './action'
+} from '@example/install/Window/Dialog/Prompt/action'
 
 let radioGroupCounter = 0
 

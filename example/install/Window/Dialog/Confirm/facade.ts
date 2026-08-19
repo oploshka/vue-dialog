@@ -1,10 +1,10 @@
 import type { Modal, ModalController } from 'vue-dlg'
-import ConfirmItem from './Item.vue'
+import ConfirmItem from '@example/install/Window/Dialog/Confirm/Item.vue'
 import {
   confirmActions,
   type tConfirmAction,
-} from './action'
-import { dialogConfig } from '../config'
+} from '@example/install/Window/Dialog/Confirm/action'
+import { dialogConfig } from '@example/install/Window/Dialog/config'
 
 export type tConfirmPositiveEvent = {
   action: 'OK'

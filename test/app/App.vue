@@ -13,12 +13,10 @@
 </template>
 
 <script>
-
-import HeaderPart from './component/HeaderPart.vue'
-import FooterPart from './component/FooterPart.vue'
-//
+import HeaderPart from '@app/component/HeaderPart.vue'
+import FooterPart from '@app/component/FooterPart.vue'
 import { LayerHost } from 'vue-dlg'
-import {layerConfig} from "@example/install/layerConfig.ts";
+import { layerConfig } from '@example/install/layerConfig'
 
 export default {
   name: 'App',

@@ -38,7 +38,7 @@ import { defineComponent, type PropType } from 'vue'
 import {
   alertVariants,
   type tAlertVariant,
-} from './variant'
+} from '@example/install/Window/Dialog/Alert/variant'
 
 export default defineComponent({
   name: 'DialogAlertItem',

@@ -29,7 +29,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { PresenterMixin } from 'vue-dlg'
-import SidebarLeftPosition from './Position.vue'
+import SidebarLeftPosition from '@example/install/Window/SidebarLeft/Position.vue'
 
 export default defineComponent({
   name: 'SidebarLeftPresenter',

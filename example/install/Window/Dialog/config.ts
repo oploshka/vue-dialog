@@ -1,6 +1,6 @@
 import type { sModalSettings } from 'vue-dlg'
-import ModalPresenter from '../Modal/Presenter.vue'
-import DialogWrapper from './Wrapper.vue'
+import ModalPresenter from '@example/install/Window/Modal/Presenter.vue'
+import DialogWrapper from '@example/install/Window/Dialog/Wrapper.vue'
 
 export const dialogConfig: sModalSettings = {
   presenterComp: ModalPresenter,

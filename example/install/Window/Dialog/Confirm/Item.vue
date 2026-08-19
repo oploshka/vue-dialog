@@ -36,7 +36,7 @@ import { defineComponent, type PropType } from 'vue'
 import {
   confirmActions,
   type tConfirmAction,
-} from './action'
+} from '@example/install/Window/Dialog/Confirm/action'
 
 export default defineComponent({
   name: 'DialogConfirmItem',

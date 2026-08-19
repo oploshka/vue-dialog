@@ -29,7 +29,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { PresenterMixin } from 'vue-dlg'
-import ModalPosition from './Position.vue'
+import ModalPosition from '@example/install/Window/Modal/Position.vue'
 
 export default defineComponent({
   name: 'ModalPresenter',

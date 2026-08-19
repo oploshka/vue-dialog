@@ -3,7 +3,7 @@ import {
   ModalLayout,
   NotificationController,
 } from 'vue-dlg'
-import NotificationLayout from './Window/Notification/Layout.vue'
+import NotificationLayout from '@example/install/Window/Notification/Layout.vue'
 
 export const modalController = new ModalController()
 export const notificationController = new NotificationController({

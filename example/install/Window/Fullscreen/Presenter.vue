@@ -29,7 +29,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { PresenterMixin } from 'vue-dlg'
-import FullscreenPosition from './Position.vue'
+import FullscreenPosition from '@example/install/Window/Fullscreen/Position.vue'
 
 export default defineComponent({
   name: 'FullscreenPresenter',
