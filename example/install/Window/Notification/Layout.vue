@@ -10,26 +10,44 @@
       :key="item.id"
       class="notification-element"
     >
-      <component
-        :is="item.component"
-        v-bind="item.props"
-        @close="item.close()"
-      />
+      <NotificationWrapper :variant="getVariant(item)">
+        <component
+          :is="item.component"
+          v-bind="item.props"
+          @close="item.close()"
+        />
+      </NotificationWrapper>
     </div>
   </TransitionGroup>
 </template>
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import type { NotificationController } from 'vue-dlg'
+import type { Notification, NotificationController } from 'vue-dlg'
+import NotificationWrapper from './Wrapper.vue'
+import {
+  isNotificationVariant,
+  type tNotificationVariant,
+} from './variant'
 
 export default defineComponent({
   name: 'NotificationLayout',
+
+  components: {
+    NotificationWrapper,
+  },
 
   props: {
     manager: {
       type: Object as PropType<NotificationController>,
       required: true,
+    },
+  },
+
+  methods: {
+    getVariant(item: Notification): tNotificationVariant {
+      const variant = item.props.variant
+      return isNotificationVariant(variant) ? variant : 'info'
     },
   },
 })
@@ -49,7 +67,6 @@ export default defineComponent({
 .notification-element {
   width: 100%;
   margin-bottom: 10px;
-  overflow: hidden;
 }
 
 .notification-element:last-child {

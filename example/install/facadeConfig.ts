@@ -4,7 +4,7 @@ import { createDialogFacade } from './Window/Dialog/facade'
 import { createFullscreenFacade } from './Window/Fullscreen/facade'
 import { createSidebarLeftFacade } from './Window/SidebarLeft/facade'
 import { createSidebarRightFacade } from './Window/SidebarRight/facade'
-import { createNotificationFacade } from './Notification/facade'
+import { createNotificationFacade } from './Window/Notification/facade'
 
 export const facadeConfig = {
   Modal: createModalFacade(modalController),

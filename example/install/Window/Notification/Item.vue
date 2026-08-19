@@ -1,12 +1,9 @@
 <template>
-  <div
-    class="notification-item"
-    :class="`notification-item--${variant}`"
-  >
+  <div class="notification-item">
     <div class="notification-item__header">
       <div class="notification-item__title-row">
         <span class="notification-item__icon" aria-hidden="true">
-          {{ variant === 'success' ? '✓' : '!' }}
+          {{ variantConfig.icon }}
         </span>
 
         <strong
@@ -35,8 +32,10 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-
-type tNotificationVariant = 'info' | 'success' | 'warning' | 'error'
+import {
+  notificationVariants,
+  type tNotificationVariant,
+} from './variant'
 
 export default defineComponent({
   name: 'NotificationItem',
@@ -57,6 +56,12 @@ export default defineComponent({
       default: 'info',
     },
   },
+
+  computed: {
+    variantConfig() {
+      return notificationVariants[this.variant]
+    },
+  },
 })
 </script>
 
@@ -68,9 +73,7 @@ export default defineComponent({
   width: 100%;
   padding: 24px;
   gap: 8px;
-  color: #181a35;
-  background: #eef6ff;
-  border-left: 5px solid #187fe7;
+  color: inherit;
   font-size: 12px;
   text-align: left;
 }
@@ -98,7 +101,7 @@ export default defineComponent({
   height: 18px;
   border: 1.5px solid currentColor;
   border-radius: 50%;
-  color: #187fe7;
+  color: var(--notification-accent);
   font-size: 12px;
   font-weight: 700;
   line-height: 1;
@@ -129,32 +132,5 @@ export default defineComponent({
 
 .notification-item__message {
   font-size: 14px;
-}
-
-.notification-item--success {
-  background: #eefff4;
-  border-left-color: #2d9d5b;
-}
-
-.notification-item--success .notification-item__icon {
-  color: #2d9d5b;
-}
-
-.notification-item--warning {
-  background: #fff8e6;
-  border-left-color: #d99a00;
-}
-
-.notification-item--warning .notification-item__icon {
-  color: #d99a00;
-}
-
-.notification-item--error {
-  background: #fff3f3;
-  border-left-color: #d64545;
-}
-
-.notification-item--error .notification-item__icon {
-  color: #d64545;
 }
 </style>
