@@ -1,12 +1,12 @@
 <template>
   <div>
     <h2>Sidebar Right</h2>
-    <p>Right sidebar content variants</p>
+    <p>Right sidebar sizes</p>
 
     <ul class="icon-list">
-      <li><a href="#" @click.prevent="showSidebarRight('profile')">Show profile sidebar</a></li>
-      <li><a href="#" @click.prevent="showSidebarRight('settings')">Show settings sidebar</a></li>
-      <li><a href="#" @click.prevent="showSidebarRight('activity')">Show activity sidebar</a></li>
+      <li><a href="#" @click.prevent="showSidebarRight('small', 'profile')">Show small sidebar</a></li>
+      <li><a href="#" @click.prevent="showSidebarRight('medium', 'settings')">Show medium sidebar</a></li>
+      <li><a href="#" @click.prevent="showSidebarRight('large', 'activity')">Show large sidebar</a></li>
     </ul>
   </div>
 </template>
@@ -19,8 +19,14 @@ export default {
   name: 'ExampleBlockSidebarRight',
 
   methods: {
-    showSidebarRight(variant) {
-      return facadeConfig.SidebarRight.open(ExampleSidebarRightContent, { variant })
+    showSidebarRight(size, variant) {
+      return facadeConfig.SidebarRight.open(
+        ExampleSidebarRightContent,
+        { variant },
+        {
+          presenterProps: { size },
+        },
+      )
     },
   },
 }

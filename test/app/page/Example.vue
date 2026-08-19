@@ -2,49 +2,57 @@
   <div>
     <h2 class="mb-5">Examples of how this plugin works</h2>
 
-    <section class="mb-5">
-      <div class="row g-4">
-        <div class="col-12 col-md-3">
-          <div class="h-100 border rounded-3 p-3">
-            <ExampleBlockAlert />
-          </div>
-        </div>
-
-        <div class="col-12 col-md-3">
-          <div class="h-100 border rounded-3 p-3">
-            <ExampleBlockConfirm />
-          </div>
-        </div>
-
-        <div class="col-12 col-md-3">
-          <div class="h-100 border rounded-3 p-3">
-            <ExampleBlockPrompt />
-          </div>
-        </div>
-
-        <div class="col-12 col-md-3">
-          <div class="h-100 border rounded-3 p-3">
-            <ExampleBlockNotify />
-          </div>
+    <div class="row g-4 mb-5">
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="h-100 border rounded-3 p-3">
+          <ExampleBlockAlert />
         </div>
       </div>
-    </section>
 
-    <section class="border-top pt-4 mb-4">
-      <ExampleBlockModal />
-    </section>
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="h-100 border rounded-3 p-3">
+          <ExampleBlockConfirm />
+        </div>
+      </div>
 
-    <section class="border-top pt-4 mb-4">
-      <ExampleBlockFullscreen />
-    </section>
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="h-100 border rounded-3 p-3">
+          <ExampleBlockPrompt />
+        </div>
+      </div>
 
-    <section class="border-top pt-4 mb-4">
-      <ExampleBlockSidebarLeft />
-    </section>
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="h-100 border rounded-3 p-3">
+          <ExampleBlockNotify />
+        </div>
+      </div>
+    </div>
 
-    <section class="border-top pt-4 mb-4">
-      <ExampleBlockSidebarRight />
-    </section>
+    <div class="row g-4">
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="h-100 border rounded-3 p-3">
+          <ExampleBlockModal />
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="h-100 border rounded-3 p-3">
+          <ExampleBlockFullscreen />
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="h-100 border rounded-3 p-3">
+          <ExampleBlockSidebarLeft />
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="h-100 border rounded-3 p-3">
+          <ExampleBlockSidebarRight />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

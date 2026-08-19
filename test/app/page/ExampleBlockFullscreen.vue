@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Fullscreen</h2>
-    <p>Fullscreen window example</p>
+    <p>Fullscreen window with dashboard content</p>
 
     <ul class="icon-list">
       <li><a href="#" @click.prevent="showFullscreen">Show fullscreen</a></li>
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import ExampleBlockModalAbout from '@app/page/ExampleBlockModalAbout.vue'
+import ExampleFullscreenContent from '@app/component/ExampleFullscreenContent.vue'
 import { facadeConfig } from '@example/install/facadeConfig'
 
 export default {
@@ -18,10 +18,7 @@ export default {
 
   methods: {
     showFullscreen() {
-      return facadeConfig.Fullscreen.open(ExampleBlockModalAbout, {
-        version: 'Fullscreen',
-        companyName: 'Fullscreen window',
-      })
+      return facadeConfig.Fullscreen.open(ExampleFullscreenContent)
     },
   },
 }

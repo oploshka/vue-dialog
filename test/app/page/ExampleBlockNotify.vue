@@ -8,7 +8,7 @@
       <li><a href="#" @click.prevent="showNotificationSuccess">Show notification success</a></li>
       <li><a href="#" @click.prevent="showNotificationWarning">Show notification warning</a></li>
       <li><a href="#" @click.prevent="showNotificationError">Show notification error</a></li>
-      <li><a href="#" @click.prevent="showNotificationCount3">Show 3 notifications</a></li>
+      <li><a href="#" @click.prevent="showNotificationCount5">Show 5 notifications</a></li>
     </ul>
   </div>
 </template>
@@ -33,10 +33,12 @@ export default {
       this.$dialog.Notification.error('Ошибка сервера', 'Произошла не известная ошибка');
     },
 
-    showNotificationCount3() {
+    showNotificationCount5() {
+      this.showNotificationInfo();
       this.showNotificationSuccess();
       this.showNotificationWarning();
       this.showNotificationError();
+      this.$dialog.Notification.info('Очередь', 'Пятая notification ожидает свободное место');
     },
   },
 }
