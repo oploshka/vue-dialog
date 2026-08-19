@@ -21,9 +21,9 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import type { Modal } from 'vue-dlg/Layer/Modal/Modal'
-import type { ModalController } from 'vue-dlg/Layer/Modal/ModalController'
-import { setModalComponentRef } from 'vue-dlg/Layer/Modal/ModalRuntime'
+import type { Modal } from '@/Layer/Modal/Modal'
+import type { ModalController } from '@/Layer/Modal/ModalController'
+import { setModalComponentRef } from '@/Layer/Modal/ModalRuntime'
 
 export default defineComponent({
   name: 'ModalLayout',
