@@ -11,6 +11,11 @@ export interface sNotificationSettings {
   onClose?: () => void
 }
 
+export interface sNotificationControllerSettings {
+  zIndex?: number
+  maxVisible?: number
+}
+
 type tNotificationConfig = {
   id: string
   component: Component
@@ -50,11 +55,13 @@ export class NotificationController implements sLayerController {
   id = 'notification-controller'
   zIndex: number
 
+  private readonly maxVisible: number
   private _items = shallowRef<Notification[]>([])
   private _timers = new Map<Notification, ReturnType<typeof setTimeout>>()
 
-  constructor(zIndex: number = 5000) {
-    this.zIndex = zIndex
+  constructor(settings: sNotificationControllerSettings = {}) {
+    this.zIndex = settings.zIndex ?? 5000
+    this.maxVisible = Math.max(1, Math.floor(settings.maxVisible ?? Infinity))
   }
 
   show(
@@ -69,6 +76,10 @@ export class NotificationController implements sLayerController {
       duration: settings.duration ?? 5000,
       onClose: settings.onClose,
     }, item => this.removeNotification(item))
+
+    while (this._items.value.length >= this.maxVisible) {
+      this._items.value[0]?.close()
+    }
 
     this._items.value = [...this._items.value, notification]
 
