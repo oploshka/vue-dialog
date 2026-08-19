@@ -9,6 +9,8 @@
       v-for="item in manager.items"
       :key="item.id"
       class="notification-element"
+      @mouseenter="item.pause()"
+      @mouseleave="item.resume()"
     >
       <NotificationWrapper :variant="getVariant(item)">
         <component
