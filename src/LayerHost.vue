@@ -1,4 +1,3 @@
-<!-- OverlayHost.vue -->
 <template>
   <div @keydown.esc="handleEsc">
     <component
@@ -21,7 +20,7 @@ type tLayerEntry = {
 }
 
 export default defineComponent({
-  name: 'OverlayHost',
+  name: 'LayerHost',
 
   props: {
     layers: {

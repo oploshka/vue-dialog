@@ -10,7 +10,7 @@ window.addEventListener('popstate', () => {
   modalController.top?.close()
 })
 
-export const overlays = {
+export const layers = {
   modal: modalController,
   notify: notifyController,
 }
