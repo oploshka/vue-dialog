@@ -1,12 +1,14 @@
 <template>
-  <div @keydown.esc="handleEsc">
-    <component
-      v-for="entry in sortedLayers"
-      :key="entry.manager.id"
-      :is="entry.template"
-      :manager="entry.manager"
-    />
-  </div>
+  <Teleport to="body">
+    <div @keydown.esc="handleEsc">
+      <component
+        v-for="entry in sortedLayers"
+        :key="entry.manager.id"
+        :is="entry.template"
+        :manager="entry.manager"
+      />
+    </div>
+  </Teleport>
 </template>
 
 <script lang="ts">
