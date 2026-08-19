@@ -14,6 +14,8 @@
 
 <script>
 import ExampleBlockModalAbout from '@app/page/ExampleBlockModalAbout.vue'
+import { facadeConfig } from '@example/install/facadeConfig'
+import { modalController } from '@example/install/layerConfig'
 
 export default {
   name: 'ExampleBlockModal',
@@ -21,25 +23,27 @@ export default {
   methods: {
     showModal() {
       const props = { version: 'Modal', companyName: 'Centered window' }
-      const modal = this.$dialog.Modal.open(ExampleBlockModalAbout, props)
-      console.log(modal, props)
+
+      console.log('modal items before open', modalController.items.length)
+      const modal = facadeConfig.Modal.open(ExampleBlockModalAbout, props)
+      console.log('modal items after open', modalController.items.length, modal)
     },
 
     showFullscreen() {
       const props = { version: 'Fullscreen', companyName: 'Fullscreen window' }
-      const modal = this.$dialog.Fullscreen.open(ExampleBlockModalAbout, props)
+      const modal = facadeConfig.Fullscreen.open(ExampleBlockModalAbout, props)
       console.log(modal, props)
     },
 
     showSidebarLeft() {
       const props = { version: 'SidebarLeft', companyName: 'Left sidebar' }
-      const modal = this.$dialog.SidebarLeft.open(ExampleBlockModalAbout, props)
+      const modal = facadeConfig.SidebarLeft.open(ExampleBlockModalAbout, props)
       console.log(modal, props)
     },
 
     showSidebarRight() {
       const props = { version: 'SidebarRight', companyName: 'Right sidebar' }
-      const modal = this.$dialog.SidebarRight.open(ExampleBlockModalAbout, props)
+      const modal = facadeConfig.SidebarRight.open(ExampleBlockModalAbout, props)
       console.log(modal, props)
     },
   },
