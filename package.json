@@ -13,7 +13,8 @@
     "serve": "vite --config vite.demo.config.ts",
     "build": "vite build --config vite.demo.config.ts",
     "build:ph-pages": "vite build --config vite.demo.config.ts --mode ph-pages",
-    "build:library": "vite build --config vite.lib.config.ts"
+    "build:library": "vite build --config vite.lib.config.ts",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json"
   },
   "main": "./lib/index.js",
   "module": "./lib/index.js",
