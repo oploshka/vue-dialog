@@ -8,33 +8,14 @@
     </div>
 
     <div class="dialog-confirm__body">
-      <div v-if="message" class="dialog-confirm__message">
-        {{ message }}
-      </div>
-
-      <div v-if="action === 'choice'" class="dialog-confirm__choice">
-        <label
-          v-for="option in list"
-          :key="String(option.id)"
-          class="dialog-confirm__option"
-        >
-          <input
-            v-model="inputValue"
-            type="radio"
-            :name="radioName"
-            :value="option.id"
-          >
-          <span>{{ option.name }}</span>
-        </label>
-      </div>
+      {{ message }}
     </div>
 
     <div class="dialog-confirm__footer">
       <button
         class="dialog-confirm__positive"
         type="button"
-        :disabled="action === 'choice' && inputValue === null"
-        @click="handlePositive"
+        @click="$emit('positive', { action: 'OK' })"
       >
         {{ okLabel }}
       </button>
@@ -55,11 +36,7 @@ import { defineComponent, type PropType } from 'vue'
 import {
   confirmActions,
   type tConfirmAction,
-  type tConfirmChoiceItem,
-  type tConfirmChoiceValue,
 } from './action'
-
-let radioGroupCounter = 0
 
 export default defineComponent({
   name: 'DialogConfirmItem',
@@ -77,11 +54,7 @@ export default defineComponent({
     },
     message: {
       type: String,
-      default: '',
-    },
-    list: {
-      type: Array as PropType<tConfirmChoiceItem[]>,
-      default: () => [],
+      required: true,
     },
     okLabel: {
       type: String,
@@ -93,13 +66,6 @@ export default defineComponent({
     },
   },
 
-  data() {
-    return {
-      inputValue: null as tConfirmChoiceValue | null,
-      radioName: `dialog-confirm-choice-${++radioGroupCounter}`,
-    }
-  },
-
   computed: {
     confirmStyle(): Record<string, string> {
       const config = confirmActions[this.action]
@@ -107,22 +73,6 @@ export default defineComponent({
         '--dialog-confirm-background': config.background,
         '--dialog-confirm-accent': config.accent,
       }
-    },
-  },
-
-  methods: {
-    handlePositive(): void {
-      if (this.action === 'choice') {
-        if (this.inputValue === null) return
-
-        this.$emit('positive', {
-          action: 'OK',
-          inputValue: this.inputValue,
-        })
-        return
-      }
-
-      this.$emit('positive', { action: 'OK' })
     },
   },
 })
@@ -156,19 +106,6 @@ export default defineComponent({
   line-height: 1.4;
 }
 
-.dialog-confirm__choice {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.dialog-confirm__option {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-}
-
 .dialog-confirm__footer {
   display: flex;
   gap: 16px;
@@ -197,10 +134,5 @@ export default defineComponent({
   color: #50596c;
   background: #fff;
   border: 1px solid #c8ced8;
-}
-
-.dialog-confirm__positive:disabled {
-  cursor: default;
-  opacity: 0.5;
 }
 </style>

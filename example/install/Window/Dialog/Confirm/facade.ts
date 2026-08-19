@@ -3,8 +3,6 @@ import ConfirmItem from './Item.vue'
 import {
   confirmActions,
   type tConfirmAction,
-  type tConfirmChoiceItem,
-  type tConfirmChoiceValue,
 } from './action'
 import { dialogConfig } from '../config'
 
@@ -16,11 +14,6 @@ export type tConfirmNegativeEvent = {
   action: 'CANCEL'
 }
 
-export type tConfirmChoicePositiveEvent = {
-  action: 'OK'
-  inputValue: tConfirmChoiceValue
-}
-
 export interface sConfirmSettings {
   title?: string
   okLabel?: string
@@ -29,22 +22,9 @@ export interface sConfirmSettings {
   onNegative?: (event: tConfirmNegativeEvent) => void
 }
 
-export interface sConfirmChoiceSettings {
-  title?: string
-  okLabel?: string
-  cancelLabel?: string
-  onPositive?: (event: tConfirmChoicePositiveEvent) => void
-  onNegative?: (event: tConfirmNegativeEvent) => void
-}
-
-export type {
-  tConfirmChoiceItem,
-  tConfirmChoiceValue,
-}
-
 export const createConfirmFacade = (controller: ModalController) => {
-  const showMessage = (
-    action: Exclude<tConfirmAction, 'choice'>,
+  const show = (
+    action: tConfirmAction,
     message: string,
     settings: sConfirmSettings = {},
   ): Modal => {
@@ -74,43 +54,12 @@ export const createConfirmFacade = (controller: ModalController) => {
     return modal
   }
 
-  const choice = (
-    list: tConfirmChoiceItem[],
-    settings: sConfirmChoiceSettings = {},
-  ): Modal => {
-    const actionConfig = confirmActions.choice
-    let modal: Modal
-
-    modal = controller.open(
-      ConfirmItem,
-      {
-        action: 'choice',
-        title: settings.title ?? actionConfig.title,
-        list,
-        okLabel: settings.okLabel ?? 'Да',
-        cancelLabel: settings.cancelLabel ?? 'Отмена',
-        onPositive(event: tConfirmChoicePositiveEvent) {
-          settings.onPositive?.(event)
-          modal.close()
-        },
-        onNegative(event: tConfirmNegativeEvent) {
-          settings.onNegative?.(event)
-          modal.close()
-        },
-      },
-      dialogConfig,
-    )
-
-    return modal
-  }
-
   return {
     add: (message: string, settings?: sConfirmSettings) => (
-      showMessage('add', message, settings)
+      show('add', message, settings)
     ),
-    choice,
     delete: (message: string, settings?: sConfirmSettings) => (
-      showMessage('delete', message, settings)
+      show('delete', message, settings)
     ),
   }
 }

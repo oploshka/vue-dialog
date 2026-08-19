@@ -5,7 +5,6 @@
     <ul class="icon-list">
       <li><a href="#" @click.stop="showConfirmAdd">Show confirm add</a></li>
       <li><a href="#" @click.stop="showConfirmDelete">Show confirm delete</a></li>
-      <li><a href="#" @click.stop="showConfirmChoice">Show confirm choice</a></li>
       <li><a href="#" @click.stop="showConfirmCount2">Show 2 confirm</a></li>
     </ul>
   </div>
@@ -27,18 +26,6 @@ export default {
     showConfirmDelete() {
       this.$dialog.Confirm.delete('Вы точно хотите удалить запись?', {
         onPositive(event) { console.log('onPositive', event) },
-        onNegative(event) { console.log('onNegative', event) },
-      })
-    },
-
-    showConfirmChoice() {
-      this.$dialog.Confirm.choice([
-        { id: 1, name: 'Первый вариант' },
-        { id: 2, name: 'Второй вариант' },
-        { id: 3, name: 'Третий вариант' },
-      ], {
-        title: 'Выберите вариант',
-        onPositive(event) { console.log('choice', event.inputValue) },
         onNegative(event) { console.log('onNegative', event) },
       })
     },
