@@ -7,7 +7,7 @@ export const createNotificationFacade = (controller: NotificationController) => 
     title: string,
     message: string,
     variant: tNotificationVariant = 'info',
-    duration: number = 5000,
+    duration?: number,
   ) => controller.show(
     NotificationItem,
     { title, message, variant },
