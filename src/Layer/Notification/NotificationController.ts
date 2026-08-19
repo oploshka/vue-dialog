@@ -14,6 +14,7 @@ export interface sNotificationSettings {
 export interface sNotificationControllerSettings {
   zIndex?: number
   maxVisible?: number
+  duration?: number
 }
 
 type tNotificationConfig = {
@@ -24,6 +25,12 @@ type tNotificationConfig = {
   onClose?: () => void
 }
 
+type tNotificationTimer = {
+  timer: ReturnType<typeof setTimeout> | null
+  remaining: number
+  startedAt: number
+}
+
 export class Notification implements sLayerItem {
   readonly id: string
   readonly component: Component
@@ -32,10 +39,14 @@ export class Notification implements sLayerItem {
   readonly onClose?: () => void
 
   private readonly requestClose: (notification: Notification) => void
+  private readonly requestPause: (notification: Notification) => void
+  private readonly requestResume: (notification: Notification) => void
 
   constructor(
     config: tNotificationConfig,
     requestClose: (notification: Notification) => void,
+    requestPause: (notification: Notification) => void,
+    requestResume: (notification: Notification) => void,
   ) {
     this.id = config.id
     this.component = config.component
@@ -43,10 +54,22 @@ export class Notification implements sLayerItem {
     this.duration = config.duration
     this.onClose = config.onClose
     this.requestClose = requestClose
+    this.requestPause = requestPause
+    this.requestResume = requestResume
   }
 
   close(): this {
     this.requestClose(this)
+    return this
+  }
+
+  pause(): this {
+    this.requestPause(this)
+    return this
+  }
+
+  resume(): this {
+    this.requestResume(this)
     return this
   }
 }
@@ -56,13 +79,15 @@ export class NotificationController implements sLayerController {
   zIndex: number
 
   private readonly maxVisible: number
+  private readonly duration: number
   private _items = shallowRef<Notification[]>([])
   private _queue: Notification[] = []
-  private _timers = new Map<Notification, ReturnType<typeof setTimeout>>()
+  private _timers = new Map<Notification, tNotificationTimer>()
 
   constructor(settings: sNotificationControllerSettings = {}) {
     this.zIndex = settings.zIndex ?? 5000
     this.maxVisible = Math.max(1, Math.floor(settings.maxVisible ?? Infinity))
+    this.duration = Math.max(0, settings.duration ?? 5000)
   }
 
   show(
@@ -74,9 +99,13 @@ export class NotificationController implements sLayerController {
       id: generateId(),
       component,
       props,
-      duration: settings.duration ?? 5000,
+      duration: Math.max(0, settings.duration ?? this.duration),
       onClose: settings.onClose,
-    }, item => this.removeNotification(item))
+    },
+    item => this.removeNotification(item),
+    item => this.pauseNotification(item),
+    item => this.resumeNotification(item),
+    )
 
     if (this._items.value.length < this.maxVisible) {
       this.showNotification(notification)
@@ -89,11 +118,46 @@ export class NotificationController implements sLayerController {
 
   private showNotification(notification: Notification): void {
     this._items.value = [...this._items.value, notification]
+    this.startTimer(notification, notification.duration)
+  }
 
-    if (notification.duration > 0) {
-      const timer = setTimeout(() => notification.close(), notification.duration)
-      this._timers.set(notification, timer)
+  private startTimer(notification: Notification, duration: number): void {
+    if (duration <= 0) return
+
+    const state: tNotificationTimer = {
+      timer: null,
+      remaining: duration,
+      startedAt: Date.now(),
     }
+
+    state.timer = setTimeout(() => notification.close(), duration)
+    this._timers.set(notification, state)
+  }
+
+  private pauseNotification(notification: Notification): void {
+    if (!this._items.value.includes(notification)) return
+
+    const state = this._timers.get(notification)
+    if (!state?.timer) return
+
+    state.remaining = Math.max(0, state.remaining - (Date.now() - state.startedAt))
+    clearTimeout(state.timer)
+    state.timer = null
+  }
+
+  private resumeNotification(notification: Notification): void {
+    if (!this._items.value.includes(notification)) return
+
+    const state = this._timers.get(notification)
+    if (!state || state.timer) return
+
+    if (state.remaining <= 0) {
+      notification.close()
+      return
+    }
+
+    state.startedAt = Date.now()
+    state.timer = setTimeout(() => notification.close(), state.remaining)
   }
 
   private removeNotification(notification: Notification): void {
@@ -127,10 +191,10 @@ export class NotificationController implements sLayerController {
   }
 
   private clearTimer(notification: Notification): void {
-    const timer = this._timers.get(notification)
-    if (!timer) return
+    const state = this._timers.get(notification)
+    if (!state) return
 
-    clearTimeout(timer)
+    if (state.timer) clearTimeout(state.timer)
     this._timers.delete(notification)
   }
 
