@@ -3,7 +3,10 @@ export { ModalController } from './Layer/Modal/ModalController'
 export { default as ModalLayout } from './Layer/Modal/ModalLayout.vue'
 
 export { Notification, NotificationController } from './Layer/Notification/NotificationController'
-export type { sNotificationSettings } from './Layer/Notification/NotificationController'
+export type {
+  sNotificationSettings,
+  sNotificationControllerSettings,
+} from './Layer/Notification/NotificationController'
 
 export { default as LayerHost } from './LayerHost.vue'
 
