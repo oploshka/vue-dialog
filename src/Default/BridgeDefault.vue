@@ -8,10 +8,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { modalBridgeProps } from '../Presenter/ModalPresenterContract'
+import BridgeMixin from '../Mixin/BridgeMixin'
 
 export default defineComponent({
-  name: 'DefaultBridge',
-  props: modalBridgeProps,
+  name: 'BridgeDefault',
+  mixins: [BridgeMixin],
 })
 </script>

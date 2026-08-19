@@ -1,20 +1,19 @@
 <template>
-  <div class="default-overlay" @click="handleClick" />
+  <div class="overlay-default" @click="handleClick" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import OverlayMixin from '../Mixin/Overlay'
+import OverlayMixin from '../Mixin/OverlayMixin'
 
 export default defineComponent({
-  name: 'DefaultOverlay',
-
+  name: 'OverlayDefault',
   mixins: [OverlayMixin],
 })
 </script>
 
 <style scoped>
-.default-overlay {
+.overlay-default {
   position: absolute;
   inset: 0;
 }
