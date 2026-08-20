@@ -1,0 +1,91 @@
+import type { Component } from 'vue'
+import { describe, expect, it, vi } from 'vitest'
+import { ModalController } from '@/Layer/Modal/ModalController'
+
+const ComponentStub = {} as Component
+
+describe('ModalController', () => {
+  it('opens a modal and exposes it through items and top', () => {
+    const controller = new ModalController(3200)
+    const props = { title: 'Example' }
+
+    const modal = controller.open(ComponentStub, props)
+
+    expect(controller.zIndex).toBe(3200)
+    expect(controller.items).toEqual([modal])
+    expect(controller.top).toBe(modal)
+    expect(modal.component).toBe(ComponentStub)
+    expect(modal.props).toBe(props)
+    expect(modal.zIndex).toBe(1)
+    expect(modal.settings.closeOnEsc).toBe(true)
+    expect(modal.settings.closeOnBackdrop).toBe(true)
+  })
+
+  it('removes only the closed modal and calls onClose once', () => {
+    const controller = new ModalController()
+    const onClose = vi.fn()
+    const first = controller.open(ComponentStub)
+    const second = controller.open(ComponentStub, {}, { onClose })
+
+    expect(second.close()).toBe(second)
+    expect(controller.items).toEqual([first])
+    expect(controller.top).toBe(first)
+    expect(onClose).toHaveBeenCalledTimes(1)
+
+    second.close()
+    expect(onClose).toHaveBeenCalledTimes(1)
+  })
+
+  it('keeps z-index monotonic while the stack is not empty and resets after it becomes empty', () => {
+    const controller = new ModalController()
+    const first = controller.open(ComponentStub)
+    const second = controller.open(ComponentStub)
+    const third = controller.open(ComponentStub)
+
+    expect([first.zIndex, second.zIndex, third.zIndex]).toEqual([1, 2, 3])
+
+    second.close()
+    const fourth = controller.open(ComponentStub)
+    expect(fourth.zIndex).toBe(4)
+
+    controller.closeAll()
+    const next = controller.open(ComponentStub)
+    expect(next.zIndex).toBe(1)
+  })
+
+  it('closeAll closes every modal and calls each onClose once', () => {
+    const controller = new ModalController()
+    const firstOnClose = vi.fn()
+    const secondOnClose = vi.fn()
+
+    controller.open(ComponentStub, {}, { onClose: firstOnClose })
+    controller.open(ComponentStub, {}, { onClose: secondOnClose })
+
+    controller.closeAll()
+
+    expect(controller.items).toHaveLength(0)
+    expect(controller.top).toBeUndefined()
+    expect(firstOnClose).toHaveBeenCalledTimes(1)
+    expect(secondOnClose).toHaveBeenCalledTimes(1)
+  })
+
+  it('closes only the top modal when ESC is allowed', () => {
+    const controller = new ModalController()
+    const first = controller.open(ComponentStub)
+    const second = controller.open(ComponentStub)
+
+    expect(controller.handleEsc()).toBe(true)
+    expect(controller.items).toEqual([first])
+    expect(controller.items).not.toContain(second)
+  })
+
+  it('does not skip a top modal that disables ESC closing', () => {
+    const controller = new ModalController()
+    const first = controller.open(ComponentStub)
+    const second = controller.open(ComponentStub, {}, { closeOnEsc: false })
+
+    expect(controller.handleEsc()).toBe(false)
+    expect(controller.items).toEqual([first, second])
+    expect(controller.top).toBe(second)
+  })
+})

@@ -14,7 +14,9 @@
     "build": "vite build --config vite.demo.config.ts",
     "build:ph-pages": "vite build --config vite.demo.config.ts --mode ph-pages",
     "build:library": "vite build --config vite.lib.config.ts",
-    "typecheck": "vue-tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json"
+    "typecheck": "vue-tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -63,6 +65,7 @@
     "unplugin-dts": "1.0.3",
     "vite": "8.2.1",
     "vite-plugin-inspect": "12.0.2",
+    "vitest": "4.1.11",
     "vue-tsc": "3.3.10"
   }
 }
