@@ -21,11 +21,25 @@ describe('NotificationController', () => {
     expect(controller.items).toEqual([second, third])
   })
 
+  it('normalizes maxVisible to a positive integer', () => {
+    const controller = new NotificationController({ maxVisible: 1.9, duration: 0 })
+    const first = controller.show(ComponentStub)
+    const second = controller.show(ComponentStub)
+
+    expect(controller.items).toEqual([first])
+
+    first.close()
+    expect(controller.items).toEqual([second])
+  })
+
   it('allows a queued notification to be closed before it becomes visible', () => {
     const controller = new NotificationController({ maxVisible: 1, duration: 0 })
     const first = controller.show(ComponentStub)
     const onClose = vi.fn()
     const queued = controller.show(ComponentStub, {}, { onClose })
+
+    queued.close()
+    expect(onClose).toHaveBeenCalledTimes(1)
 
     queued.close()
     expect(onClose).toHaveBeenCalledTimes(1)
@@ -60,6 +74,18 @@ describe('NotificationController', () => {
 
     vi.advanceTimersByTime(1)
     expect(controller.items).not.toContain(notification)
+  })
+
+  it('normalizes negative durations to zero', () => {
+    vi.useFakeTimers()
+
+    const controller = new NotificationController({ duration: -100 })
+    const notification = controller.show(ComponentStub, {}, { duration: -1 })
+
+    expect(notification.duration).toBe(0)
+
+    vi.advanceTimersByTime(60_000)
+    expect(controller.items).toContain(notification)
   })
 
   it('does not start an automatic timer when duration is zero', () => {
@@ -102,6 +128,7 @@ describe('NotificationController', () => {
     controller.show(ComponentStub, {}, { onClose: firstOnClose })
     controller.show(ComponentStub, {}, { onClose: secondOnClose })
 
+    controller.closeAll()
     controller.closeAll()
 
     expect(controller.items).toHaveLength(0)

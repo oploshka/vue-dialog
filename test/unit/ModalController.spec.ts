@@ -21,6 +21,23 @@ describe('ModalController', () => {
     expect(modal.settings.closeOnBackdrop).toBe(true)
   })
 
+  it('resolves custom modal settings while keeping caller props by identity', () => {
+    const controller = new ModalController()
+    const props = { value: 42 }
+    const presenterProps = { role: 'dialog' }
+
+    const modal = controller.open(ComponentStub, props, {
+      closeOnEsc: false,
+      closeOnBackdrop: false,
+      presenterProps,
+    })
+
+    expect(modal.props).toBe(props)
+    expect(modal.settings.presenterProps).toBe(presenterProps)
+    expect(modal.settings.closeOnEsc).toBe(false)
+    expect(modal.settings.closeOnBackdrop).toBe(false)
+  })
+
   it('removes only the closed modal and calls onClose once', () => {
     const controller = new ModalController()
     const onClose = vi.fn()
@@ -61,6 +78,7 @@ describe('ModalController', () => {
     controller.open(ComponentStub, {}, { onClose: firstOnClose })
     controller.open(ComponentStub, {}, { onClose: secondOnClose })
 
+    controller.closeAll()
     controller.closeAll()
 
     expect(controller.items).toHaveLength(0)
