@@ -5,7 +5,7 @@
         v-for="entry in sortedLayers"
         :key="entry.manager.id"
         :is="entry.template"
-        :manager="entry.manager"
+        v-bind="getLayerProps(entry)"
       />
     </div>
   </Teleport>
@@ -13,12 +13,15 @@
 
 <script lang="ts">
 import { defineComponent, type Component, type PropType } from 'vue'
+import { useBodyScroll } from '@/Plugin/useBodyScroll'
+import { useFocus } from '@/Plugin/useFocus'
 import type { sLayerController } from '@/Type/Type'
 
 type tLayerEntry = {
   manager: sLayerController
   template: Component
   lockBodyScroll?: boolean
+  trapFocus?: boolean
 }
 
 type tBodyScrollCallback = () => void
@@ -41,51 +44,29 @@ export default defineComponent({
     },
   },
 
-  data() {
-    return {
-      bodyScrollLocked: false,
-    }
+  setup(props) {
+    const focus = useFocus(props)
+    useBodyScroll(props)
+    return { focus }
   },
 
   computed: {
     sortedLayers(): tLayerEntry[] {
       return [...this.layers].sort((a, b) => a.manager.zIndex - b.manager.zIndex)
     },
-
-    hasScrollLockItems(): boolean {
-      return this.layers.some(
-        layer => layer.lockBodyScroll === true && layer.manager.items.length > 0,
-      )
-    },
-  },
-
-  watch: {
-    hasScrollLockItems: {
-      handler(value: boolean): void {
-        this.syncBodyScroll(value)
-      },
-      immediate: true,
-    },
-  },
-
-  beforeUnmount() {
-    if (!this.bodyScrollLocked) return
-
-    this.onUnlockBodyScroll?.()
-    this.bodyScrollLocked = false
   },
 
   methods: {
-    syncBodyScroll(shouldLock: boolean): void {
-      if (shouldLock === this.bodyScrollLocked) return
-
-      if (shouldLock) {
-        this.onLockBodyScroll?.()
-      } else {
-        this.onUnlockBodyScroll?.()
+    getLayerProps(entry: tLayerEntry): Record<string, unknown> {
+      const props: Record<string, unknown> = {
+        manager: entry.manager,
       }
 
-      this.bodyScrollLocked = shouldLock
+      if (entry.trapFocus === true) {
+        props.focus = this.focus
+      }
+
+      return props
     },
 
     handleEsc(): void {

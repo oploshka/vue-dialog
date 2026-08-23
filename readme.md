@@ -14,7 +14,7 @@ Current repository version: **3.0.0-alpha.3**.
 - Presentation is split into `Presenter`, `Position`, `Wrapper` and `Bridge` responsibilities.
 - `NotificationController` has its own queue, duration and pause/resume lifecycle.
 - Application-specific facades (`Alert`, `Confirm`, `Prompt`, sidebars, fullscreen, notifications) are built on top of the core controllers.
-- `LayerHost` decides when a layer requires body-scroll locking, while the application supplies lock/unlock callbacks.
+- `LayerHost` decides when a layer requires body-scroll locking and coordinates focus trapping for layers that opt in.
 - Core components do not impose application styling or direct `document.body` mutations.
 
 ## Architecture
@@ -66,9 +66,12 @@ export const layers = [
     manager: modalController,
     template: ModalLayout,
     lockBodyScroll: true,
+    trapFocus: true,
   },
 ]
 ```
+
+`trapFocus` confines focus to the top rendered item of enabled layers. `LayerHost` coordinates those layers by `zIndex`; non-interactive layers such as notifications normally leave it disabled.
 
 Mount the host once in the application root and provide the body-scroll implementation explicitly:
 

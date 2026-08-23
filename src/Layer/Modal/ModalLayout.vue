@@ -7,7 +7,9 @@
       <div
         v-for="item in manager.items"
         :key="item.id"
+        :ref="element => bindFocusElement(item, element)"
         class="modal-element"
+        tabindex="-1"
         :style="{ zIndex: item.zIndex }"
       >
         <component
@@ -20,10 +22,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from 'vue'
+import {
+  defineComponent,
+  type ComponentPublicInstance,
+  type PropType,
+} from 'vue'
 import type { Modal } from '@/Layer/Modal/Modal'
 import type { ModalController } from '@/Layer/Modal/ModalController'
 import { setModalComponentRef } from '@/Layer/Modal/ModalRuntime'
+import type { sFocusBinding } from '@/Plugin/useFocus'
 
 export default defineComponent({
   name: 'ModalLayout',
@@ -33,9 +40,26 @@ export default defineComponent({
       type: Object as PropType<ModalController>,
       required: true,
     },
+    focus: {
+      type: Object as PropType<sFocusBinding>,
+      default: undefined,
+    },
   },
 
   methods: {
+    bindFocusElement(
+      modal: Modal,
+      element: Element | ComponentPublicInstance | null,
+    ): void {
+      if (!this.focus) return
+
+      if (element instanceof HTMLElement) {
+        this.focus.bind(modal, element)
+      } else {
+        this.focus.unbind(modal)
+      }
+    },
+
     getPresenterProps(modal: Modal) {
       return {
         component: modal.component,

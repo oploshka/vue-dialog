@@ -51,16 +51,20 @@ export const layerConfig = [
     manager: modalController,
     template: ModalLayout,
     lockBodyScroll: true,
+    trapFocus: true,
   },
   {
     manager: notificationController,
     template: NotificationLayout,
     lockBodyScroll: false,
+    trapFocus: false,
   },
 ]
 ```
 
 `lockBodyScroll` is layer policy: modal-like windows request a body lock, notifications do not.
+
+`trapFocus` enables focus trapping for a layer. `LayerHost` coordinates all enabled layers and keeps the trap on the top rendered item by layer `zIndex`; layers such as notifications normally leave it disabled.
 
 ## 2. LayerHost and body scroll
 

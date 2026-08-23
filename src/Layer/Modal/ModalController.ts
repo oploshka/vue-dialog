@@ -1,5 +1,10 @@
 import { shallowRef, type Component } from 'vue'
-import type { sLayerController, sModalSettings, tProps } from '@/Type/Type'
+import type {
+  sModalSettings,
+  sStackLayerController,
+  tLayerCollectionListener,
+  tProps,
+} from '@/Type/Type'
 import { Modal } from '@/Layer/Modal/Modal'
 import { resolveModalSettings } from '@/Layer/Modal/ModalSettings'
 
@@ -8,11 +13,13 @@ function generateId(): string {
   return `modal-${++counter}-${Date.now()}`
 }
 
-export class ModalController implements sLayerController {
+export class ModalController implements sStackLayerController<Modal> {
   id = 'modal-controller'
   zIndex: number
   private _items = shallowRef<Modal[]>([])
   private _elementZIndex = 0
+  private _itemAddListeners = new Set<tLayerCollectionListener<Modal>>()
+  private _itemRemoveListeners = new Set<tLayerCollectionListener<Modal>>()
 
   constructor(zIndex: number = 3000) {
     this.zIndex = zIndex
@@ -32,6 +39,11 @@ export class ModalController implements sLayerController {
     }, item => this.removeModal(item))
 
     this._items.value = [...this._items.value, modal]
+
+    for (const listener of this._itemAddListeners) {
+      listener(modal)
+    }
+
     return modal
   }
 
@@ -44,11 +56,25 @@ export class ModalController implements sLayerController {
       ...this._items.value.slice(index + 1),
     ]
 
+    for (const listener of this._itemRemoveListeners) {
+      listener(modal)
+    }
+
     modal.settings.onClose?.()
 
     if (this._items.value.length === 0) {
       this._elementZIndex = 0
     }
+  }
+
+  onItemAdd(listener: tLayerCollectionListener<Modal>): () => void {
+    this._itemAddListeners.add(listener)
+    return () => this._itemAddListeners.delete(listener)
+  }
+
+  onItemRemove(listener: tLayerCollectionListener<Modal>): () => void {
+    this._itemRemoveListeners.add(listener)
+    return () => this._itemRemoveListeners.delete(listener)
   }
 
   closeAll(): void {
