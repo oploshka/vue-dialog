@@ -1,4 +1,5 @@
 import { shallowRef, type Component } from 'vue'
+import { EventEmitter } from '@/Layer/EventEmitter'
 import type {
   sModalSettings,
   sStackLayerController,
@@ -13,13 +14,17 @@ function generateId(): string {
   return `modal-${++counter}-${Date.now()}`
 }
 
+type tModalControllerEvents = {
+  add: [modal: Modal]
+  remove: [modal: Modal]
+}
+
 export class ModalController implements sStackLayerController<Modal> {
   id = 'modal-controller'
   zIndex: number
   private _items = shallowRef<Modal[]>([])
   private _elementZIndex = 0
-  private _itemAddListeners = new Set<tLayerCollectionListener<Modal>>()
-  private _itemRemoveListeners = new Set<tLayerCollectionListener<Modal>>()
+  private readonly events = new EventEmitter<tModalControllerEvents>()
 
   constructor(zIndex: number = 3000) {
     this.zIndex = zIndex
@@ -39,10 +44,7 @@ export class ModalController implements sStackLayerController<Modal> {
     }, item => this.removeModal(item))
 
     this._items.value = [...this._items.value, modal]
-
-    for (const listener of this._itemAddListeners) {
-      listener(modal)
-    }
+    this.events.emit('add', modal)
 
     return modal
   }
@@ -56,10 +58,7 @@ export class ModalController implements sStackLayerController<Modal> {
       ...this._items.value.slice(index + 1),
     ]
 
-    for (const listener of this._itemRemoveListeners) {
-      listener(modal)
-    }
-
+    this.events.emit('remove', modal)
     modal.settings.onClose?.()
 
     if (this._items.value.length === 0) {
@@ -67,14 +66,11 @@ export class ModalController implements sStackLayerController<Modal> {
     }
   }
 
-  onItemAdd(listener: tLayerCollectionListener<Modal>): () => void {
-    this._itemAddListeners.add(listener)
-    return () => this._itemAddListeners.delete(listener)
-  }
-
-  onItemRemove(listener: tLayerCollectionListener<Modal>): () => void {
-    this._itemRemoveListeners.add(listener)
-    return () => this._itemRemoveListeners.delete(listener)
+  on(
+    event: 'add' | 'remove',
+    listener: tLayerCollectionListener<Modal>,
+  ): () => void {
+    return this.events.on(event, listener)
   }
 
   closeAll(): void {

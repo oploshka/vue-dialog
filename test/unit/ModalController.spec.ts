@@ -38,12 +38,12 @@ describe('ModalController', () => {
     expect(modal.settings.closeOnBackdrop).toBe(false)
   })
 
-  it('emits add and remove callbacks from the modal collection', () => {
+  it('emits add and remove events from the modal collection', () => {
     const controller = new ModalController()
     const onAdd = vi.fn()
     const onRemove = vi.fn()
-    const stopAdd = controller.onItemAdd(onAdd)
-    const stopRemove = controller.onItemRemove(onRemove)
+    const stopAdd = controller.on('add', onAdd)
+    const stopRemove = controller.on('remove', onRemove)
 
     const first = controller.open(ComponentStub)
     const second = controller.open(ComponentStub)

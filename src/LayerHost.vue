@@ -5,7 +5,7 @@
         v-for="entry in sortedLayers"
         :key="entry.manager.id"
         :is="entry.template"
-        v-bind="getLayerProps(entry)"
+        :manager="entry.manager"
       />
     </div>
   </Teleport>
@@ -45,9 +45,8 @@ export default defineComponent({
   },
 
   setup(props) {
-    const focus = useFocus(props)
+    useFocus(props)
     useBodyScroll(props)
-    return { focus }
   },
 
   computed: {
@@ -57,18 +56,6 @@ export default defineComponent({
   },
 
   methods: {
-    getLayerProps(entry: tLayerEntry): Record<string, unknown> {
-      const props: Record<string, unknown> = {
-        manager: entry.manager,
-      }
-
-      if (entry.trapFocus === true) {
-        props.focus = this.focus
-      }
-
-      return props
-    },
-
     handleEsc(): void {
       const reversed = [...this.sortedLayers].reverse()
       for (const entry of reversed) {

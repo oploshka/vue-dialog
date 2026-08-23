@@ -71,13 +71,15 @@ export type tLayerCollectionListener<T extends sLayerItem = sLayerItem> = (
 
 /**
  * Layer controller backed by a stack-like collection.
- * Collection callbacks are the runtime source of truth for consumers.
+ * Collection events are the runtime source of truth for consumers.
  */
 export interface sStackLayerController<T extends sLayerItem = sLayerItem>
   extends sLayerController {
   readonly top: T | undefined
-  onItemAdd(listener: tLayerCollectionListener<T>): () => void
-  onItemRemove(listener: tLayerCollectionListener<T>): () => void
+  on(
+    event: 'add' | 'remove',
+    listener: tLayerCollectionListener<T>,
+  ): () => void
 }
 
 // Legacy research type. Wrapper selection is moving into Presenter settings.
