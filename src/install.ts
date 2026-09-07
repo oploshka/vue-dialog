@@ -1,4 +1,5 @@
 export { Modal } from '@/Layer/Modal/Modal'
+export type { tModalEvents } from '@/Layer/Modal/Modal'
 export { ModalController } from '@/Layer/Modal/ModalController'
 export { default as ModalLayout } from '@/Layer/Modal/ModalLayout.vue'
 
@@ -24,8 +25,11 @@ export type {
   sLayerControlItem,
   sLayerController,
   sLayerDescriptor,
+  sLayerEntry,
   sLayerItem,
   sModalSettings,
   sResolvedModalSettings,
+  sStackLayerController,
+  tLayerCollectionListener,
   tProps,
 } from '@/Type/Type'

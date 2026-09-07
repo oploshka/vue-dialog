@@ -2,6 +2,7 @@ import {
   ModalController,
   ModalLayout,
   NotificationController,
+  type sLayerEntry,
 } from 'vue-dlg'
 import NotificationLayout from '@example/install/Window/Notification/Layout.vue'
 
@@ -16,6 +17,7 @@ export const modalLayer = {
   template: ModalLayout,
   lockBodyScroll: true,
   trapFocus: true,
+  blockLowerEsc: true,
 }
 
 export const notificationLayer = {
@@ -23,9 +25,10 @@ export const notificationLayer = {
   template: NotificationLayout,
   lockBodyScroll: false,
   trapFocus: false,
+  blockLowerEsc: false,
 }
 
-export const layerConfig = [
+export const layerConfig: sLayerEntry[] = [
   modalLayer,
   notificationLayer,
 ]

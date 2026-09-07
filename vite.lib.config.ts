@@ -33,6 +33,7 @@ export default defineConfig({
       name: 'VueDlg',
       formats: ['es'],
       fileName: 'index',
+      cssFileName: 'index',
     },
 
     rolldownOptions: {

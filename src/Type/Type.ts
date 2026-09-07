@@ -65,6 +65,16 @@ export interface sLayerController {
   handleEsc?: () => boolean
 }
 
+/** Configuration for one controller rendered by LayerHost. */
+export interface sLayerEntry {
+  manager: sLayerController
+  template: Component
+  lockBodyScroll?: boolean
+  trapFocus?: boolean
+  /** Stop ESC at this non-empty layer even if handleEsc() returns false. Default: false. */
+  blockLowerEsc?: boolean
+}
+
 export type tLayerCollectionListener<T extends sLayerItem = sLayerItem> = (
   item: T,
 ) => void

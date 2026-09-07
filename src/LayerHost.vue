@@ -12,17 +12,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type Component, type PropType } from 'vue'
+import { defineComponent, type PropType } from 'vue'
 import { useBodyScroll } from '@/Plugin/useBodyScroll'
 import { useFocus } from '@/Module/Focus/useFocus'
-import type { sLayerController } from '@/Type/Type'
-
-type tLayerEntry = {
-  manager: sLayerController
-  template: Component
-  lockBodyScroll?: boolean
-  trapFocus?: boolean
-}
+import type { sLayerEntry } from '@/Type/Type'
 
 type tBodyScrollCallback = () => void
 
@@ -31,7 +24,7 @@ export default defineComponent({
 
   props: {
     layers: {
-      type: Array as PropType<tLayerEntry[]>,
+      type: Array as PropType<readonly sLayerEntry[]>,
       required: true,
     },
     onLockBodyScroll: {
@@ -50,7 +43,7 @@ export default defineComponent({
   },
 
   computed: {
-    sortedLayers(): tLayerEntry[] {
+    sortedLayers(): sLayerEntry[] {
       return [...this.layers].sort((a, b) => a.manager.zIndex - b.manager.zIndex)
     },
   },
@@ -59,7 +52,9 @@ export default defineComponent({
     handleEsc(): void {
       const reversed = [...this.sortedLayers].reverse()
       for (const entry of reversed) {
+        const blocksLowerEsc = entry.blockLowerEsc === true && entry.manager.items.length > 0
         if (entry.manager.handleEsc?.()) return
+        if (blocksLowerEsc) return
       }
     },
   },

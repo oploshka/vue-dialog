@@ -1,4 +1,4 @@
-import { onBeforeUnmount, onMounted } from 'vue'
+import { onBeforeUnmount, onMounted, watch } from 'vue'
 import { ModalController } from '@/Layer/Modal/ModalController'
 import type { Modal } from '@/Layer/Modal/Modal'
 import { getModalElement } from '@/Layer/Modal/ModalRuntime'
@@ -18,16 +18,11 @@ export function useFocus(
   props: tFocusProps,
   createFocus: tFocusFactory = () => new Focus(),
 ): void {
-  const controllers = props.layers
-    .filter(
-      layer => layer.trapFocus === true && layer.manager instanceof ModalController,
-    )
-    .sort((a, b) => a.manager.zIndex - b.manager.zIndex)
-    .map(layer => layer.manager as ModalController)
-
+  let controllers: ModalController[] = []
   const focus = createFocus()
   const modalStops = new Map<Modal, () => void>()
-  const stops: Array<() => void> = []
+  let stops: Array<() => void> = []
+  let stopWatch: (() => void) | undefined
 
   const getTopModal = (): Modal | undefined => {
     for (let index = controllers.length - 1; index >= 0; index--) {
@@ -72,7 +67,14 @@ export function useFocus(
     modalStops.delete(modal)
   }
 
-  const init = (): void => {
+  const clearSubscriptions = (): void => {
+    stops.forEach(stop => stop())
+    stops = []
+    modalStops.forEach(stop => stop())
+    modalStops.clear()
+  }
+
+  const subscribe = (): void => {
     controllers.forEach(controller => {
       controller.items.forEach(add)
       stops.push(
@@ -90,12 +92,26 @@ export function useFocus(
     sync()
   }
 
+  const init = (): void => {
+    stopWatch = watch(
+      () => props.layers
+        .filter(layer => layer.trapFocus === true && layer.manager instanceof ModalController)
+        .map(layer => ({ manager: layer.manager as ModalController, zIndex: layer.manager.zIndex }))
+        .sort((a, b) => a.zIndex - b.zIndex),
+      entries => {
+        clearSubscriptions()
+        controllers = [...new Set(entries.map(entry => entry.manager))]
+        subscribe()
+      },
+      { immediate: true, flush: 'sync' },
+    )
+  }
+
   const destroy = (): void => {
-    stops.forEach(stop => stop())
-    modalStops.forEach(stop => stop())
+    stopWatch?.()
+    clearSubscriptions()
     focus.deactivate(false)
     focus.unbind()
-    modalStops.clear()
   }
 
   onMounted(init)

@@ -2,6 +2,7 @@ import { shallowRef, type Component } from 'vue'
 import type { sLayerController, sLayerItem, tProps } from '@/Type/Type'
 
 let counter = 0
+let controllerCounter = 0
 function generateId(): string {
   return `notification-${++counter}-${Date.now()}`
 }
@@ -75,7 +76,7 @@ export class Notification implements sLayerItem {
 }
 
 export class NotificationController implements sLayerController {
-  id = 'notification-controller'
+  id = `notification-controller-${++controllerCounter}`
   zIndex: number
 
   private readonly maxVisible: number

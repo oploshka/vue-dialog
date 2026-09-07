@@ -2,7 +2,7 @@
  * @vitest-environment happy-dom
  */
 
-import { defineComponent, h, type Component } from 'vue'
+import { defineComponent, h, shallowReactive, nextTick, type Component, type PropType } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { ModalController } from '@/Layer/Modal/ModalController'
@@ -46,11 +46,14 @@ function mountFocus(
   factory: tFocusFactory,
 ) {
   return mount(defineComponent({
-    setup() {
-      useFocus({ layers }, factory)
+    props: {
+      layers: { type: Array as PropType<tFocusLayer[]>, required: true },
+    },
+    setup(props) {
+      useFocus(props, factory)
       return () => h('div')
     },
-  }))
+  }), { props: { layers } })
 }
 
 describe('useFocus', () => {
@@ -73,8 +76,55 @@ describe('useFocus', () => {
 
     expect(factoryMock).toHaveBeenCalledTimes(1)
     expect(focus.bind).toHaveBeenCalledTimes(1)
-    expect(focus.bind).toHaveBeenCalledWith(higherElement)
-    expect(focus.bind).not.toHaveBeenCalledWith(lowerElement)
+    expect(focus.bind.mock.calls[0]?.[0]).toBe(higherElement)
+    wrapper.unmount()
+  })
+
+  it('updates focus on layer replacement and releases subscriptions when disabled or removed', async () => {
+    const { focus, factory } = createFocusHarness()
+    const first = new ModalController(100)
+    const second = new ModalController(200)
+    const firstModal = first.open(ComponentStub)
+    const secondModal = second.open(ComponentStub)
+    const firstElement = document.createElement('div')
+    const secondElement = document.createElement('div')
+    attachModalElement(firstModal, firstElement)
+    attachModalElement(secondModal, secondElement)
+    const wrapper = mountFocus([{ manager: first, trapFocus: true }], factory)
+    expect(focus.element).toBe(firstElement)
+    await wrapper.setProps({ layers: [{ manager: second, trapFocus: true }] })
+    console.log('FOCUS PROPS', wrapper.props('layers')[0]?.manager === second, focus.bind.mock.calls.length)
+    expect(focus.element).toBe(secondElement)
+    focus.bind.mockClear()
+    first.closeAll()
+    attachModalElement(firstModal, document.createElement('div'))
+    expect(focus.bind).not.toHaveBeenCalled()
+    await wrapper.setProps({ layers: [{ manager: second, trapFocus: false }] })
+    expect(focus.element).toBeNull()
+    await wrapper.setProps({ layers: [{ manager: second, trapFocus: true }] })
+    expect(focus.element).toBe(secondElement)
+    await wrapper.setProps({ layers: [] })
+    expect(focus.element).toBeNull()
+    wrapper.unmount()
+  })
+
+  it('tracks reactive layer ordering without replacing the focus trap', async () => {
+    const { focus, factory, factoryMock } = createFocusHarness()
+    const first = shallowReactive(new ModalController(100))
+    const second = new ModalController(200)
+    const firstElement = document.createElement('div')
+    const secondElement = document.createElement('div')
+    attachModalElement(first.open(ComponentStub), firstElement)
+    attachModalElement(second.open(ComponentStub), secondElement)
+    const wrapper = mountFocus([
+      { manager: first, trapFocus: true },
+      { manager: second, trapFocus: true },
+    ], factory)
+    expect(focus.element).toBe(secondElement)
+    first.zIndex = 300
+    await nextTick()
+    expect(focus.element).toBe(firstElement)
+    expect(factoryMock).toHaveBeenCalledTimes(1)
     wrapper.unmount()
   })
 

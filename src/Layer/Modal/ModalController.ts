@@ -10,6 +10,7 @@ import { Modal } from '@/Layer/Modal/Modal'
 import { resolveModalSettings } from '@/Layer/Modal/ModalSettings'
 
 let counter = 0
+let controllerCounter = 0
 function generateId(): string {
   return `modal-${++counter}-${Date.now()}`
 }
@@ -20,7 +21,7 @@ type tModalControllerEvents = {
 }
 
 export class ModalController implements sStackLayerController<Modal> {
-  id = 'modal-controller'
+  id = `modal-controller-${++controllerCounter}`
   zIndex: number
   private _items = shallowRef<Modal[]>([])
   private _elementZIndex = 0
