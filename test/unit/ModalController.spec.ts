@@ -1,10 +1,15 @@
 import type { Component } from 'vue'
 import { describe, expect, it, vi } from 'vitest'
 import { ModalController } from '@/Layer/Modal/ModalController'
+import type { Modal } from '@/Layer/Modal/Modal'
 
 const ComponentStub = {} as Component
 
 describe('ModalController', () => {
+  it('creates unique controller ids', () => {
+    expect(new ModalController().id).not.toBe(new ModalController().id)
+  })
+
   it('opens a modal and exposes it through items and top', () => {
     const controller = new ModalController(3200)
     const props = { title: 'Example' }
@@ -110,6 +115,38 @@ describe('ModalController', () => {
     expect(secondOnClose).toHaveBeenCalledTimes(1)
   })
 
+  it('closeAll only closes the stack snapshot', () => {
+    const controller = new ModalController()
+    let replacement: Modal | undefined
+
+    controller.open(ComponentStub)
+    controller.open(ComponentStub, {}, {
+      onClose: () => {
+        replacement = controller.open(ComponentStub)
+      },
+    })
+
+    controller.closeAll()
+
+    expect(controller.items).toEqual([replacement])
+  })
+
+  it('closeAll finishes the snapshot when an onClose callback throws', () => {
+    const controller = new ModalController()
+    const firstOnClose = vi.fn()
+    const error = new Error('close failed')
+
+    controller.open(ComponentStub, {}, { onClose: firstOnClose })
+    controller.open(ComponentStub, {}, { onClose: () => { throw error } })
+
+    expect(() => controller.closeAll()).toThrow(error)
+    expect(controller.items).toHaveLength(0)
+    expect(firstOnClose).toHaveBeenCalledTimes(1)
+
+    const next = controller.open(ComponentStub)
+    expect(next.zIndex).toBe(1)
+  })
+
   it('closes only the top modal when ESC is allowed', () => {
     const controller = new ModalController()
     const first = controller.open(ComponentStub)
@@ -120,13 +157,17 @@ describe('ModalController', () => {
     expect(controller.items).not.toContain(second)
   })
 
-  it('does not skip a top modal that disables ESC closing', () => {
+  it('consumes ESC without closing when the top modal disables ESC closing', () => {
     const controller = new ModalController()
     const first = controller.open(ComponentStub)
     const second = controller.open(ComponentStub, {}, { closeOnEsc: false })
 
-    expect(controller.handleEsc()).toBe(false)
+    expect(controller.handleEsc()).toBe(true)
     expect(controller.items).toEqual([first, second])
     expect(controller.top).toBe(second)
+  })
+
+  it('does not consume ESC when the stack is empty', () => {
+    expect(new ModalController().handleEsc()).toBe(false)
   })
 })

@@ -172,8 +172,8 @@ export class NotificationController implements sLayerController {
         ...this._items.value.slice(visibleIndex + 1),
       ]
 
-      notification.onClose?.()
       this.showNext()
+      notification.onClose?.()
       return
     }
 
@@ -212,9 +212,21 @@ export class NotificationController implements sLayerController {
     this._items.value = []
     this._queue = []
 
+    let hasError = false
+    let firstError: unknown
+
     for (const notification of notifications) {
-      notification.onClose?.()
+      try {
+        notification.onClose?.()
+      } catch (error) {
+        if (!hasError) {
+          hasError = true
+          firstError = error
+        }
+      }
     }
+
+    if (hasError) throw firstError
   }
 
   get items(): readonly Notification[] {

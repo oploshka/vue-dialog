@@ -17,7 +17,6 @@ export const modalLayer = {
   template: ModalLayout,
   lockBodyScroll: true,
   trapFocus: true,
-  blockLowerEsc: true,
 }
 
 export const notificationLayer = {
@@ -25,7 +24,6 @@ export const notificationLayer = {
   template: NotificationLayout,
   lockBodyScroll: false,
   trapFocus: false,
-  blockLowerEsc: false,
 }
 
 export const layerConfig: sLayerEntry[] = [

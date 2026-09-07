@@ -2,7 +2,7 @@
 
 Vue 3 library for programmatic modal layers. The library core manages layer state and lifecycle; presentation, styles and application-specific facades stay outside the core.
 
-Current repository version: **3.0.0-alpha.3**.
+Current repository version: **3.0.0-beta.0**.
 
 > The `develop` branch contains the current v3 rewrite.
 
@@ -43,7 +43,13 @@ pnpm add vue-dlg
 npm install vue-dlg
 ```
 
-For the current alpha architecture, use `example/install` as the reference application configuration. It intentionally lives outside `src`: window appearance and convenience facades are application policy, not core policy.
+Import the package styles once in the application entry:
+
+```ts
+import 'vue-dlg/style.css'
+```
+
+For the current beta architecture, use `example/install` as the reference application configuration. It intentionally lives outside `src`: window appearance and convenience facades are application policy, not core policy.
 
 ## Minimal core usage
 
@@ -73,6 +79,8 @@ export const layers = [
 
 `trapFocus` confines focus to the top rendered item of enabled layers. `LayerHost` coordinates those layers by `zIndex`; non-interactive layers such as notifications normally leave it disabled.
 
+`layers` is startup configuration: create it before mounting `LayerHost` and keep the configured controllers/layer options stable for the lifetime of the host.
+
 Mount the host once in the application root and provide the body-scroll implementation explicitly:
 
 ```vue
@@ -87,9 +95,14 @@ Mount the host once in the application root and provide the body-scroll implemen
 
 <script>
 import { LayerHost } from 'vue-dlg'
+import { layers } from './layers'
 
 export default {
   components: { LayerHost },
+
+  data() {
+    return { layers }
+  },
 
   methods: {
     lockBodyScroll() {

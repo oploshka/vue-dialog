@@ -52,9 +52,7 @@ export default defineComponent({
     handleEsc(): void {
       const reversed = [...this.sortedLayers].reverse()
       for (const entry of reversed) {
-        const blocksLowerEsc = entry.blockLowerEsc === true && entry.manager.items.length > 0
         if (entry.manager.handleEsc?.()) return
-        if (blocksLowerEsc) return
       }
     },
   },

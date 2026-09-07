@@ -41,120 +41,50 @@ afterEach(() => {
 })
 
 describe('LayerHost', () => {
-  it.each([undefined, false, true])('respects blockLowerEsc=%s on an occupied modal layer', (blockLowerEsc) => {
+  it('does not pass ESC below an occupied modal layer that disables ESC closing', () => {
     const low = new ModalController(1000)
     const high = new ModalController(2000)
     const lowModal = low.open(ModalComponent)
     const highModal = high.open(ModalComponent, {}, { closeOnEsc: false })
-    expect(low.id).not.toBe(high.id)
 
     const wrapper = mount(LayerHost, {
       props: { layers: [
         { manager: low, template: LayerTemplate },
-        { manager: high, template: LayerTemplate, blockLowerEsc },
+        { manager: high, template: LayerTemplate },
       ] },
     })
 
     document.body.firstElementChild?.dispatchEvent(new KeyboardEvent('keydown', {
-      key: 'Escape', bubbles: true,
+      key: 'Escape',
+      bubbles: true,
     }))
 
     expect(high.items).toEqual([highModal])
-    expect(low.items).toEqual(blockLowerEsc ? [lowModal] : [])
-    wrapper.unmount()
-  })
-
-  it('lets ESC through an empty blocking layer and closes at most one window', () => {
-    const low = new ModalController(1000)
-    const high = new ModalController(2000)
-    const lowModal = low.open(ModalComponent)
-    high.open(ModalComponent)
-    const wrapper = mount(LayerHost, {
-      props: { layers: [
-        { manager: low, template: LayerTemplate },
-        { manager: high, template: LayerTemplate, blockLowerEsc: true },
-      ] },
-    })
-    const pressEsc = () => document.body.firstElementChild?.dispatchEvent(
-      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
-    )
-    pressEsc()
-    expect(high.items).toHaveLength(0)
     expect(low.items).toEqual([lowModal])
-    pressEsc()
-    expect(low.items).toHaveLength(0)
     wrapper.unmount()
   })
 
-  it('can block ESC in a custom occupied layer without an ESC handler', async () => {
-    const low = new ModalController(1000)
-    low.open(ModalComponent)
-    const layer = { manager: { id: 'custom', zIndex: 2000, items: [{ id: 'item' }] }, template: LayerTemplate }
+  it('passes ESC through notification layers', () => {
+    const modal = new ModalController(1000)
+    modal.open(ModalComponent)
+    const notifications = new NotificationController({ zIndex: 2000, duration: 0 })
+    notifications.show(ModalComponent)
+
     const wrapper = mount(LayerHost, {
       props: { layers: [
-        { manager: low, template: LayerTemplate },
-        { ...layer, blockLowerEsc: true },
+        { manager: modal, template: LayerTemplate },
+        { manager: notifications, template: LayerTemplate },
       ] },
     })
-    document.body.firstElementChild?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))
-    expect(low.items).toHaveLength(1)
-    await wrapper.setProps({ layers: [
-      { manager: low, template: LayerTemplate },
-      { ...layer, blockLowerEsc: false },
-    ] })
-    console.log('HOST PROPS', wrapper.props('layers')[1]?.blockLowerEsc, wrapper.vm.sortedLayers[1]?.blockLowerEsc)
-    document.body.firstElementChild?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))
-    expect(low.items).toHaveLength(0)
-    wrapper.unmount()
-  })
 
-  it('keeps notification controllers independent and passes ESC through them by default', () => {
-    const low = new ModalController()
-    low.open(ModalComponent)
-    const first = new NotificationController({ duration: 0 })
-    const second = new NotificationController({ duration: 0 })
-    first.show(ModalComponent)
-    second.show(ModalComponent)
-    expect(first.id).not.toBe(second.id)
-    const wrapper = mount(LayerHost, { props: { layers: [
-      { manager: low, template: LayerTemplate },
-      { manager: first, template: LayerTemplate },
-      { manager: second, template: LayerTemplate },
-    ] } })
-    document.body.firstElementChild?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))
-    expect(low.items).toHaveLength(0)
-    expect(first.items).toHaveLength(1)
-    expect(second.items).toHaveLength(1)
-    wrapper.unmount()
-  })
+    document.body.firstElementChild?.dispatchEvent(new KeyboardEvent('keydown', {
+      key: 'Escape',
+      bubbles: true,
+    }))
 
-  it('updates body locking when layers change and unsubscribes removed controllers', async () => {
-    const first = new ModalController()
-    const second = new ModalController()
-    first.open(ModalComponent)
-    second.open(ModalComponent)
-    const onLockBodyScroll = vi.fn()
-    const onUnlockBodyScroll = vi.fn()
-    const wrapper = mount(LayerHost, { props: {
-      layers: [{ manager: first, template: LayerTemplate, lockBodyScroll: true }],
-      onLockBodyScroll, onUnlockBodyScroll,
-    } })
-    await wrapper.setProps({ layers: [{ manager: second, template: LayerTemplate, lockBodyScroll: true }] })
-    expect(onLockBodyScroll).toHaveBeenCalledTimes(1)
-    expect(onUnlockBodyScroll).not.toHaveBeenCalled()
-    first.closeAll()
-    expect(onUnlockBodyScroll).not.toHaveBeenCalled()
-    await wrapper.setProps({ layers: [{ manager: second, template: LayerTemplate, lockBodyScroll: false }] })
-    expect(onUnlockBodyScroll).toHaveBeenCalledTimes(1)
-    first.open(ModalComponent)
-    expect(onLockBodyScroll).toHaveBeenCalledTimes(1)
-    await wrapper.setProps({ layers: [{ manager: second, template: LayerTemplate, lockBodyScroll: true }] })
-    expect(onLockBodyScroll).toHaveBeenCalledTimes(2)
-    await wrapper.setProps({ layers: [] })
-    expect(onUnlockBodyScroll).toHaveBeenCalledTimes(2)
+    expect(modal.items).toHaveLength(0)
+    expect(notifications.items).toHaveLength(1)
     wrapper.unmount()
-    second.closeAll()
-    expect(onUnlockBodyScroll).toHaveBeenCalledTimes(2)
   })
 
   it('locks on the first lock-enabled item and unlocks after the last one closes', async () => {

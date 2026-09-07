@@ -1,4 +1,4 @@
-import { onBeforeUnmount, onMounted, watch } from 'vue'
+import { onBeforeUnmount, onMounted } from 'vue'
 import type {
   sLayerController,
   sStackLayerController,
@@ -19,9 +19,12 @@ function isStackController(manager: sLayerController): manager is sStackLayerCon
 }
 
 export function useBodyScroll(props: tBodyScrollProps): void {
-  let controllers: sStackLayerController[] = []
-  let stops: Array<() => void> = []
-  let stopWatch: (() => void) | undefined
+  const controllers = props.layers
+    .filter(layer => layer.lockBodyScroll === true)
+    .map(layer => layer.manager)
+    .filter(isStackController)
+
+  const stops: Array<() => void> = []
   let locked = false
 
   const lock = (): void => {
@@ -34,32 +37,19 @@ export function useBodyScroll(props: tBodyScrollProps): void {
     props.onUnlockBodyScroll?.()
     locked = false
   }
-  const sync = (): void => {
-    if (controllers.some(controller => controller.items.length > 0)) lock()
-    else unlock()
+  const remove = (): void => {
+    if (controllers.some(controller => controller.items.length > 0)) return
+    unlock()
   }
 
   const init = (): void => {
-    stopWatch = watch(
-      () => props.layers
-        .filter(layer => layer.lockBodyScroll === true)
-        .map(layer => layer.manager)
-        .filter(isStackController),
-      nextControllers => {
-        stops.forEach(stop => stop())
-        stops = []
-        controllers = [...new Set(nextControllers)]
-        controllers.forEach(controller => stops.push(
-          controller.on('add', sync),
-          controller.on('remove', sync),
-        ))
-        sync()
-      },
-      { immediate: true, flush: 'sync' },
-    )
+    if (controllers.some(controller => controller.items.length > 0)) lock()
+    controllers.forEach(controller => stops.push(
+      controller.on('add', lock),
+      controller.on('remove', remove),
+    ))
   }
   const destroy = (): void => {
-    stopWatch?.()
     stops.forEach(stop => stop())
     unlock()
   }

@@ -59,12 +59,12 @@ export class ModalController implements sStackLayerController<Modal> {
       ...this._items.value.slice(index + 1),
     ]
 
-    this.events.emit('remove', modal)
-    modal.settings.onClose?.()
-
     if (this._items.value.length === 0) {
       this._elementZIndex = 0
     }
+
+    this.events.emit('remove', modal)
+    modal.settings.onClose?.()
   }
 
   on(
@@ -75,11 +75,22 @@ export class ModalController implements sStackLayerController<Modal> {
   }
 
   closeAll(): void {
-    let top = this.top
-    while (top) {
-      top.close()
-      top = this.top
+    const modals = [...this._items.value].reverse()
+    let hasError = false
+    let firstError: unknown
+
+    for (const modal of modals) {
+      try {
+        modal.close()
+      } catch (error) {
+        if (!hasError) {
+          hasError = true
+          firstError = error
+        }
+      }
     }
+
+    if (hasError) throw firstError
   }
 
   get items(): readonly Modal[] {
@@ -92,10 +103,8 @@ export class ModalController implements sStackLayerController<Modal> {
 
   handleEsc(): boolean {
     const top = this.top
-    if (top && top.settings.closeOnEsc) {
-      top.close()
-      return true
-    }
-    return false
+    if (!top) return false
+    if (top.settings.closeOnEsc) top.close()
+    return true
   }
 }

@@ -1,6 +1,6 @@
 import type { Component } from 'vue'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { NotificationController } from '@/Layer/Notification/NotificationController'
+import { NotificationController, type Notification } from '@/Layer/Notification/NotificationController'
 
 const ComponentStub = {} as Component
 
@@ -9,6 +9,10 @@ afterEach(() => {
 })
 
 describe('NotificationController', () => {
+  it('creates unique controller ids', () => {
+    expect(new NotificationController().id).not.toBe(new NotificationController().id)
+  })
+
   it('shows notifications up to maxVisible and promotes the queue in FIFO order', () => {
     const controller = new NotificationController({ maxVisible: 2, duration: 0 })
     const first = controller.show(ComponentStub)
@@ -19,6 +23,36 @@ describe('NotificationController', () => {
 
     first.close()
     expect(controller.items).toEqual([second, third])
+  })
+
+  it('promotes the queue before running onClose', () => {
+    const controller = new NotificationController({ maxVisible: 1, duration: 0 })
+    let replacement: Notification | undefined
+
+    const first = controller.show(ComponentStub, {}, {
+      onClose: () => {
+        replacement = controller.show(ComponentStub)
+      },
+    })
+    const queued = controller.show(ComponentStub)
+
+    first.close()
+    expect(controller.items).toEqual([queued])
+
+    queued.close()
+    expect(controller.items).toEqual([replacement])
+  })
+
+  it('keeps queue state consistent when onClose throws', () => {
+    const controller = new NotificationController({ maxVisible: 1, duration: 0 })
+    const error = new Error('close failed')
+    const first = controller.show(ComponentStub, {}, {
+      onClose: () => { throw error },
+    })
+    const queued = controller.show(ComponentStub)
+
+    expect(() => first.close()).toThrow(error)
+    expect(controller.items).toEqual([queued])
   })
 
   it('normalizes maxVisible to a positive integer', () => {
@@ -138,6 +172,25 @@ describe('NotificationController', () => {
     vi.advanceTimersByTime(5000)
     expect(firstOnClose).toHaveBeenCalledTimes(1)
     expect(secondOnClose).toHaveBeenCalledTimes(1)
+  })
+
+  it('closeAll finishes callbacks and keeps callback-created notifications', () => {
+    const controller = new NotificationController({ maxVisible: 1, duration: 0 })
+    const error = new Error('close failed')
+    const laterOnClose = vi.fn()
+    let replacement: Notification | undefined
+
+    controller.show(ComponentStub, {}, { onClose: () => { throw error } })
+    controller.show(ComponentStub, {}, {
+      onClose: () => {
+        laterOnClose()
+        replacement = controller.show(ComponentStub)
+      },
+    })
+
+    expect(() => controller.closeAll()).toThrow(error)
+    expect(laterOnClose).toHaveBeenCalledTimes(1)
+    expect(controller.items).toEqual([replacement])
   })
 
   it('does not consume ESC', () => {
