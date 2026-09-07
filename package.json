@@ -47,6 +47,7 @@
     "v-dialogs"
   ],
   "dependencies": {
+    "focus-trap": "8.2.2",
     "vue": "3.5.41",
     "vue-router": "5.2.0"
   },

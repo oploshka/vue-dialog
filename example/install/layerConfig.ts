@@ -15,12 +15,14 @@ export const modalLayer = {
   manager: modalController,
   template: ModalLayout,
   lockBodyScroll: true,
+  trapFocus: true,
 }
 
 export const notificationLayer = {
   manager: notificationController,
   template: NotificationLayout,
   lockBodyScroll: false,
+  trapFocus: false,
 }
 
 export const layerConfig = [

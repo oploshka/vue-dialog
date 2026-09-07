@@ -1,6 +1,15 @@
 import type { Component } from 'vue'
+import type { tEventListener } from '@/Layer/EventEmitter'
 import type { sLayerDescriptor, sResolvedModalSettings, tProps } from '@/Type/Type'
-import { getModalComponentRef } from '@/Layer/Modal/ModalRuntime'
+import {
+  getModalComponentRef,
+  onModalEvent,
+} from '@/Layer/Modal/ModalRuntime'
+
+export type tModalEvents = {
+  attach: [element: HTMLElement]
+  detach: []
+}
 
 type tModalConfig = {
   id: string
@@ -26,6 +35,13 @@ export class Modal implements sLayerDescriptor {
     this.props = config.props
     this.settings = config.settings
     this.requestClose = requestClose
+  }
+
+  on<K extends keyof tModalEvents>(
+    event: K,
+    listener: tEventListener<tModalEvents[K]>,
+  ): () => void {
+    return onModalEvent(this, event, listener)
   }
 
   close(): this {

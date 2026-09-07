@@ -38,6 +38,29 @@ describe('ModalController', () => {
     expect(modal.settings.closeOnBackdrop).toBe(false)
   })
 
+  it('emits add and remove events from the modal collection', () => {
+    const controller = new ModalController()
+    const onAdd = vi.fn()
+    const onRemove = vi.fn()
+    const stopAdd = controller.on('add', onAdd)
+    const stopRemove = controller.on('remove', onRemove)
+
+    const first = controller.open(ComponentStub)
+    const second = controller.open(ComponentStub)
+    second.close()
+
+    expect(onAdd).toHaveBeenNthCalledWith(1, first)
+    expect(onAdd).toHaveBeenNthCalledWith(2, second)
+    expect(onRemove).toHaveBeenCalledWith(second)
+
+    stopAdd()
+    stopRemove()
+    first.close()
+
+    expect(onAdd).toHaveBeenCalledTimes(2)
+    expect(onRemove).toHaveBeenCalledTimes(1)
+  })
+
   it('removes only the closed modal and calls onClose once', () => {
     const controller = new ModalController()
     const onClose = vi.fn()

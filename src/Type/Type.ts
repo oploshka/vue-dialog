@@ -65,6 +65,23 @@ export interface sLayerController {
   handleEsc?: () => boolean
 }
 
+export type tLayerCollectionListener<T extends sLayerItem = sLayerItem> = (
+  item: T,
+) => void
+
+/**
+ * Layer controller backed by a stack-like collection.
+ * Collection events are the runtime source of truth for consumers.
+ */
+export interface sStackLayerController<T extends sLayerItem = sLayerItem>
+  extends sLayerController {
+  readonly top: T | undefined
+  on(
+    event: 'add' | 'remove',
+    listener: tLayerCollectionListener<T>,
+  ): () => void
+}
+
 // Legacy research type. Wrapper selection is moving into Presenter settings.
 export interface sWrapperConfig {
   component: Component
