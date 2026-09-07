@@ -101,6 +101,29 @@ describe('useFocus', () => {
     wrapper.unmount()
   })
 
+  it('does not activate a lower modal when its element reattaches', () => {
+    const { factory, byElement } = createFocusHarness()
+    const controller = new ModalController()
+    const wrapper = mountFocus(controller, factory)
+    const first = controller.open(ComponentStub)
+    const second = controller.open(ComponentStub)
+    const firstElement = document.createElement('div')
+    const secondElement = document.createElement('div')
+
+    attachModalElement(first, firstElement)
+    attachModalElement(second, secondElement)
+    const firstFocus = byElement(firstElement)
+    const reattachedElement = document.createElement('div')
+
+    detachModalElement(first)
+    attachModalElement(first, reattachedElement)
+
+    expect(firstFocus?.bind).toHaveBeenCalledWith(reattachedElement)
+    expect(firstFocus?.activate).toHaveBeenCalledTimes(1)
+    expect(byElement(secondElement)?.activate).toHaveBeenCalledTimes(1)
+    wrapper.unmount()
+  })
+
   it('deactivates a removed modal without restoring the previous trap itself', () => {
     const { factory, byElement } = createFocusHarness()
     const controller = new ModalController()

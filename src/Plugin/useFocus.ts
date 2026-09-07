@@ -29,6 +29,10 @@ export function useFocus(
   const modalStops = new Map<Modal, () => void>()
   const stops: Array<() => void> = []
 
+  const activate = (modal: Modal, focus: sFocus): void => {
+    if (controller?.top === modal) focus.activate()
+  }
+
   const add = (modal: Modal): sFocus => {
     const existing = focuses.get(modal)
     if (existing) return existing
@@ -39,7 +43,7 @@ export function useFocus(
 
     const stopAttach = modal.on('attach', element => {
       focus.bind(element)
-      focus.activate()
+      activate(modal, focus)
     })
     const stopDetach = modal.on('detach', () => focus.unbind())
 
