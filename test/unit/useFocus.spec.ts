@@ -10,157 +10,145 @@ import {
   attachModalElement,
   detachModalElement,
 } from '@/Layer/Modal/ModalRuntime'
-import { useFocus, type tFocusFactory } from '@/Plugin/useFocus'
-import type { sFocus } from '@/Plugin/Focus'
+import { useFocus, type tFocusFactory } from '@/Module/Focus/useFocus'
+import type { sFocus } from '@/Module/Focus/Focus'
 
 const ComponentStub = {} as Component
 
+type tFocusLayer = {
+  manager: ModalController
+  trapFocus?: boolean
+}
+
 function createFocusHarness() {
-  const activationOrder: HTMLElement[] = []
-  const list: Array<sFocus & {
-    bind: ReturnType<typeof vi.fn>
-    unbind: ReturnType<typeof vi.fn>
-    activate: ReturnType<typeof vi.fn>
-    deactivate: ReturnType<typeof vi.fn>
-  }> = []
+  let element: HTMLElement | null = null
 
-  const factory = vi.fn((): sFocus => {
-    let element: HTMLElement | null = null
+  const focus = {
+    get element() { return element },
+    bind: vi.fn((value: HTMLElement) => { element = value }),
+    pause: vi.fn(),
+    activate: vi.fn(),
+    deactivate: vi.fn(),
+    unbind: vi.fn(() => { element = null }),
+  } satisfies sFocus
 
-    const focus = {
-      get element() { return element },
-      bind: vi.fn((value: HTMLElement) => { element = value }),
-      unbind: vi.fn(() => { element = null }),
-      activate: vi.fn(() => {
-        if (element) activationOrder.push(element)
-      }),
-      deactivate: vi.fn(),
-    }
-
-    list.push(focus)
-    return focus
-  })
-
-  const byElement = (element: HTMLElement) => list.find(focus => focus.element === element)
+  const factory = vi.fn(() => focus)
 
   return {
-    activationOrder,
+    focus,
     factory: factory as tFocusFactory,
     factoryMock: factory,
-    byElement,
   }
 }
 
 function mountFocus(
-  controller: ModalController,
+  layers: tFocusLayer[],
   factory: tFocusFactory,
 ) {
   return mount(defineComponent({
     setup() {
-      useFocus({
-        layers: [{ manager: controller, trapFocus: true }],
-      }, factory)
+      useFocus({ layers }, factory)
       return () => h('div')
     },
   }))
 }
 
 describe('useFocus', () => {
-  it('activates already attached modals in collection order on mount', () => {
-    const { activationOrder, factory, factoryMock } = createFocusHarness()
-    const controller = new ModalController()
-    const first = controller.open(ComponentStub)
-    const second = controller.open(ComponentStub)
-    const firstElement = document.createElement('div')
-    const secondElement = document.createElement('div')
+  it('initializes only the top modal of the highest focus layer', () => {
+    const { focus, factory, factoryMock } = createFocusHarness()
+    const lower = new ModalController(100)
+    const higher = new ModalController(200)
+    const lowerModal = lower.open(ComponentStub)
+    const higherModal = higher.open(ComponentStub)
+    const lowerElement = document.createElement('div')
+    const higherElement = document.createElement('div')
 
-    attachModalElement(first, firstElement)
-    attachModalElement(second, secondElement)
+    attachModalElement(lowerModal, lowerElement)
+    attachModalElement(higherModal, higherElement)
 
-    const wrapper = mountFocus(controller, factory)
+    const wrapper = mountFocus([
+      { manager: lower, trapFocus: true },
+      { manager: higher, trapFocus: true },
+    ], factory)
 
-    expect(factoryMock).toHaveBeenCalledTimes(2)
-    expect(activationOrder).toEqual([firstElement, secondElement])
+    expect(factoryMock).toHaveBeenCalledTimes(1)
+    expect(focus.bind).toHaveBeenCalledTimes(1)
+    expect(focus.bind).toHaveBeenCalledWith(higherElement)
+    expect(focus.bind).not.toHaveBeenCalledWith(lowerElement)
     wrapper.unmount()
   })
 
-  it('binds and activates a modal when its element attaches', () => {
-    const { factory, byElement } = createFocusHarness()
-    const controller = new ModalController()
-    const wrapper = mountFocus(controller, factory)
+  it('keeps the higher focus layer active until it becomes empty', () => {
+    const { focus, factory } = createFocusHarness()
+    const lower = new ModalController(100)
+    const higher = new ModalController(200)
+    const wrapper = mountFocus([
+      { manager: lower, trapFocus: true },
+      { manager: higher, trapFocus: true },
+    ], factory)
+
+    const firstLower = lower.open(ComponentStub)
+    const firstLowerElement = document.createElement('div')
+    attachModalElement(firstLower, firstLowerElement)
+
+    const higherModal = higher.open(ComponentStub)
+    const higherElement = document.createElement('div')
+    attachModalElement(higherModal, higherElement)
+
+    const secondLower = lower.open(ComponentStub)
+    const secondLowerElement = document.createElement('div')
+    attachModalElement(secondLower, secondLowerElement)
+
+    expect(focus.bind).toHaveBeenCalledTimes(2)
+    expect(focus.element).toBe(higherElement)
+
+    higherModal.close()
+
+    expect(focus.bind).toHaveBeenCalledTimes(3)
+    expect(focus.bind).toHaveBeenLastCalledWith(secondLowerElement)
+    expect(focus.element).toBe(secondLowerElement)
+    wrapper.unmount()
+  })
+
+  it('pauses when the active modal has no element and resumes on attach', () => {
+    const { focus, factory } = createFocusHarness()
+    const controller = new ModalController(100)
+    const wrapper = mountFocus([
+      { manager: controller, trapFocus: true },
+    ], factory)
     const modal = controller.open(ComponentStub)
-    const element = document.createElement('div')
+    const firstElement = document.createElement('div')
 
-    attachModalElement(modal, element)
+    expect(focus.pause).toHaveBeenCalledTimes(1)
 
-    expect(byElement(element)?.bind).toHaveBeenCalledWith(element)
-    expect(byElement(element)?.activate).toHaveBeenCalledTimes(1)
+    attachModalElement(modal, firstElement)
+    expect(focus.bind).toHaveBeenCalledWith(firstElement)
 
     detachModalElement(modal)
-    expect(byElement(element)).toBeUndefined()
-    wrapper.unmount()
-  })
+    expect(focus.pause).toHaveBeenCalledTimes(2)
 
-  it('does not activate a lower modal when its element reattaches', () => {
-    const { factory, byElement } = createFocusHarness()
-    const controller = new ModalController()
-    const wrapper = mountFocus(controller, factory)
-    const first = controller.open(ComponentStub)
-    const second = controller.open(ComponentStub)
-    const firstElement = document.createElement('div')
     const secondElement = document.createElement('div')
-
-    attachModalElement(first, firstElement)
-    attachModalElement(second, secondElement)
-    const firstFocus = byElement(firstElement)
-    const reattachedElement = document.createElement('div')
-
-    detachModalElement(first)
-    attachModalElement(first, reattachedElement)
-
-    expect(firstFocus?.bind).toHaveBeenCalledWith(reattachedElement)
-    expect(firstFocus?.activate).toHaveBeenCalledTimes(1)
-    expect(byElement(secondElement)?.activate).toHaveBeenCalledTimes(1)
-    wrapper.unmount()
-  })
-
-  it('deactivates a removed modal without restoring the previous trap itself', () => {
-    const { factory, byElement } = createFocusHarness()
-    const controller = new ModalController()
-    const wrapper = mountFocus(controller, factory)
-    const first = controller.open(ComponentStub)
-    const second = controller.open(ComponentStub)
-    const firstElement = document.createElement('div')
-    const secondElement = document.createElement('div')
-
-    attachModalElement(first, firstElement)
-    attachModalElement(second, secondElement)
-    const firstFocus = byElement(firstElement)
-    const secondFocus = byElement(secondElement)
-
-    second.close()
-
-    expect(secondFocus?.deactivate).toHaveBeenCalledTimes(1)
-    expect(firstFocus?.activate).toHaveBeenCalledTimes(1)
+    attachModalElement(modal, secondElement)
+    expect(focus.bind).toHaveBeenLastCalledWith(secondElement)
     wrapper.unmount()
   })
 
   it('stops controller and modal subscriptions on cleanup', () => {
-    const { factory, factoryMock, byElement } = createFocusHarness()
-    const controller = new ModalController()
-    const wrapper = mountFocus(controller, factory)
+    const { focus, factory } = createFocusHarness()
+    const controller = new ModalController(100)
+    const wrapper = mountFocus([
+      { manager: controller, trapFocus: true },
+    ], factory)
     const modal = controller.open(ComponentStub)
     const element = document.createElement('div')
 
     attachModalElement(modal, element)
-    const modalFocus = byElement(element)
-    modal.close()
-
-    attachModalElement(modal, document.createElement('div'))
-    expect(modalFocus?.bind).toHaveBeenCalledTimes(1)
+    expect(focus.bind).toHaveBeenCalledTimes(1)
 
     wrapper.unmount()
+
+    attachModalElement(modal, document.createElement('div'))
     controller.open(ComponentStub)
-    expect(factoryMock).toHaveBeenCalledTimes(1)
+    expect(focus.bind).toHaveBeenCalledTimes(1)
   })
 })

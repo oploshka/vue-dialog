@@ -7,7 +7,7 @@ import {
   Focus,
   type sFocusTrapAdapter,
   type tFocusTrapFactory,
-} from '@/Plugin/Focus'
+} from '@/Module/Focus/Focus'
 
 function createTrapHarness() {
   let active = false
@@ -18,18 +18,17 @@ function createTrapHarness() {
     get paused() { return paused },
     activate: vi.fn(() => { active = true }),
     deactivate: vi.fn(() => { active = false; paused = false }),
+    pause: vi.fn(() => { if (active) paused = true }),
+    unpause: vi.fn(() => { if (active) paused = false }),
+    updateContainerElements: vi.fn(),
   } satisfies sFocusTrapAdapter
 
   const factory: tFocusTrapFactory = vi.fn(() => trap)
-  return {
-    trap,
-    factory,
-    setPaused: (value: boolean) => { paused = value },
-  }
+  return { trap, factory }
 }
 
 describe('Focus', () => {
-  it('creates and activates a trap on bind', () => {
+  it('creates and activates one trap', () => {
     const { trap, factory } = createTrapHarness()
     const element = document.createElement('div')
     const focus = new Focus(factory)
@@ -38,20 +37,39 @@ describe('Focus', () => {
     focus.activate()
     focus.activate()
 
-    expect(factory).toHaveBeenCalledWith(element)
+    expect(factory).toHaveBeenCalledTimes(1)
     expect(trap.activate).toHaveBeenCalledTimes(1)
   })
 
-  it('does not return focus when an auto-paused trap is deactivated', () => {
-    const { trap, factory, setPaused } = createTrapHarness()
+  it('moves an active trap to a new container without deactivating it', () => {
+    const { trap, factory } = createTrapHarness()
+    const first = document.createElement('div')
+    const second = document.createElement('div')
+    const focus = new Focus(factory)
+
+    focus.bind(first)
+    focus.activate()
+    focus.bind(second)
+
+    expect(factory).toHaveBeenCalledTimes(1)
+    expect(trap.pause).toHaveBeenCalledTimes(1)
+    expect(trap.updateContainerElements).toHaveBeenCalledWith(second)
+    expect(trap.unpause).toHaveBeenCalledTimes(1)
+    expect(trap.deactivate).not.toHaveBeenCalled()
+    expect(focus.element).toBe(second)
+  })
+
+  it('resumes a paused trap on activate', () => {
+    const { trap, factory } = createTrapHarness()
     const focus = new Focus(factory)
 
     focus.bind(document.createElement('div'))
     focus.activate()
-    setPaused(true)
-    focus.deactivate()
+    focus.pause()
+    focus.activate()
 
-    expect(trap.deactivate).toHaveBeenCalledWith({ returnFocus: false })
+    expect(trap.pause).toHaveBeenCalledTimes(1)
+    expect(trap.unpause).toHaveBeenCalledTimes(1)
   })
 
   it('deactivates without return focus when unbound', () => {

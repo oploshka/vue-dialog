@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent, type Component, type PropType } from 'vue'
 import { useBodyScroll } from '@/Plugin/useBodyScroll'
-import { useFocus } from '@/Plugin/useFocus'
+import { useFocus } from '@/Module/Focus/useFocus'
 import type { sLayerController } from '@/Type/Type'
 
 type tLayerEntry = {
