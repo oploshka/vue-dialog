@@ -33,6 +33,8 @@ function createDefaultFocusTrap(
     clickOutsideDeactivates: false,
     fallbackFocus: getFallbackFocus,
     preventScroll: true,
+    delayInitialFocus: false,
+    delayReturnFocus: false,
   })
 }
 
